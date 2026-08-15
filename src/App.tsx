@@ -183,6 +183,7 @@ export default function App() {
         <SaturationTestModal
           currentLang={currentLang}
           onClose={() => setSaturationTestOpen(false)}
+          onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
         />
       )}
 
