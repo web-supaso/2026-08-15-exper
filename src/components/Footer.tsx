@@ -75,43 +75,43 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-wrap gap-2 text-xs">
               <button
                 onClick={() => onLanguageChange('es')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
-                  currentLang === 'es' ? 'bg-[#c5a059] border-[#c5a059] text-white font-bold' : 'border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                  currentLang === 'es' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                🇪🇸 ES
+                <span>🇪🇸</span> ES
               </button>
               <button
                 onClick={() => onLanguageChange('en')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
-                  currentLang === 'en' ? 'bg-[#c5a059] border-[#c5a059] text-white font-bold' : 'border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                  currentLang === 'en' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                🇬🇧 EN
+                <span>🇬🇧</span> EN
               </button>
               <button
                 onClick={() => onLanguageChange('fr')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
-                  currentLang === 'fr' ? 'bg-[#c5a059] border-[#c5a059] text-white font-bold' : 'border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                  currentLang === 'fr' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                🇫🇷 FR
+                <span>🇫🇷</span> FR
               </button>
               <button
                 onClick={() => onLanguageChange('cat')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
-                  currentLang === 'cat' ? 'bg-[#c5a059] border-[#c5a059] text-white font-bold' : 'border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-3 py-1.5 rounded-lg border transition-all font-semibold ${
+                  currentLang === 'cat' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                🏴 CAT
+                CAT
               </button>
               <button
                 onClick={() => onLanguageChange('pt')}
-                className={`px-3 py-1.5 rounded-lg border transition-all ${
-                  currentLang === 'pt' ? 'bg-[#c5a059] border-[#c5a059] text-white font-bold' : 'border-gray-800 text-gray-400 hover:border-gray-600'
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                  currentLang === 'pt' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                🇵🇹 PT
+                <span>🇵🇹</span> PT
               </button>
             </div>
           </div>
@@ -139,23 +139,27 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-light">
-          <p>
-            © {new Date().getFullYear()} Experiencias con Estilo. Todos los derechos reservados. • Diseñado por{' '}
+        {/* Bottom Bar Oficial Marketing Amable */}
+        <div className="pt-8 border-t border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+          <p className="text-gray-400 font-light">
+            © {new Date().getFullYear()} Experiencias con Estilo. Todos los derechos reservados.
+          </p>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="text-slate-400">Diseñado con pasión por</span>
             <a
-              href="https://marketingamable.com"
+              href="https://www.marketingamable.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#c5a059] hover:underline font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/80 hover:bg-black border border-white/15 transition-all align-middle shadow-sm"
             >
-              marketingamable.com
+              <img src="/002.gif" alt="Marketing Amable" className="h-5 w-auto" />
+              <span style={{ color: '#FFFFFF', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif" }}>
+                MARKETING
+              </span>
+              <span style={{ color: '#D8F3DC', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif" }}>
+                AMABLE
+              </span>
             </a>
-          </p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-gray-300 transition-colors">{t.footer.legal}</a>
-            <a href="#" className="hover:text-gray-300 transition-colors">{t.footer.privacy}</a>
-            <a href="#" className="hover:text-gray-300 transition-colors">{t.footer.cookies}</a>
           </div>
         </div>
       </div>
