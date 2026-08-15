@@ -2,7 +2,7 @@ import { Language } from '../types';
 
 export interface TranslationDictionary {
   brandName: string;
-  domain: string;
+  brandTagline: string;
   nav: {
     philosophy: string;
     refuges: string;
@@ -128,7 +128,7 @@ export interface TranslationDictionary {
 export const translations: Record<Language, TranslationDictionary> = {
   es: {
     brandName: "Experiencias con Estilo",
-    domain: "experienciasconestilo.com",
+    brandTagline: "Viví lo extraordinario",
     nav: {
       philosophy: "Filosofía",
       refuges: "Los 4 Refugios",
@@ -304,7 +304,7 @@ export const translations: Record<Language, TranslationDictionary> = {
   },
   en: {
     brandName: "Experiencias con Estilo",
-    domain: "experienciasconestilo.com",
+    brandTagline: "Live the extraordinary",
     nav: {
       philosophy: "Philosophy",
       refuges: "The 4 Sanctuaries",
@@ -480,7 +480,7 @@ export const translations: Record<Language, TranslationDictionary> = {
   },
   fr: {
     brandName: "Experiencias con Estilo",
-    domain: "experienciasconestilo.com",
+    brandTagline: "Vivez l'extraordinaire",
     nav: {
       philosophy: "Philosophie",
       refuges: "Les 4 Sanctuaires",
@@ -656,7 +656,7 @@ export const translations: Record<Language, TranslationDictionary> = {
   },
   cat: {
     brandName: "Experiencias con Estilo",
-    domain: "experienciasconestilo.com",
+    brandTagline: "Viu l'extraordinari",
     nav: {
       philosophy: "Filosofia",
       refuges: "Els 4 Refugis",
@@ -832,7 +832,7 @@ export const translations: Record<Language, TranslationDictionary> = {
   },
   pt: {
     brandName: "Experiencias con Estilo",
-    domain: "experienciasconestilo.com",
+    brandTagline: "Viva o extraordinário",
     nav: {
       philosophy: "Filosofia",
       refuges: "Os 4 Refúgios",

@@ -61,8 +61,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-serif-luxury text-xl md:text-2xl font-bold tracking-tight text-white block leading-tight">
                 {t.brandName}
               </span>
-              <span className="text-[9px] uppercase tracking-widest text-[#c5a059] block font-light">
-                experienciasconestilo.com
+              <span className="text-[12px] md:text-[14px] text-[#c5a059] block italic mt-0.5" style={{ fontFamily: 'Georgia, serif' }}>
+                "{t.brandTagline}"
               </span>
             </div>
           </a>
