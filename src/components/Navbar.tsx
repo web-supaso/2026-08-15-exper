@@ -22,11 +22,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const t = translations[currentLang];
 
   const languages: { code: Language; label: string; shortLabel: string; flag: string }[] = [
-    { code: 'es', label: 'Español', shortLabel: 'ES', flag: '🇪🇸' },
-    { code: 'en', label: 'English', shortLabel: 'EN', flag: '🇬🇧' },
-    { code: 'fr', label: 'Français', shortLabel: 'FR', flag: '🇫🇷' },
-    { code: 'cat', label: 'Català', shortLabel: 'CAT', flag: '' },
-    { code: 'pt', label: 'Português', shortLabel: 'PT', flag: '🇵🇹' },
+    { code: 'es', label: 'Español', shortLabel: 'ES', flag: 'https://flagcdn.com/es.svg' },
+    { code: 'en', label: 'English', shortLabel: 'EN', flag: 'https://flagcdn.com/gb.svg' },
+    { code: 'fr', label: 'Français', shortLabel: 'FR', flag: 'https://flagcdn.com/fr.svg' },
+    { code: 'cat', label: 'Català', shortLabel: 'CAT', flag: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg' },
+    { code: 'pt', label: 'Português', shortLabel: 'PT', flag: 'https://flagcdn.com/pt.svg' },
   ];
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all tracking-wider"
               >
                 <Globe className="w-3.5 h-3.5 text-[#c5a059]" />
-                {currentLangObj.flag && <span className="text-xs">{currentLangObj.flag}</span>}
+                <img src={currentLangObj.flag} alt={currentLangObj.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-90" />
                 <span className="font-semibold text-xs text-white uppercase">{currentLangObj.shortLabel}</span>
               </button>
 
@@ -95,8 +95,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                           : 'text-gray-300'
                       }`}
                     >
-                      <span className="text-xs flex items-center gap-1.5">
-                        {lang.flag && <span>{lang.flag}</span>}
+                      <span className="text-xs flex items-center gap-2">
+                        <img src={lang.flag} alt={lang.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-90" />
                         <span>{lang.label}</span>
                       </span>
                       <span className="text-xs font-semibold text-gray-400">

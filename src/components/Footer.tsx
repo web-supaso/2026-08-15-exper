@@ -79,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({
                   currentLang === 'es' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                <span>🇪🇸</span> ES
+                <img src="https://flagcdn.com/es.svg" alt="ES" className="w-4 h-3 object-cover rounded-[2px] opacity-90" /> ES
               </button>
               <button
                 onClick={() => onLanguageChange('en')}
@@ -87,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({
                   currentLang === 'en' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                <span>🇬🇧</span> EN
+                <img src="https://flagcdn.com/gb.svg" alt="EN" className="w-4 h-3 object-cover rounded-[2px] opacity-90" /> EN
               </button>
               <button
                 onClick={() => onLanguageChange('fr')}
@@ -95,15 +95,15 @@ export const Footer: React.FC<FooterProps> = ({
                   currentLang === 'fr' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                <span>🇫🇷</span> FR
+                <img src="https://flagcdn.com/fr.svg" alt="FR" className="w-4 h-3 object-cover rounded-[2px] opacity-90" /> FR
               </button>
               <button
                 onClick={() => onLanguageChange('cat')}
-                className={`px-3 py-1.5 rounded-lg border transition-all font-semibold ${
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 font-semibold ${
                   currentLang === 'cat' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                CAT
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Flag_of_Catalonia.svg" alt="CAT" className="w-4 h-3 object-cover rounded-[2px] opacity-90" /> CAT
               </button>
               <button
                 onClick={() => onLanguageChange('pt')}
@@ -111,7 +111,7 @@ export const Footer: React.FC<FooterProps> = ({
                   currentLang === 'pt' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
-                <span>🇵🇹</span> PT
+                <img src="https://flagcdn.com/pt.svg" alt="PT" className="w-4 h-3 object-cover rounded-[2px] opacity-90" /> PT
               </button>
             </div>
           </div>
