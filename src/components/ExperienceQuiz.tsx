@@ -40,7 +40,7 @@ export const ExperienceQuiz: React.FC<ExperienceQuizProps> = ({ currentLang, onS
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#e5c07b] block mb-2">
-            Recomendador Concierge
+            {t.quizSection.badge}
           </span>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-extrabold text-white mb-4">
             {t.quizSection.title}
@@ -79,7 +79,7 @@ export const ExperienceQuiz: React.FC<ExperienceQuizProps> = ({ currentLang, onS
                 </div>
 
                 <div className="flex items-center justify-between text-xs font-semibold text-[#e5c07b] pt-4 border-t border-white/10">
-                  <span>Encontrar este Refugio</span>
+                  <span>{t.quizSection.findRefugeBtn}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>

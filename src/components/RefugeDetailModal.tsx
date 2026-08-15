@@ -99,7 +99,7 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
           {/* Main Description */}
           <div>
             <h3 className="font-serif-luxury text-2xl font-bold mb-3 text-[#1c2a23]">
-              El Concepto y la Experiencia
+              {t.refugeModal.conceptTitle}
             </h3>
             <p className="text-gray-700 leading-relaxed font-light text-base sm:text-lg">
               {refuge.longDescription[currentLang]}
@@ -109,30 +109,30 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
           {/* Key Specs Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-[#faf8f5] p-5 rounded-2xl border border-gray-200 text-center">
             <div>
-              <span className="text-[11px] text-gray-500 uppercase block font-medium">Aforo Máximo</span>
+              <span className="text-[11px] text-gray-500 uppercase block font-medium">{t.refugeModal.maxGuestsLabel}</span>
               <span className="font-serif-luxury text-lg font-bold text-[#1c2a23]">
-                {refuge.maxGuests} Personas
+                {refuge.maxGuests} {t.refugeModal.guestsUnit}
               </span>
             </div>
 
             <div>
-              <span className="text-[11px] text-gray-500 uppercase block font-medium">Acceso</span>
+              <span className="text-[11px] text-gray-500 uppercase block font-medium">{t.refugeModal.accessLabel}</span>
               <span className="font-serif-luxury text-lg font-bold text-[#1c2a23]">
-                {refuge.footAccessOnly ? '👣 A Pie (Parking 300m)' : 'Coche hasta puerta'}
+                {refuge.footAccessOnly ? t.refugeModal.footAccess : t.refugeModal.carAccess}
               </span>
             </div>
 
             <div>
-              <span className="text-[11px] text-gray-500 uppercase block font-medium">Mascotas</span>
+              <span className="text-[11px] text-gray-500 uppercase block font-medium">{t.refugeModal.petsLabel}</span>
               <span className="font-serif-luxury text-lg font-bold text-[#1c2a23]">
-                {refuge.petFriendly ? '🐾 Permitidas' : '🚫 No admitidas'}
+                {refuge.petFriendly ? t.refugeModal.petsAllowed : t.refugeModal.petsNotAllowed}
               </span>
             </div>
 
             <div>
-              <span className="text-[11px] text-gray-500 uppercase block font-medium">Tarifa Noche</span>
+              <span className="text-[11px] text-gray-500 uppercase block font-medium">{t.refugeModal.nightRateLabel}</span>
               <span className="font-serif-luxury text-lg font-bold text-[#c5a059]">
-                Desde {refuge.priceFromPerNight} {refuge.currency}
+                {t.refugesSection.from} {refuge.priceFromPerNight} {refuge.currency}
               </span>
             </div>
           </div>
@@ -140,7 +140,7 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
           {/* Amenities Grid */}
           <div>
             <h4 className="font-serif-luxury text-xl font-bold mb-4 text-[#1c2a23]">
-              Equipamiento & Detalles Únicos
+              {t.refugeModal.amenitiesTitle}
             </h4>
             <div className="grid sm:grid-cols-2 gap-4">
               {refuge.amenities.map((amenity, idx) => (
@@ -159,7 +159,7 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
           {/* Highlights List */}
           <div>
             <h4 className="font-serif-luxury text-xl font-bold mb-3 text-[#1c2a23]">
-              Puntos Destacados
+              {t.refugeModal.highlightsTitle}
             </h4>
             <div className="space-y-2">
               {refuge.highlights[currentLang].map((hl, idx) => (
@@ -193,7 +193,7 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
               className="w-full sm:w-auto px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase text-white gold-gradient-bg hover:opacity-90 shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Calendar className="w-4 h-4" />
-              <span>Solicitar Disponibilidad Concierge</span>
+              <span>{t.refugeModal.bookConciergeBtn}</span>
             </button>
           </div>
         </div>

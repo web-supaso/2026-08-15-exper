@@ -50,18 +50,18 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-6">
         {/* LINEA SUPERIOR: Logo + Título a la Izquierda / Botones a la Derecha */}
         <div className="flex items-center justify-between pb-3">
-          {/* Izquierda: Logo png + Nombre de Marca */}
-          <a href="#" className="group flex items-center gap-3 text-white">
+          {/* Izquierda: Logo png + Nombre de Marca (Agraciado y ampliado) */}
+          <a href="#" className="group flex items-center gap-3.5 text-white">
             <img
               src="/logo002-1.png"
               alt="Experiencias con Estilo Logo"
-              className="w-10 h-10 object-contain rounded-full border border-[#c5a059]/40 group-hover:scale-105 transition-transform bg-[#faf8f5]/10"
+              className="w-13 h-13 md:w-16 md:h-16 object-contain rounded-full border border-[#c5a059]/40 group-hover:scale-105 transition-transform bg-[#faf8f5]/10 shrink-0 shadow-lg shadow-[#c5a059]/10"
             />
             <div>
-              <span className="font-serif-luxury text-xl md:text-2xl font-bold tracking-tight text-white block leading-tight">
+              <span className="font-serif-luxury text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-white block leading-none">
                 {t.brandName}
               </span>
-              <span className="text-[12px] md:text-[14px] text-[#c5a059] block italic mt-0.5" style={{ fontFamily: 'Georgia, serif' }}>
+              <span className="text-xs md:text-sm lg:text-base text-[#c5a059] block italic mt-1 font-light" style={{ fontFamily: 'Georgia, serif' }}>
                 "{t.brandTagline}"
               </span>
             </div>
@@ -73,15 +73,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="relative">
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all tracking-wider"
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-[#121a16] hover:bg-[#1c2a23] border border-[#c5a059]/40 transition-all shadow-md cursor-pointer"
               >
-                <Globe className="w-3.5 h-3.5 text-[#c5a059]" />
-                <img src={currentLangObj.flag} alt={currentLangObj.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-90" />
-                <span className="font-semibold text-xs text-white uppercase">{currentLangObj.shortLabel}</span>
+                <img src={currentLangObj.flag} alt={currentLangObj.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-95 shadow-sm" />
+                <span className="font-bold text-xs text-white uppercase">{currentLangObj.shortLabel}</span>
+                <span className="text-[10px] text-[#c5a059]">▼</span>
               </button>
 
               {langDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-[#121a16] border border-[#c5a059]/30 rounded-xl shadow-2xl py-2 z-50 backdrop-blur-lg">
+                <div className="absolute right-0 mt-2 w-40 bg-[#121a16] border border-[#c5a059]/40 rounded-xl shadow-2xl py-2 z-50 backdrop-blur-lg">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -89,14 +89,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onLanguageChange(lang.code);
                         setLangDropdownOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-xs flex items-center justify-between hover:bg-[#1c2a23] transition-colors ${
+                      className={`w-full text-left px-4 py-2.5 text-xs flex items-center justify-between hover:bg-[#1c2a23] transition-colors cursor-pointer ${
                         currentLang === lang.code
-                          ? 'text-[#c5a059] font-bold bg-[#1c2a23]/50'
+                          ? 'text-[#c5a059] font-bold bg-[#1c2a23]/80'
                           : 'text-gray-300'
                       }`}
                     >
-                      <span className="text-xs flex items-center gap-2">
-                        <img src={lang.flag} alt={lang.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-90" />
+                      <span className="text-xs flex items-center gap-2.5">
+                        <img src={lang.flag} alt={lang.shortLabel} className="w-4 h-3 object-cover rounded-[2px] opacity-95 shadow-sm" />
                         <span>{lang.label}</span>
                       </span>
                       <span className="text-xs font-semibold text-gray-400">

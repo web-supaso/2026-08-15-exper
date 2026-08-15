@@ -25,7 +25,7 @@ export const PactSection: React.FC<PactSectionProps> = ({ currentLang }) => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#c5a059] block mb-2">
-            Pacto de Convivencia
+            {t.pact.badge}
           </span>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-extrabold text-[#1c2a23] mb-4">
             {t.pact.title}

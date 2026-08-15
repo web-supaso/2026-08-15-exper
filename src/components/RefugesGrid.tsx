@@ -32,7 +32,7 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-bold tracking-widest uppercase text-[#c5a059] block mb-2">
-            Experiencias con Estilo Collection
+            {t.refugesSection.badge}
           </span>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-extrabold text-[#1c2a23] mb-4">
             {t.refugesSection.title}
@@ -120,12 +120,12 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
                   </span>
                   {refuge.petFriendly && (
                     <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/90 text-white backdrop-blur-md">
-                      🐾 Pet Friendly
+                      {t.refugesSection.petBadge}
                     </span>
                   )}
                   {refuge.adultsOnly && (
                     <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-purple-900/90 text-white backdrop-blur-md">
-                      🧘 Solo Adultos
+                      {t.refugesSection.adultsBadge}
                     </span>
                   )}
                 </div>

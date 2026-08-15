@@ -16,7 +16,7 @@ export const LocalPartners: React.FC<LocalPartnersProps> = ({ currentLang }) => 
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#c5a059] block mb-2">
-            Desarrollo Local & Sostenibilidad
+            {t.partnersSection.badge}
           </span>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-extrabold text-[#1c2a23] mb-4">
             {t.partnersSection.title}

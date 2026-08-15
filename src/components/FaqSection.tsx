@@ -82,7 +82,7 @@ export const FaqSection: React.FC<FaqSectionProps> = ({ currentLang }) => {
                     <p className="mb-3">{faq.answer[currentLang]}</p>
                     <div className="flex flex-wrap gap-1.5 pt-2">
                       <span className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold mr-1">
-                        Palabras clave IA:
+                        {t.faqSection.keywordsLabel}
                       </span>
                       {faq.aiSearchKeywords.slice(0, 4).map((kw, idx) => (
                         <span key={idx} className="px-2 py-0.5 rounded bg-gray-200/70 text-[10px] text-gray-600">

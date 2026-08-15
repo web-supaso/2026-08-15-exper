@@ -172,6 +172,10 @@ export default function App() {
         onOpenSeoInspector={() => setSeoInspectorOpen(true)}
       />
 
+      {/* Global Floating Components */}
+      <CookieBanner currentLang={currentLang} />
+      <FloatingTestButton currentLang={currentLang} />
+
       {/* Refuge Detail Drawer Modal */}
       <RefugeDetailModal
         refuge={selectedRefugeModal}

@@ -24,15 +24,30 @@ export interface TranslationDictionary {
     stat2Value: string;
     stat3Label: string;
     stat3Value: string;
+    bookingBar: {
+      sanctuaryLabel: string;
+      entryLabel: string;
+      exitLabel: string;
+      checkBtn: string;
+      guaranteeText: string;
+      sanctuaryCanigo: string;
+      sanctuaryObsidiana: string;
+      sanctuaryFalesia: string;
+      sanctuaryEstrecho: string;
+    };
   };
   manifesto: {
+    badge: string;
     title: string;
     subtitle: string;
     p1: string;
     p2: string;
     p3: string;
+    causeBadge: string;
     villainTitle: string;
     villainP: string;
+    protectedHaText: string;
+    sustainableBadge: string;
     values: {
       title: string;
       desc: string;
@@ -40,6 +55,7 @@ export interface TranslationDictionary {
     }[];
   };
   refugesSection: {
+    badge: string;
     title: string;
     subtitle: string;
     filterAll: string;
@@ -47,12 +63,15 @@ export interface TranslationDictionary {
     filterAdultsOnly: string;
     filterStarlight: string;
     filterWater: string;
+    petBadge: string;
+    adultsBadge: string;
     viewDetails: string;
     bookNow: string;
     perNight: string;
     from: string;
   };
   quizSection: {
+    badge: string;
     title: string;
     subtitle: string;
     q1: string;
@@ -65,8 +84,11 @@ export interface TranslationDictionary {
     }[];
     resultTitle: string;
     resultCta: string;
+    findRefugeBtn: string;
+    floatingBtn: string;
   };
   pact: {
+    badge: string;
     title: string;
     subtitle: string;
     items: {
@@ -80,8 +102,10 @@ export interface TranslationDictionary {
     subtitle: string;
     searchPlaceholder: string;
     aiBadge: string;
+    keywordsLabel: string;
   };
   partnersSection: {
+    badge: string;
     title: string;
     subtitle: string;
     km0Badge: string;
@@ -95,7 +119,23 @@ export interface TranslationDictionary {
     copySchema: string;
     copied: string;
   };
+  refugeModal: {
+    conceptTitle: string;
+    maxGuestsLabel: string;
+    guestsUnit: string;
+    accessLabel: string;
+    footAccess: string;
+    carAccess: string;
+    petsLabel: string;
+    petsAllowed: string;
+    petsNotAllowed: string;
+    nightRateLabel: string;
+    amenitiesTitle: string;
+    highlightsTitle: string;
+    bookConciergeBtn: string;
+  };
   bookingModal: {
+    conciergeBadge: string;
     title: string;
     subtitle: string;
     fieldName: string;
@@ -103,13 +143,30 @@ export interface TranslationDictionary {
     fieldPhone: string;
     fieldRefuge: string;
     fieldDates: string;
+    entryDateLabel: string;
+    exitDateLabel: string;
     fieldGuests: string;
+    guestOptions: {
+      val: number;
+      label: string;
+    }[];
     fieldStyle: string;
     fieldPets: string;
+    petOptionYes: string;
+    petOptionNo: string;
     fieldNotes: string;
+    notesPlaceholder: string;
     submit: string;
+    submitting: string;
     successTitle: string;
     successMessage: string;
+    backBtn: string;
+  };
+  cookieBanner: {
+    title: string;
+    description: string;
+    acceptAll: string;
+    onlyEssential: string;
   };
   footer: {
     tagline: string;
@@ -150,15 +207,30 @@ export const translations: Record<Language, TranslationDictionary> = {
       stat2Value: "4",
       stat3Label: "Silencio Garantizado",
       stat3Value: "100%",
+      bookingBar: {
+        sanctuaryLabel: "Santuario",
+        entryLabel: "Entrada (Viernes)",
+        exitLabel: "Salida (Domingo)",
+        checkBtn: "Comprobar Disponibilidad",
+        guaranteeText: "✓ Garantía de Precio Directo • Sin Comisiones Ocultas • Cancelación Flexible",
+        sanctuaryCanigo: "Refugi del Canigó (280€/noche)",
+        sanctuaryObsidiana: "Refugio de Obsidiana (350€/noche)",
+        sanctuaryFalesia: "Falesia Atlántica (420€/noche)",
+        sanctuaryEstrecho: "El Nido del Estrecho (480€/noche)",
+      },
     },
     manifesto: {
+      badge: "Manifiesto de Marca",
       title: "El Manifiesto del Lujo Consciente",
       subtitle: "El verdadero lujo no es acumular. Es poder escuchar el sonido del viento sin interferencias.",
       p1: "Vivimos sumergidos en un mundo saturado de prisa, pantallas y turismo industrial masificado. Lugares fotocopiados donde la experiencia original ha sido reemplazada por colas y consumo rápido.",
       p2: "En Experiencias con Estilo nos rebelamos contra el 'greenwashing' y el turismo de masas. Hemos seleccionado y protegido cuatro rincones sagrados de Europa para devolverles su propósito original.",
       p3: "No vendemos noches de hotel. Custodiamos santuarios donde la arquitectura dialoga con el bosque, el cielo nocturno y el océano.",
+      causeBadge: "Nuestra Causa",
       villainTitle: "Nuestra Declaración contra el Turismo Masivo",
       villainP: "Luchamos contra la despersonalización del viaje. Rechazamos los complejos masificados, los alojamientos con sello 'eco' falso y la prisa urbana. Aquí el tiempo se mide en amaneceres y noches estrelladas.",
+      protectedHaText: "Protegidas de la masificación",
+      sustainableBadge: "100% Sostenible",
       values: [
         {
           title: "Turismo Regenerativo",
@@ -178,6 +250,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       ],
     },
     refugesSection: {
+      badge: "Experiencias con Estilo Collection",
       title: "Nuestra Colección de 4 Refugios",
       subtitle: "Cada ubicación es única, pero todas comparten el alma de Experiencias con Estilo.",
       filterAll: "Todos los Refugios",
@@ -185,12 +258,15 @@ export const translations: Record<Language, TranslationDictionary> = {
       filterAdultsOnly: "🧘 Solo Adultos",
       filterStarlight: "🔭 Cielos Starlight",
       filterWater: "💧 Cascada y Río",
+      petBadge: "🐾 Pet Friendly",
+      adultsBadge: "🧘 Solo Adultos",
       viewDetails: "Ver Refugio Completo",
       bookNow: "Consultar Disponibilidad",
       perNight: "noche",
       from: "Desde",
     },
     quizSection: {
+      badge: "Recomendador Concierge",
       title: "Buscador Inteligente de Experiencia",
       subtitle: "¿Qué estado de ánimo o descanso necesita tu cuerpo hoy?",
       q1: "Selecciona tu anhelo principal:",
@@ -226,8 +302,11 @@ export const translations: Record<Language, TranslationDictionary> = {
       ],
       resultTitle: "Tu Refugio Ideal:",
       resultCta: "Explorar este Santuario",
+      findRefugeBtn: "Encontrar este Refugio",
+      floatingBtn: "Test de Saturación Digital",
     },
     pact: {
+      badge: "Pacto de Convivencia",
       title: "Nuestro Pacto de Convivencia y Respeto",
       subtitle: "Normas simples e innegociables para proteger la serenidad de todos los huéspedes y de la fauna silvestre.",
       items: [
@@ -258,8 +337,10 @@ export const translations: Record<Language, TranslationDictionary> = {
       subtitle: "Respuestas claras para viajeros exigentes y motores de búsqueda con IA.",
       searchPlaceholder: "Buscar duda (ej: cobertura, mascotas, niños, lluvia)...",
       aiBadge: "Estructurado para Google SGE & Perplexity AI",
+      keywordsLabel: "Palabras clave IA:",
     },
     partnersSection: {
+      badge: "Desarrollo Local & Sostenibilidad",
       title: "Nuestra Red de Alianzas Locales Km 0",
       subtitle: "El verdadero lujo es consumir lo fresco, apoyar al productor local y proteger el entorno.",
       km0Badge: "Sostenibilidad Verificada",
@@ -273,7 +354,23 @@ export const translations: Record<Language, TranslationDictionary> = {
       copySchema: "Copiar JSON-LD",
       copied: "¡Copiado!",
     },
+    refugeModal: {
+      conceptTitle: "El Concepto y la Experiencia",
+      maxGuestsLabel: "Aforo Máximo",
+      guestsUnit: "Personas",
+      accessLabel: "Acceso",
+      footAccess: "👣 A Pie (Parking 300m)",
+      carAccess: "Coche hasta puerta",
+      petsLabel: "Mascotas",
+      petsAllowed: "🐾 Permitidas",
+      petsNotAllowed: "🚫 No admitidas",
+      nightRateLabel: "Tarifa Noche",
+      amenitiesTitle: "Equipamiento & Detalles Únicos",
+      highlightsTitle: "Puntos Destacados",
+      bookConciergeBtn: "Solicitar Disponibilidad Concierge",
+    },
     bookingModal: {
+      conciergeBadge: "Atención Exclusiva Concierge",
       title: "Solicitud Directa a Concierge",
       subtitle: "Gestionamos tus fechas de forma personalizada a través de nuestro sistema de reservas exclusivo.",
       fieldName: "Nombre Completo",
@@ -281,13 +378,32 @@ export const translations: Record<Language, TranslationDictionary> = {
       fieldPhone: "Teléfono / WhatsApp",
       fieldRefuge: "Refugio Seleccionado",
       fieldDates: "Fechas Estimadas",
+      entryDateLabel: "Entrada Estimada",
+      exitDateLabel: "Salida Estimada",
       fieldGuests: "Número de Huéspedes",
+      guestOptions: [
+        { val: 1, label: "1 Persona (Retiro Solo)" },
+        { val: 2, label: "2 Personas (Pareja / Pareja + Bebé)" },
+        { val: 3, label: "3 Personas" },
+        { val: 4, label: "4 Personas (Familia)" },
+      ],
       fieldStyle: "Motivo del Viaje",
       fieldPets: "¿Viajas con mascota?",
+      petOptionYes: "Sí, llevo mascota",
+      petOptionNo: "No",
       fieldNotes: "Peticiones especiales o comentarios",
+      notesPlaceholder: "Comentarios sobre alergias, sorpresas de aniversario o preferencias especiales...",
       submit: "Enviar Solicitud a Concierge",
+      submitting: "Procesando solicitud...",
       successTitle: "¡Solicitud Registrada con Éxito!",
       successMessage: "Tu preferencia ha sido enviada a nuestro equipo de Concierge. Te responderemos en menos de 4 horas con disponibilidad exacta y detalles personalizados.",
+      backBtn: "Volver a la Web",
+    },
+    cookieBanner: {
+      title: "Privacidad y Experiencia Consciente",
+      description: "Utilizamos cookies estrictamente esenciales y telemetría anónima de primera parte para garantizar la fluidez en tus reservas sin comercializar tus datos.",
+      acceptAll: "Aceptar Experiencia Completa",
+      onlyEssential: "Solo Esenciales",
     },
     footer: {
       tagline: "No vienes a dormir. Vienes a vivir una experiencia.",
@@ -326,15 +442,30 @@ export const translations: Record<Language, TranslationDictionary> = {
       stat2Value: "4",
       stat3Label: "Guaranteed Silence",
       stat3Value: "100%",
+      bookingBar: {
+        sanctuaryLabel: "Sanctuary",
+        entryLabel: "Check-in (Friday)",
+        exitLabel: "Check-out (Sunday)",
+        checkBtn: "Check Availability",
+        guaranteeText: "✓ Direct Price Guarantee • No Hidden Fees • Flexible Cancellation",
+        sanctuaryCanigo: "Refugi del Canigó (280€/night)",
+        sanctuaryObsidiana: "Refugio de Obsidiana (350€/night)",
+        sanctuaryFalesia: "Falesia Atlántica (420€/night)",
+        sanctuaryEstrecho: "El Nido del Estrecho (480€/night)",
+      },
     },
     manifesto: {
+      badge: "Brand Manifesto",
       title: "The Conscious Luxury Manifesto",
       subtitle: "True luxury is not about accumulation. It's hearing the wind without interference.",
       p1: "We live in a world saturated with rush, screens, and mass industrial tourism—photocopied destinations where genuine human connection is replaced by lines and instant consumption.",
       p2: "At Experiencias con Estilo, we rebel against greenwashing and mass tourism. We have selected and protected four sacred sanctuaries across Europe to restore their original spirit.",
       p3: "We do not sell hotel nights. We guard sanctuaries where architecture engages in quiet dialogue with the forest, the night sky, and the ocean.",
+      causeBadge: "Our Cause",
       villainTitle: "Our Stand Against Mass Tourism",
       villainP: "We fight against the depersonalization of travel. We reject crowded resorts, fake eco-labels, and urban haste. Here, time is measured in sunrises and starry nights.",
+      protectedHaText: "Protected from mass tourism",
+      sustainableBadge: "100% Sustainable",
       values: [
         {
           title: "Regenerative Tourism",
@@ -348,122 +479,166 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
         {
           title: "Integrated Architecture",
-          desc: "Noble materials, volcanic stone, treated wood, and carbon-neutral footprint.",
+          desc: "Noble natural materials, volcanic stone, treated timber, and zero-carbon impact.",
           icon: "Home",
         },
       ],
     },
     refugesSection: {
+      badge: "Experiencias con Estilo Collection",
       title: "Our Collection of 4 Sanctuaries",
-      subtitle: "Each location is distinct, yet all share the soul of Experiencias con Estilo.",
+      subtitle: "Each sanctuary is unique, yet all share the pure soul of Experiencias con Estilo.",
       filterAll: "All Sanctuaries",
       filterPetFriendly: "🐾 Pet Friendly",
       filterAdultsOnly: "🧘 Adults Only",
-      filterStarlight: "🔭 Starlight Sky",
-      filterWater: "💧 Waterfalls & River",
-      viewDetails: "View Full Sanctuary",
+      filterStarlight: "🔭 Starlight Skies",
+      filterWater: "💧 Waterfalls & Ocean",
+      petBadge: "🐾 Pet Friendly",
+      adultsBadge: "🧘 Adults Only",
+      viewDetails: "View Sanctuary Details",
       bookNow: "Check Availability",
       perNight: "night",
       from: "From",
     },
     quizSection: {
-      title: "Smart Experience Recommender",
-      subtitle: "What state of mind or rest does your body crave today?",
-      q1: "Select your core desire:",
+      badge: "Concierge Matchmaker",
+      title: "Intelligent Experience Matcher",
+      subtitle: "What state of mind or restorative rhythm does your body crave today?",
+      q1: "Select your primary yearning:",
       q1Options: [
         {
           id: "canigo",
-          title: "Forest, Waterfalls & Hydroelectric Power",
-          desc: "Waking up beside a river surrounded by mountain energy in the Pyrenees.",
+          title: "Forest, Cascades & Hydroelectric Power",
+          desc: "Wake up by the river with mountain echoes in the French Pyrenees.",
           icon: "Trees",
           targetId: "refugi-canigo",
         },
         {
           id: "obsidiana",
-          title: "Total Disconnection & Starlight Astronomy",
-          desc: "Volcanic stone, absolute silence in Teruel and Starlight Reserve.",
+          title: "Total Disconnection & Starlight Skywatching",
+          desc: "Volcanic stone and absolute silence in Teruel Starlight Reserve.",
           icon: "Sparkles",
           targetId: "refugio-obsidiana",
         },
         {
           id: "falesia",
-          title: "Atlantic Cliffs & Farm-to-Table Gastronomy",
+          title: "Atlantic Cliffs & Km 0 Gastronomy",
           desc: "Eco-luxury on the Vicentina Coast with heated seawater pools.",
           icon: "Waves",
           targetId: "falesia-atlantica",
         },
         {
           id: "estrecho",
-          title: "Historic Suite with 360º Views of 2 Continents",
-          desc: "On the Rock of Gibraltar, Upper Rock Reserve with panoramic vistas.",
+          title: "Historic Suite with Views Over 2 Continents",
+          desc: "On the Rock of Gibraltar, Upper Rock Nature Reserve with 360º views.",
           icon: "Compass",
           targetId: "nido-estrecho",
         },
       ],
       resultTitle: "Your Ideal Sanctuary:",
-      resultCta: "Explore This Sanctuary",
+      resultCta: "Explore this Sanctuary",
+      findRefugeBtn: "Find this Sanctuary",
+      floatingBtn: "Digital Saturation Test",
     },
     pact: {
-      title: "Our Pact of Respect and Harmony",
-      subtitle: "Simple, non-negotiable rules to preserve serenity for all guests and wildlife.",
+      badge: "Pact of Respect",
+      title: "Our Pact of Mutual Respect & Serenity",
+      subtitle: "Simple, non-negotiable standards to protect wildlife peace and guest serenity.",
       items: [
         {
-          title: "Foot Access Arrival",
-          desc: "Vehicles remain in our secure parking. The final leg is walked on foot to gently transition your mind into nature.",
+          title: "Foot Access Only",
+          desc: "Your vehicle rests in our secure lower parking. The final ascent is on foot to ease mental transition into the wild.",
           icon: "Footprints",
         },
         {
           title: "Sacred Silence (10:00 PM)",
-          desc: "From 10:00 PM onwards, nature sleeps. Low voices and quiet reverence are required across the grounds.",
+          desc: "From 10 PM, nature takes over. Voices soften to maintain ambient stillness.",
           icon: "Volume2",
         },
         {
-          title: "Responsible Disconnection & Zero Footprint",
-          desc: "On-site waste sorting and zero single-use plastics. Energy at Canigó is 100% generated by our private hydro plant.",
+          title: "Zero Waste & Clean Energy",
+          desc: "On-site composting, zero single-use plastics. 100% self-generated hydro energy at Canigó.",
           icon: "ShieldCheck",
         },
         {
-          title: "Pet Policy",
-          desc: "Refugi del Canigó and Falesia Atlántica welcome pets respectfully. Obsidiana and El Nido are sanctuary silence zones with no animals.",
+          title: "Pet Hospitality",
+          desc: "Refugi del Canigó and Falesia Atlántica warmly welcome well-behaved pets. Obsidiana and El Nido are peaceful adult sanctuaries.",
           icon: "HeartHandshake",
         },
       ],
     },
     faqSection: {
-      title: "Frequently Asked Questions (GEO / AI)",
-      subtitle: "Direct answers for discerning travelers and AI search engines.",
-      searchPlaceholder: "Search topic (e.g., coverage, pets, children, rain)...",
-      aiBadge: "Optimized for Google SGE & Perplexity AI",
+      title: "Frequently Asked Questions (GEO / AI Direct)",
+      subtitle: "Clear, factual answers for discerning travelers and AI search engines.",
+      searchPlaceholder: "Search topic (e.g. mobile signal, pets, children, weather)...",
+      aiBadge: "Structured for Google SGE & Perplexity AI",
+      keywordsLabel: "AI Keywords:",
     },
     partnersSection: {
-      title: "Our Km 0 Local Partnerships",
-      subtitle: "True luxury is savoring fresh produce, supporting local artisans, and guarding ecosystems.",
+      badge: "Local Community & Sustainability",
+      title: "Our Km 0 Local Producer Network",
+      subtitle: "True luxury is savoring fresh harvests, supporting artisans, and protecting land.",
       km0Badge: "Verified Sustainability",
     },
     seoModal: {
       title: "Technical SEO & AI Structured Data Inspector",
-      subtitle: "Analyze how search engines and LLMs (ChatGPT, Perplexity, Gemini) index Experiencias con Estilo.",
+      subtitle: "Inspect how Google and AI search engines read Experiencias con Estilo.",
       tabSchema: "Schema.org (JSON-LD)",
       tabMeta: "Multilingual Meta Tags",
-      tabAiGeoseo: "GEO / AI Authority Score",
+      tabAiGeoseo: "GEO / AI Authority Metrics",
       copySchema: "Copy JSON-LD",
       copied: "Copied!",
     },
+    refugeModal: {
+      conceptTitle: "The Concept & Experience",
+      maxGuestsLabel: "Max Capacity",
+      guestsUnit: "Guests",
+      accessLabel: "Access",
+      footAccess: "👣 Footpath (Parking 300m)",
+      carAccess: "Driveway to Door",
+      petsLabel: "Pets",
+      petsAllowed: "🐾 Allowed",
+      petsNotAllowed: "🚫 Not Allowed",
+      nightRateLabel: "Nightly Rate",
+      amenitiesTitle: "Amenities & Unique Highlights",
+      highlightsTitle: "Distinctive Features",
+      bookConciergeBtn: "Request Concierge Booking",
+    },
     bookingModal: {
-      title: "Direct Concierge Reservation",
-      subtitle: "We tailor your dates through our dedicated private concierge system.",
+      conciergeBadge: "Exclusive Concierge Service",
+      title: "Direct Concierge Inquiry",
+      subtitle: "We curate your stay dates personally through our direct private booking service.",
       fieldName: "Full Name",
       fieldEmail: "Email Address",
       fieldPhone: "Phone / WhatsApp",
       fieldRefuge: "Selected Sanctuary",
       fieldDates: "Estimated Dates",
+      entryDateLabel: "Estimated Check-in",
+      exitDateLabel: "Estimated Check-out",
       fieldGuests: "Number of Guests",
+      guestOptions: [
+        { val: 1, label: "1 Guest (Solo Retreat)" },
+        { val: 2, label: "2 Guests (Couple / Couple + Baby)" },
+        { val: 3, label: "3 Guests" },
+        { val: 4, label: "4 Guests (Family)" },
+      ],
       fieldStyle: "Travel Purpose",
-      fieldPets: "Traveling with pets?",
+      fieldPets: "Traveling with a pet?",
+      petOptionYes: "Yes, bringing a pet",
+      petOptionNo: "No",
       fieldNotes: "Special requests or comments",
-      submit: "Send Request to Concierge",
-      successTitle: "Request Received Successfully!",
-      successMessage: "Your request has been delivered to our concierge team. We will contact you within 4 hours with exact availability.",
+      notesPlaceholder: "Notes on dietary preferences, anniversary surprises, or special requirements...",
+      submit: "Submit Inquiry to Concierge",
+      submitting: "Submitting inquiry...",
+      successTitle: "Inquiry Received Successfully!",
+      successMessage: "Your reservation request has been delivered to our Concierge. We will reply within 4 hours with bespoke options.",
+      backBtn: "Return to Website",
+    },
+    cookieBanner: {
+      title: "Privacy & Conscious Experience",
+      description: "We use strictly essential cookies and anonymous first-party telemetry to ensure fluid reservations without monetizing your data.",
+      acceptAll: "Accept Full Experience",
+      onlyEssential: "Only Essentials",
     },
     footer: {
       tagline: "You don't come to sleep. You come to live an experience.",
@@ -475,7 +650,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       cookies: "Cookie Policy",
       terms: "Terms & Conditions",
       copyright: "© 2026 Experiencias con Estilo. All rights reserved.",
-      crmNote: "Integrated with Direct CRM System.",
+      crmNote: "Integrated with Direct Booking & CRM Engine.",
     },
   },
   fr: {
@@ -488,29 +663,44 @@ export const translations: Record<Language, TranslationDictionary> = {
       faq: "FAQ",
       partners: "Communauté Locale",
       seoAudit: "Audit SEO/IA",
-      book: "Réservations / Concierge",
+      book: "Réserver / Concierge",
     },
     hero: {
       headline: "Vous ne venez pas pour dormir. Vous venez vivre une expérience.",
-      subheadline: "Quatre sanctuaires exclusifs et durables en Europe. Une promesse unique : luxe discret, nature régénératrice et temps retrouvé.",
+      subheadline: "Quatre sanctuaires durables et ultra-exclusifs en Europe. Une promesse unique : luxe discret, nature régénératrice et temps retrouvé.",
       ctaPrimary: "Découvrir les Sanctuaires",
       ctaSecondary: "Conseil Concierge",
-      badge: "Édition Limitée • Réservation Directe Uniquement",
+      badge: "Édition Limitée • Réservations Directes",
       stat1Label: "Hectares Privés",
       stat1Value: "60+",
       stat2Label: "Sanctuaires Uniques",
       stat2Value: "4",
       stat3Label: "Silence Garanti",
       stat3Value: "100%",
+      bookingBar: {
+        sanctuaryLabel: "Sanctuaire",
+        entryLabel: "Arrivée (Vendredi)",
+        exitLabel: "Départ (Dimanche)",
+        checkBtn: "Vérifier la Disponibilité",
+        guaranteeText: "✓ Garantie Prix Direct • Sans Frais Cachés • Annulation Flexible",
+        sanctuaryCanigo: "Refugi del Canigó (280€/nuit)",
+        sanctuaryObsidiana: "Refugio de Obsidiana (350€/nuit)",
+        sanctuaryFalesia: "Falesia Atlántica (420€/nuit)",
+        sanctuaryEstrecho: "El Nido del Estrecho (480€/nuit)",
+      },
     },
     manifesto: {
+      badge: "Manifeste de Marque",
       title: "Le Manifeste du Luxe Conscient",
       subtitle: "Le vrai luxe n'est pas d'accumuler. C'est entendre le chant du vent sans interférence.",
       p1: "Nous vivons dans un monde saturé de hâte, d'écrans et de tourisme de masse. Des lieux stéréotypés où la connexion authentique a laissé place aux files d'attente.",
       p2: "Chez Experiencias con Estilo, nous nous rebellons contre le greenwashing et le tourisme de masse. Nous avons préservé quatre lieux sacrés en Europe pour leur redonner leur sens véritable.",
       p3: "Nous ne vendons pas des nuées d'hôtel. Nous gardons des sanctuaires où l'architecture dialogue avec la forêt, la nuit étoilée et l'océan.",
+      causeBadge: "Notre Cause",
       villainTitle: "Notre Engagement contre le Tourisme de Masse",
       villainP: "Nous luttons contre la dépersonnalisation du voyage. Nous refusons les complexes surpeuplés et la précipitation urbaine.",
+      protectedHaText: "Protégés du tourisme de masse",
+      sustainableBadge: "100% Durable",
       values: [
         {
           title: "Tourisme Régénératif",
@@ -530,6 +720,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       ],
     },
     refugesSection: {
+      badge: "Experiencias con Estilo Collection",
       title: "Notre Collection de 4 Sanctuaires",
       subtitle: "Chaque lieu est unique, partageant l'âme d'Experiencias con Estilo.",
       filterAll: "Tous les Sanctuaires",
@@ -537,12 +728,15 @@ export const translations: Record<Language, TranslationDictionary> = {
       filterAdultsOnly: "🧘 Réservé aux Adultes",
       filterStarlight: "🔭 Ciel Étoilé Starlight",
       filterWater: "💧 Cascades & Rivière",
+      petBadge: "🐾 Pet Friendly",
+      adultsBadge: "🧘 Réservé aux Adultes",
       viewDetails: "Voir le Sanctuaire",
       bookNow: "Vérifier la Disponibilité",
       perNight: "nuit",
       from: "À partir de",
     },
     quizSection: {
+      badge: "Conseiller Concierge",
       title: "Recommandeur d'Expérience Intelligent",
       subtitle: "Quel état d'esprit votre corps réclame-t-il aujourd'hui ?",
       q1: "Sélectionnez votre envie principale :",
@@ -578,8 +772,11 @@ export const translations: Record<Language, TranslationDictionary> = {
       ],
       resultTitle: "Votre Sanctuaire Idéal :",
       resultCta: "Explorer ce Sanctuaire",
+      findRefugeBtn: "Trouver ce Sanctuaire",
+      floatingBtn: "Test de Saturation Numérique",
     },
     pact: {
+      badge: "Pacte de Respect",
       title: "Notre Pacte de Respect et de Sérénité",
       subtitle: "Des règles simples et indispensables pour préserver la paix de chacun et de la faune sauvage.",
       items: [
@@ -608,38 +805,75 @@ export const translations: Record<Language, TranslationDictionary> = {
     faqSection: {
       title: "Foire Aux Questions (GEO / IA)",
       subtitle: "Réponses claires pour voyageurs exigeants et moteurs IA.",
-      searchPlaceholder: "Rechercher une question (réseau, animaux, enfants, pluie)...",
-      aiBadge: "Optimisé pour Google SGE & Perplexity IA",
+      searchPlaceholder: "Rechercher (ex : réseau, animaux, enfants, météo)...",
+      aiBadge: "Optimisé Google SGE & Perplexity AI",
+      keywordsLabel: "Mots-clés IA :",
     },
     partnersSection: {
-      title: "Notre Réseau d'Alliances Locales Km 0",
-      subtitle: "Le vrai luxe est de déguster des produits frais et de soutenir l'artisanat local.",
-      km0Badge: "Durabilité Vérifiée",
+      badge: "Développement Local & Écologie",
+      title: "Notre Réseau d'Artisans Locaux Km 0",
+      subtitle: "Le luxe véritable consiste à soutenir les artisans locaux et protéger le terroir.",
+      km0Badge: "Éco-responsabilité Vérifiée",
     },
     seoModal: {
-      title: "Inspecteur SEO Technique & Données Structurées IA",
-      subtitle: "Visualisez comment Google et les IA (ChatGPT, Perplexity, Gemini) analysent notre site.",
+      title: "Inspecteur SEO & Données Structurées IA",
+      subtitle: "Vérifiez comment les moteurs IA et Google analysent Experiencias con Estilo.",
       tabSchema: "Schema.org (JSON-LD)",
-      tabMeta: "Meta Tags Multilingues",
-      tabAiGeoseo: "Score GEO / Autorité IA",
-      copySchema: "Copier le JSON-LD",
+      tabMeta: "Balises Méta",
+      tabAiGeoseo: "Autorité GEO / IA",
+      copySchema: "Copier JSON-LD",
       copied: "Copié !",
     },
+    refugeModal: {
+      conceptTitle: "Le Concept & l'Expérience",
+      maxGuestsLabel: "Capacité Maximale",
+      guestsUnit: "Personnes",
+      accessLabel: "Accès",
+      footAccess: "👣 À pied (Parking à 300m)",
+      carAccess: "Accès direct en voiture",
+      petsLabel: "Animaux",
+      petsAllowed: "🐾 Bienvenus",
+      petsNotAllowed: "🚫 Non admis",
+      nightRateLabel: "Tarif par Nuit",
+      amenitiesTitle: "Équipements & Détails Exclusifs",
+      highlightsTitle: "Points Forts",
+      bookConciergeBtn: "Demander au Concierge",
+    },
     bookingModal: {
+      conciergeBadge: "Service Concierge Exclusif",
       title: "Demande Directe au Concierge",
-      subtitle: "Nous personnalisons vos dates grâce à notre service de conciergerie privée.",
-      fieldName: "Nom Complet",
+      subtitle: "Nous organisons votre séjour sur mesure via notre service privé direct.",
+      fieldName: "Nom et Prénom",
       fieldEmail: "Adresse E-mail",
       fieldPhone: "Téléphone / WhatsApp",
       fieldRefuge: "Sanctuaire Sélectionné",
-      fieldDates: "Dates Envisagées",
+      fieldDates: "Dates Souhaitées",
+      entryDateLabel: "Date d'arrivée",
+      exitDateLabel: "Date de départ",
       fieldGuests: "Nombre d'Invités",
-      fieldStyle: "Motif du Voyage",
+      guestOptions: [
+        { val: 1, label: "1 Personne (Séjour Solo)" },
+        { val: 2, label: "2 Personnes (Couple / Couple + Bébé)" },
+        { val: 3, label: "3 Personnes" },
+        { val: 4, label: "4 Personnes (Famille)" },
+      ],
+      fieldStyle: "Style de Voyage",
       fieldPets: "Voyagez-vous avec un animal ?",
-      fieldNotes: "Demandes particulières ou remarques",
-      submit: "Envoyer au Concierge",
-      successTitle: "Demande Enregistrée avec Succès !",
-      successMessage: "Votre demande a été transmise à notre équipe concierge. Nous vous répondrons sous 4 heures avec les disponibilités exactes.",
+      petOptionYes: "Oui, avec animal",
+      petOptionNo: "Non",
+      fieldNotes: "Demandes particulières",
+      notesPlaceholder: "Précisions sur vos envies, régimes alimentaires, surprises...",
+      submit: "Envoyer la Demande au Concierge",
+      submitting: "Traitement en cours...",
+      successTitle: "Demande Envoyée avec Succès !",
+      successMessage: "Votre demande a été transmise à notre Concierge. Nous vous répondrons sous 4 heures avec des propositions personnalisées.",
+      backBtn: "Retour au Site",
+    },
+    cookieBanner: {
+      title: "Confidentialité & Expérience Consciente",
+      description: "Nous utilisons des cookies essentiels et une télémétrie anonyme pour faciliter vos réservations sans commercialiser vos données.",
+      acceptAll: "Accepter l'Expérience Complète",
+      onlyEssential: "Uniquement Essentiels",
     },
     footer: {
       tagline: "Vous ne venez pas pour dormir. Vous venez vivre une expérience.",
@@ -648,10 +882,10 @@ export const translations: Record<Language, TranslationDictionary> = {
       languages: "Langues Disponibles",
       legal: "Mentions Légales",
       privacy: "Politique de Confidentialité",
-      cookies: "Gestion des Cookies",
+      cookies: "Politique de Cookies",
       terms: "Conditions Générales",
       copyright: "© 2026 Experiencias con Estilo. Tous droits réservés.",
-      crmNote: "Intégré au Système de Réservation Directe.",
+      crmNote: "Intégré au Système de Réservation Directe & CRM.",
     },
   },
   cat: {
@@ -660,7 +894,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     nav: {
       philosophy: "Filosofia",
       refuges: "Els 4 Refugis",
-      pact: "Pacte de Respecte",
+      pact: "Pacte de Convivència",
       faq: "Preguntes Freqüents",
       partners: "Comunitat Local",
       seoAudit: "Auditoria SEO/IA",
@@ -668,7 +902,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     },
     hero: {
       headline: "No véns a dormir. Véns a viure una experiència.",
-      subheadline: "Quatre refugis sostenibles d'ultra-exclusivitat a Europa. Una mateixa promesa: luxe discret, natura regenerativa i el temps recuperat.",
+      subheadline: "Quatre refugis sostenibles i d'ultra-exclusivitat a Europa. Una sola promesa: luxe discret, natura regenerativa i el temps recuperat.",
       ctaPrimary: "Descobreix els Refugis",
       ctaSecondary: "Assessorament Concierge",
       badge: "Edició Limitada • Només Reserves Directes",
@@ -678,55 +912,74 @@ export const translations: Record<Language, TranslationDictionary> = {
       stat2Value: "4",
       stat3Label: "Silenci Garantit",
       stat3Value: "100%",
+      bookingBar: {
+        sanctuaryLabel: "Santuari",
+        entryLabel: "Entrada (Divendres)",
+        exitLabel: "Sortida (Diumenge)",
+        checkBtn: "Comprovar Disponibilitat",
+        guaranteeText: "✓ Garantia de Preu Directe • Sense Comissions Ocultes • Cancel·lació Flexible",
+        sanctuaryCanigo: "Refugi del Canigó (280€/nit)",
+        sanctuaryObsidiana: "Refugio de Obsidiana (350€/nit)",
+        sanctuaryFalesia: "Falesia Atlántica (420€/nit)",
+        sanctuaryEstrecho: "El Nido del Estrecho (480€/nit)",
+      },
     },
     manifesto: {
+      badge: "Manifest de Marca",
       title: "El Manifest del Luxe Conscient",
-      subtitle: "El verdader luxe no és acumular. És poder escoltar el so del vent sense interferències.",
-      p1: "Vivim immersos en un món saturat de presses, pantalles i turisme industrial massificat. Llocs fotocopiats on l'experiència autèntica ha estat reemplaçada per cues i consum ràpid.",
-      p2: "A Experiencias con Estilo ens rebel·lem contra el 'greenwashing' i el turisme de masses. Hem seleccionat i protegit quatre racons sagrats d'Europa per retornar-los el seu propòsit original.",
-      p3: "No venem nits d'hotel. Custodiem santuaris on l'arquitectura dialoga amb el bosc, el cel nocturn i l'oceà.",
-      villainTitle: "La Nostra Declaració contra el Turisme de Masses",
-      villainP: "Lluitem contra la despersonalització del viatge. Rebutgem els complexos massificats i la pressa urbana. Aquí el temps es mesura en matinades i nits estrellades.",
+      subtitle: "El veritable luxe no és acumular. És poder escoltar el vent sense interferències.",
+      p1: "Vivim submergits en un món saturat de presses, pantalles i turisme de masses. Llocs fotocopiats on l'experiència genuïna s'ha canviat per cues i consum ràpid.",
+      p2: "A Experiencias con Estilo ens rebelem contra el greenwashing i el turisme massificat. Hem triat i protegit quatre racons sagrats d'Europa.",
+      p3: "No venem nits d'hotel. Custodiem santuaris on l'arquitectura dialoga amb el bosc, el cel estrellat i l'oceà.",
+      causeBadge: "La Nostra Causa",
+      villainTitle: "La Nostra Declaració contra el Turisme Massiu",
+      villainP: "Lluitem contra la despersonalització del viatge. Rebutgem els complexos massificats i la pressa urbana.",
+      protectedHaText: "Protegides de la massificació",
+      sustainableBadge: "100% Sostenible",
       values: [
         {
           title: "Turisme Regeneratiu",
-          desc: "Cada estada finança la reforestació, conservació del riu i energia neta a la zona.",
+          desc: "Cada estada finança la reforestació, la cura del riu i l'energia neta.",
           icon: "Leaf",
         },
         {
-          title: "Silenci i Privacitat",
-          desc: "Aforaments estrictes i cupos hiper-limitats per preservar la pau silvestre.",
+          title: "Silenci & Privadesa",
+          desc: "Aforaments estrictes i places molt limitades per mantenir la pau silvestre.",
           icon: "VolumeX",
         },
         {
           title: "Arquitectura Integrada",
-          desc: "Materials nobles, pedra volcànica i petjada de carboni neutra.",
+          desc: "Fusta noble, pedra volcànica i petjada de carboni neutra.",
           icon: "Home",
         },
       ],
     },
     refugesSection: {
+      badge: "Col·lecció Experiencias con Estilo",
       title: "La Nostra Col·lecció de 4 Refugis",
       subtitle: "Cada ubicació és única, però totes comparteixen l'ànima d'Experiencias con Estilo.",
       filterAll: "Tots els Refugis",
       filterPetFriendly: "🐾 Pet Friendly",
       filterAdultsOnly: "🧘 Només Adults",
       filterStarlight: "🔭 Cels Starlight",
-      filterWater: "💧 Cascades i Riu",
+      filterWater: "💧 Cascada i Riu",
+      petBadge: "🐾 Pet Friendly",
+      adultsBadge: "🧘 Només Adults",
       viewDetails: "Veure Refugi Complet",
       bookNow: "Consultar Disponibilitat",
       perNight: "nit",
       from: "Des de",
     },
     quizSection: {
+      badge: "Recomanador Concierge",
       title: "Cercador Intel·ligent d'Experiència",
-      subtitle: "Quina energia o descans necessita el teu cos avui?",
+      subtitle: "Quin estat d'ànim o descans necessita el teu cos avui?",
       q1: "Selecciona el teu desig principal:",
       q1Options: [
         {
           id: "canigo",
           title: "Bosc, Cascades i Energia Hidroelèctrica",
-          desc: "Despertar al costat del riu amb la força de la muntanya als Pirineus.",
+          desc: "Despertar vora el riu amb la remor de la muntanya als Pirineus.",
           icon: "Trees",
           targetId: "refugi-canigo",
         },
@@ -740,82 +993,122 @@ export const translations: Record<Language, TranslationDictionary> = {
         {
           id: "falesia",
           title: "Penya-segats Atlàntics i Gastronomia Km 0",
-          desc: "Eco-luxe a la Costa Vicentina amb piscines d'aigua de mar temperada.",
+          desc: "Eco-luxe a la Costa Vicentina amb piscines d'aigua de mar.",
           icon: "Waves",
           targetId: "falesia-atlantica",
         },
         {
           id: "estrecho",
           title: "Suite Històrica amb Vistes a 2 Continents",
-          desc: "Al Penyal de Gibraltar, Upper Rock Nature Reserve amb vistes 360º.",
+          desc: "Al Penyal de Gibraltar, Reserva Natural amb vistes 360º.",
           icon: "Compass",
           targetId: "nido-estrecho",
         },
       ],
       resultTitle: "El Teu Refugi Ideal:",
-      resultCta: "Explorar Aquest Santuari",
+      resultCta: "Explorar aquest Santuari",
+      findRefugeBtn: "Trobar aquest Refugi",
+      floatingBtn: "Test de Saturació Digital",
     },
     pact: {
+      badge: "Pacte de Convivència",
       title: "El Nostre Pacte de Convivència i Respecte",
-      subtitle: "Normes simples i innegociables per protegir la serenitat de tots els hostes i de la fauna silvestre.",
+      subtitle: "Normes senzilles i clares per protegir la pau de tots els hostes i de la fauna silvestre.",
       items: [
         {
           title: "Accés Final a Peu",
-          desc: "El teu vehicle descansa al nostre aparcament segur. L'últim tram es fa a peu per fer la transició mental a la natura.",
+          desc: "El vehicle queda al nostre pàrquing segur. El tram final es fa a peu per fer la transició a la natura.",
           icon: "Footprints",
         },
         {
-          title: "Sagrat Silenci (22:00 h)",
-          desc: "A partir de les 22:00 h la natura descansa. S'exigeix baixar el to de veu i mantenir la pau sonora.",
+          title: "Silenci Sagrat (22:00 h)",
+          desc: "A partir de les 10 del vespre la natura reposa. Cal moderar la veu i mantenir la pau sonora.",
           icon: "Volume2",
         },
         {
-          title: "Desconnexió Responsable i Petjada Zero",
-          desc: "Tractament de residus en origen i eliminació de plàstics d'un sol ús. L'energia a Canigó procedeix de font hidroelèctrica pròpia.",
+          title: "Desconnexió Responsable & Residu Zero",
+          desc: "Separació de residus en origen i prohibició de plàstics d'un sol ús. L'energia al Canigó és hidroelèctrica pròpia.",
           icon: "ShieldCheck",
         },
         {
           title: "Convivència amb Mascotes",
-          desc: "Refugi del Canigó i Falesia Atlántica són Pet Friendly respectuosos. Obsidiana i El Nido són espais de silenci i no admeten animals.",
+          desc: "Refugi del Canigó i Falesia Atlántica són Pet Friendly respectuosos. Obsidiana i El Nido són espais de calma sense animals.",
           icon: "HeartHandshake",
         },
       ],
     },
     faqSection: {
-      title: "Preguntes Freqüents (GEO / IA)",
-      subtitle: "Respostes clares per a viatgers exigents i cercadors d'IA.",
-      searchPlaceholder: "Cercar dubte (cobertura, mascotes, nens, pluja)...",
-      aiBadge: "Estructurat per a Google SGE i Perplexity AI",
+      title: "Preguntes Freqüents i Respostes Directes (GEO/IA)",
+      subtitle: "Respostes clares per a viatgers exigents i motors de cerca amb IA.",
+      searchPlaceholder: "Cercar dubte (ex: cobertura, mascotes, nens, pluja)...",
+      aiBadge: "Estructurat per a Google SGE & Perplexity AI",
+      keywordsLabel: "Paraules clau IA:",
     },
     partnersSection: {
-      title: "Xarxa d'Aliances Locals Km 0",
-      subtitle: "El verdader luxe és consumir productes de proximitat i protegir el territori.",
+      badge: "Desenvolupament Local & Sostenibilitat",
+      title: "La Nostra Xarxa d'Aliances Locals Km 0",
+      subtitle: "El veritable luxe és consumir producte fresc, donar suport als artesans i protegir el territori.",
       km0Badge: "Sostenibilitat Verificada",
     },
     seoModal: {
-      title: "Inspector de SEO Tècnic i Dades Estructurades IA",
-      subtitle: "Comprova com Google i les IA (ChatGPT, Perplexity, Gemini) interpreten la nostra web.",
+      title: "Inspector de SEO Tècnic & Dades Estructurades IA",
+      subtitle: "Comprova com Google i la IA interpreten Experiencias con Estilo.",
       tabSchema: "Schema.org (JSON-LD)",
-      tabMeta: "Meta Tags Multilingües",
-      tabAiGeoseo: "Mètriques GEO / Autoritat IA",
+      tabMeta: "Etiquetes Meta",
+      tabAiGeoseo: "Mètriques GEO / IA",
       copySchema: "Copiar JSON-LD",
       copied: "Copiat!",
     },
+    refugeModal: {
+      conceptTitle: "El Concepte i l'Experiència",
+      maxGuestsLabel: "Aforament Màxim",
+      guestsUnit: "Persones",
+      accessLabel: "Accés",
+      footAccess: "👣 A Peu (Pàrquing a 300m)",
+      carAccess: "Cotxe fins a la porta",
+      petsLabel: "Mascotes",
+      petsAllowed: "🐾 Permeses",
+      petsNotAllowed: "🚫 No admeses",
+      nightRateLabel: "Tarifa per Nit",
+      amenitiesTitle: "Equipament & Detalls Únics",
+      highlightsTitle: "Punts Destacats",
+      bookConciergeBtn: "Demanar Disponibilitat Concierge",
+    },
     bookingModal: {
-      title: "Sol·licitud Directa al Concierge",
-      subtitle: "Gestionem les teves dates de forma personalitzada mitjançant el nostre sistema de reserves privat.",
+      conciergeBadge: "Atenció Exclusiva Concierge",
+      title: "Sol·licitud Directa a Concierge",
+      subtitle: "Gestionem les teves dates de manera personalitzada a través del nostre servei privat.",
       fieldName: "Nom Complet",
       fieldEmail: "Correu Electrònic",
       fieldPhone: "Telèfon / WhatsApp",
       fieldRefuge: "Refugi Seleccionat",
       fieldDates: "Dates Estimades",
+      entryDateLabel: "Entrada Estimada",
+      exitDateLabel: "Sortida Estimada",
       fieldGuests: "Nombre d'Hostes",
+      guestOptions: [
+        { val: 1, label: "1 Persona (Retir Sol)" },
+        { val: 2, label: "2 Persones (Parella / Parella + Bebè)" },
+        { val: 3, label: "3 Persones" },
+        { val: 4, label: "4 Persones (Família)" },
+      ],
       fieldStyle: "Motiu del Viatge",
       fieldPets: "Viatges amb mascota?",
+      petOptionYes: "Sí, porto mascota",
+      petOptionNo: "No",
       fieldNotes: "Peticions especials o comentaris",
-      submit: "Enviar Sol·licitud al Concierge",
+      notesPlaceholder: "Comentaris sobre al·lèrgies, sorpreses d'aniversari o preferències especials...",
+      submit: "Enviar Sol·licitud a Concierge",
+      submitting: "Processant sol·licitud...",
       successTitle: "Sol·licitud Registrada amb Èxit!",
-      successMessage: "La teva petició s'ha enviat al nostre equip de Concierge. Et respondrem en menys de 4 hores amb disponibilitat exacta.",
+      successMessage: "La teva preferència s'ha enviat al nostre equip de Concierge. Et respondrem en menys de 4 hores amb disponibilitat exacta i detalls personalitzats.",
+      backBtn: "Tornar al Web",
+    },
+    cookieBanner: {
+      title: "Privadesa i Experiència Conscient",
+      description: "Utilitzem galetes estrictament essencials i telemetria anònima de primera part per garantir la fluïdesa en les teves reserves sense comercialitzar les teves dades.",
+      acceptAll: "Acceptar Experiència Completa",
+      onlyEssential: "Només Essencials",
     },
     footer: {
       tagline: "No véns a dormir. Véns a viure una experiència.",
@@ -823,11 +1116,11 @@ export const translations: Record<Language, TranslationDictionary> = {
       quickLinks: "Refugis Exclusius",
       languages: "Idiomes Disponibles",
       legal: "Avís Legal",
-      privacy: "Política de Privacitat",
-      cookies: "Política de Cookies",
+      privacy: "Política de Privadesa",
+      cookies: "Política de Galetes",
       terms: "Termes i Condicions",
       copyright: "© 2026 Experiencias con Estilo. Tots els drets reservats.",
-      crmNote: "Integrat amb Sistema de Reserves i CRM Directe.",
+      crmNote: "Integrat amb Sistema de Reserves & CRM Directe.",
     },
   },
   pt: {
@@ -836,16 +1129,16 @@ export const translations: Record<Language, TranslationDictionary> = {
     nav: {
       philosophy: "Filosofia",
       refuges: "Os 4 Refúgios",
-      pact: "Pacto de Respeito",
-      faq: "FAQ",
+      pact: "Pacto de Convivência",
+      faq: "Perguntas Frequentes",
       partners: "Comunidade Local",
       seoAudit: "Auditoria SEO/IA",
       book: "Reservar / Concierge",
     },
     hero: {
-      headline: "Não vem para dormir. Vem para viver uma experiência.",
-      subheadline: "Quatro refúgios sustentáveis de ultra-exclusividade na Europa. Uma mesma promessa: luxo discreto, natureza regenerativa e tempo recuperado.",
-      ctaPrimary: "Descobrir os Refúgios",
+      headline: "Você não vem para dormir. Você vem para viver uma experiência.",
+      subheadline: "Quatro refúgios sustentáveis e de ultra-exclusividade na Europa. Uma só promessa: luxo discreto, natureza regenerativa e tempo recuperado.",
+      ctaPrimary: "Descubra os Refúgios",
       ctaSecondary: "Aconselhamento Concierge",
       badge: "Edição Limitada • Apenas Reservas Diretas",
       stat1Label: "Hectares Privados",
@@ -854,55 +1147,74 @@ export const translations: Record<Language, TranslationDictionary> = {
       stat2Value: "4",
       stat3Label: "Silêncio Garantido",
       stat3Value: "100%",
+      bookingBar: {
+        sanctuaryLabel: "Santuário",
+        entryLabel: "Entrada (Sexta-feira)",
+        exitLabel: "Saída (Domingo)",
+        checkBtn: "Verificar Disponibilidade",
+        guaranteeText: "✓ Garantia de Preço Direto • Sem Taxas Ocultas • Cancelamento Flexível",
+        sanctuaryCanigo: "Refugi del Canigó (280€/noite)",
+        sanctuaryObsidiana: "Refugio de Obsidiana (350€/noite)",
+        sanctuaryFalesia: "Falesia Atlántica (420€/noite)",
+        sanctuaryEstrecho: "El Nido del Estrecho (480€/noite)",
+      },
     },
     manifesto: {
+      badge: "Manifesto de Marca",
       title: "O Manifesto do Luxo Consciente",
       subtitle: "O verdadeiro luxo não é acumular. É ouvir o vento sem interferências.",
-      p1: "Vivemos num mundo saturado de pressa, ecrãs e turismo industrial massificado. Lugares fotocopiados onde a experiência autêntica deu lugar a filas.",
-      p2: "Em Experiencias con Estilo rebelamo-nos contra o greenwashing e o turismo de massas. Protegemos quatro santuários na Europa para devolver o seu propósito original.",
-      p3: "Não vendemos noites de hotel. Guardamos santuários onde a arquitetura dialoga com a floresta, o céu estrelado e o oceano.",
-      villainTitle: "A Nossa Declaração contra o Turismo Massificado",
+      p1: "Vivemos submersos num mundo saturado de pressa, ecrãs e turismo massificado. Lugares estandardizados onde a experiência genuína foi substituída por filas e consumo rápido.",
+      p2: "Em Experiencias con Estilo rebelamo-nos contra o greenwashing e o turismo em massa. Selecionámos e protegemos quatro recantos sagrados na Europa.",
+      p3: "Não vendemos noites de hotel. Guardamos santuários onde a arquitetura dialoga com a floresta, a noite estrelada e o oceano.",
+      causeBadge: "A Nossa Causa",
+      villainTitle: "A Nossa Declaração contra o Turismo Massivo",
       villainP: "Lutamos contra a despersonalização da viagem. Rejeitamos complexos massificados e a pressa urbana.",
+      protectedHaText: "Protegidos da massificação",
+      sustainableBadge: "100% Sustentável",
       values: [
         {
           title: "Turismo Regenerativo",
-          desc: "Cada estadia financia reflorestação local, preservação de rios e energia limpa.",
+          desc: "Cada estadia financia a reflorestação, preservação do rio e energia limpa.",
           icon: "Leaf",
         },
         {
           title: "Silêncio & Privacidade",
-          desc: "Lotação estritamente limitada para preservar a paz selvagem.",
+          desc: "Lotações estritas e vagas hiper-limitadas para preservar a paz silvestre.",
           icon: "VolumeX",
         },
         {
           title: "Arquitetura Integrada",
-          desc: "Materiais nobres, pedra vulcânica e pegada de carbono neutra.",
+          desc: "Madeira nobre, pedra vulcânica e pegada de carbono neutra.",
           icon: "Home",
         },
       ],
     },
     refugesSection: {
+      badge: "Coleção Experiencias con Estilo",
       title: "A Nossa Coleção de 4 Refúgios",
       subtitle: "Cada localização é única, mas todas partilham a alma de Experiencias con Estilo.",
       filterAll: "Todos os Refúgios",
       filterPetFriendly: "🐾 Pet Friendly",
       filterAdultsOnly: "🧘 Apenas Adultos",
-      filterStarlight: "🔭 Céu Estrelado Starlight",
-      filterWater: "💧 Cascata e Rio",
+      filterStarlight: "🔭 Céus Starlight",
+      filterWater: "💧 Cascatas e Rio",
+      petBadge: "🐾 Pet Friendly",
+      adultsBadge: "🧘 Apenas Adultos",
       viewDetails: "Ver Refúgio Completo",
       bookNow: "Consultar Disponibilidade",
       perNight: "noite",
       from: "A partir de",
     },
     quizSection: {
-      title: "Recomendador Inteligente de Experiência",
-      subtitle: "Que estado de espírito ou descanso o seu corpo pede hoje?",
+      badge: "Recomendador Concierge",
+      title: "Buscador Inteligente de Experiência",
+      subtitle: "Que estado de espírito ou descanso o seu corpo precisa hoje?",
       q1: "Selecione o seu desejo principal:",
       q1Options: [
         {
           id: "canigo",
-          title: "Floresta, Cascatas e Energia Hidrelétrica",
-          desc: "Acordar ao lado do rio com a energia das montanhas nos Pirenéus.",
+          title: "Floresta, Cascatas e Energia Hídrica",
+          desc: "Despertar junto ao rio com os sons da montanha nos Pirenéus.",
           icon: "Trees",
           targetId: "refugi-canigo",
         },
@@ -922,79 +1234,119 @@ export const translations: Record<Language, TranslationDictionary> = {
         },
         {
           id: "estrecho",
-          title: "Suite Histórica com Vista para 2 Continentes",
-          desc: "No Rochedo de Gibraltar, Reserva Natural Upper Rock com vistas 360º.",
+          title: "Suite Histórica com Vistas para 2 Continentes",
+          desc: "No Rochedo de Gibraltar, Reserva Natural com vista panorâmica a 360º.",
           icon: "Compass",
           targetId: "nido-estrecho",
         },
       ],
       resultTitle: "O Seu Refúgio Ideal:",
       resultCta: "Explorar este Santuário",
+      findRefugeBtn: "Encontrar este Refúgio",
+      floatingBtn: "Teste de Saturação Digital",
     },
     pact: {
-      title: "O Nosso Pacto de Respeito e Convivência",
-      subtitle: "Regras simples e inegociáveis para proteger a serenidade de todos os hóspedes e da vida selvagem.",
+      badge: "Pacto de Convivência",
+      title: "O Nosso Pacto de Convivência e Respeito",
+      subtitle: "Normas simples e inegociáveis para proteger a serenidade de todos os hóspedes e da fauna selvagem.",
       items: [
         {
           title: "Acesso Final a Pé",
-          desc: "O seu veículo fica no nosso parque de estacionamento seguro. O troço final é feito a pé para iniciar a transição mental para a natureza.",
+          desc: "O seu veículo fica no nosso estacionamento seguro. O percurso final é feito a pé para a transição para a natureza.",
           icon: "Footprints",
         },
         {
-          title: "Sagrado Silêncio (22:00 h)",
-          desc: "A partir das 22h a natureza descansa. Pede-se tom de voz baixo e respeito no silêncio.",
+          title: "Silêncio Sagrado (22:00 h)",
+          desc: "A partir das 22h a natureza descansa. É necessário baixar o tom de voz e manter a tranquilidade em todo o domínio.",
           icon: "Volume2",
         },
         {
-          title: "Desconexão Responsável & Pegada Zero",
-          desc: "Gestão de resíduos na origem e eliminação de plásticos de uso único. A energia no Canigó é 100% hídrica.",
+          title: "Desconexão Responsável & Desperdício Zero",
+          desc: "Tratamento de resíduos na origem e proibição de plásticos descartáveis. A energia no Canigó provém de fonte hídrica própria.",
           icon: "ShieldCheck",
         },
         {
-          title: "Política de Animais",
-          desc: "Refugi del Canigó e Falesia Atlántica acolhem animais de estimação. Obsidiana e El Nido são santuários de silêncio estrito sem animais.",
+          title: "Convivência com Animais",
+          desc: "Refugi del Canigó e Falesia Atlántica são Pet Friendly atenciosos. Obsidiana e El Nido são espaços de tranquilidade exclusiva sem animais.",
           icon: "HeartHandshake",
         },
       ],
     },
     faqSection: {
-      title: "Perguntas Frequentes (GEO / IA)",
-      subtitle: "Respostas diretas para viajantes exigentes e motores de IA.",
-      searchPlaceholder: "Pesquisar dúvida (cobertura, animais, crianças, chuva)...",
-      aiBadge: "Estruturado para Google SGE & Perplexity AI",
+      title: "Perguntas Frequentes e Respostas Diretas (GEO/IA)",
+      subtitle: "Respostas claras para viajantes exigentes e motores de busca com IA.",
+      searchPlaceholder: "Pesquisar dúvida (ex: rede móvel, animais, crianças, clima)...",
+      aiBadge: "Otimizado para Google SGE & Perplexity AI",
+      keywordsLabel: "Palavras-chave IA:",
     },
     partnersSection: {
-      title: "A Nossa Rede de Parcerias Locais Km 0",
-      subtitle: "O verdadeiro luxo é consumir produtos frescos locais e apoiar a comunidade.",
+      badge: "Desenvolvimento Local & Sustentabilidade",
+      title: "A Nossa Rede de Produtores Locais Km 0",
+      subtitle: "O verdadeiro luxo é consumir produtos frescos, apoiar o produtor local e proteger o ecossistema.",
       km0Badge: "Sustentabilidade Verificada",
     },
     seoModal: {
-      title: "Inspetor de SEO Técnico e Dados Estruturados IA",
-      subtitle: "Examine como o Google e modelos IA (ChatGPT, Perplexity, Gemini) interpretam o nosso site.",
+      title: "Inspetor de SEO Técnico & Dados Estruturados IA",
+      subtitle: "Verifique como o Google e a IA analisam Experiencias con Estilo.",
       tabSchema: "Schema.org (JSON-LD)",
       tabMeta: "Meta Tags Multilíngues",
-      tabAiGeoseo: "Pontuação GEO / Autoridade IA",
+      tabAiGeoseo: "Métricas GEO / IA",
       copySchema: "Copiar JSON-LD",
       copied: "Copiado!",
     },
+    refugeModal: {
+      conceptTitle: "O Conceito e a Experiência",
+      maxGuestsLabel: "Lotação Máxima",
+      guestsUnit: "Pessoas",
+      accessLabel: "Acesso",
+      footAccess: "👣 A Pé (Estacionamento a 300m)",
+      carAccess: "Carro até à porta",
+      petsLabel: "Animais",
+      petsAllowed: "🐾 Permitidos",
+      petsNotAllowed: "🚫 Não permitidos",
+      nightRateLabel: "Tarifa por Noite",
+      amenitiesTitle: "Equipamentos & Detalhes Únicos",
+      highlightsTitle: "Pontos de Destaque",
+      bookConciergeBtn: "Solicitar Disponibilidade Concierge",
+    },
     bookingModal: {
-      title: "Pedido Direto ao Concierge",
-      subtitle: "Personalizamos as suas datas através do nosso serviço privado de concierge.",
+      conciergeBadge: "Atendimento Exclusivo Concierge",
+      title: "Solicitação Direta ao Concierge",
+      subtitle: "Gerimos as suas datas de forma personalizada através do nosso serviço de reservas exclusivo.",
       fieldName: "Nome Completo",
-      fieldEmail: "Endereço de E-mail",
+      fieldEmail: "Correio Eletrónico",
       fieldPhone: "Telefone / WhatsApp",
       fieldRefuge: "Refúgio Selecionado",
       fieldDates: "Datas Estimadas",
+      entryDateLabel: "Entrada Estimada",
+      exitDateLabel: "Saída Estimada",
       fieldGuests: "Número de Hóspedes",
+      guestOptions: [
+        { val: 1, label: "1 Pessoa (Retiro Individual)" },
+        { val: 2, label: "2 Pessoas (Casal / Casal + Bebé)" },
+        { val: 3, label: "3 Pessoas" },
+        { val: 4, label: "4 Pessoas (Família)" },
+      ],
       fieldStyle: "Motivo da Viagem",
       fieldPets: "Viaja com animal de estimação?",
+      petOptionYes: "Sim, levo animal",
+      petOptionNo: "Não",
       fieldNotes: "Pedidos especiais ou comentários",
-      submit: "Enviar Pedido ao Concierge",
-      successTitle: "Pedido Registado com Sucesso!",
-      successMessage: "O seu pedido foi enviado para a nossa equipa de concierge. Responderemos em menos de 4 horas com disponibilidades exatas.",
+      notesPlaceholder: "Comentários sobre alergias, surpresas de aniversário ou preferências especiais...",
+      submit: "Enviar Solicitação ao Concierge",
+      submitting: "A processar solicitação...",
+      successTitle: "Solicitação Registada com Sucesso!",
+      successMessage: "A sua preferência foi enviada à nossa equipa de Concierge. Responderemos em menos de 4 horas com disponibilidade exata e detalhes personalizados.",
+      backBtn: "Voltar ao Site",
+    },
+    cookieBanner: {
+      title: "Privacidade e Experiência Consciente",
+      description: "Utilizamos cookies estritamente essenciais e telemetria anónima para garantir a fluidez nas suas reservas sem comercializar os seus dados.",
+      acceptAll: "Aceitar Experiência Completa",
+      onlyEssential: "Apenas Essenciais",
     },
     footer: {
-      tagline: "Não vem para dormir. Vem para viver uma experiência.",
+      tagline: "Você não vem para dormir. Você vem para viver uma experiência.",
       umbrellaBrand: "Experiencias con Estilo",
       quickLinks: "Refúgios Exclusivos",
       languages: "Idiomas Disponíveis",
@@ -1003,7 +1355,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       cookies: "Política de Cookies",
       terms: "Termos e Condições",
       copyright: "© 2026 Experiencias con Estilo. Todos os direitos reservados.",
-      crmNote: "Integrado com Sistema de Reserva Direta.",
+      crmNote: "Integrado com Sistema de Reservas & CRM Direto.",
     },
   },
 };

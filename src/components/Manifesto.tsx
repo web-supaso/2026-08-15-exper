@@ -18,7 +18,7 @@ export const Manifesto: React.FC<ManifestoProps> = ({ currentLang }) => {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1c2a23]/5 border border-[#1c2a23]/10 text-xs font-bold tracking-widest text-[#1c2a23] uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#c5a059]" />
-            <span>Manifiesto de Marca</span>
+            <span>{t.manifesto.badge}</span>
           </div>
           <h2 className="font-serif-luxury text-3xl md:text-5xl font-extrabold text-[#1c2a23] leading-tight mb-6">
             {t.manifesto.title}
@@ -58,7 +58,7 @@ export const Manifesto: React.FC<ManifestoProps> = ({ currentLang }) => {
             <div className="md:col-span-8">
               <div className="flex items-center gap-3 text-[#e5c07b] text-xs font-bold uppercase tracking-widest mb-3">
                 <ShieldAlert className="w-5 h-5 text-[#c5a059]" />
-                <span>Nuestra Causa</span>
+                <span>{t.manifesto.causeBadge}</span>
               </div>
               <h3 className="font-serif-luxury text-2xl sm:text-4xl font-bold mb-4 text-white">
                 {t.manifesto.villainTitle}
@@ -69,10 +69,10 @@ export const Manifesto: React.FC<ManifestoProps> = ({ currentLang }) => {
             </div>
             <div className="md:col-span-4 bg-white/5 border border-white/10 rounded-2xl p-6 text-center backdrop-blur-md">
               <span className="block font-serif-luxury text-3xl font-bold text-[#e5c07b] mb-1">60+ Ha</span>
-              <span className="text-xs text-gray-300 block mb-3">Protegidas de la masificación</span>
+              <span className="text-xs text-gray-300 block mb-3">{t.manifesto.protectedHaText}</span>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#c5a059]/20 text-[#e5c07b] text-xs font-semibold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>100% Sostenible</span>
+                <span>{t.manifesto.sustainableBadge}</span>
               </div>
             </div>
           </div>
