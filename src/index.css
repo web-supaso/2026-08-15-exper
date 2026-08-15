@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  h1, h2, h3, .font-serif-luxury {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-display-accent {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+/* Custom Utilities for Luxury Theme */
+.bg-natural-sand {
+  background-color: #faf8f5;
+}
+
+.bg-natural-dark {
+  background-color: #121a16;
+}
+
+.text-gold-accent {
+  color: #c5a059;
+}
+
+.bg-gold-accent {
+  background-color: #c5a059;
+}
+
+.border-gold-accent {
+  border-color: rgba(197, 160, 89, 0.3);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #e5c07b 0%, #c5a059 50%, #9e7b39 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #c5a059 0%, #a8823b 100%);
+}
+
+.emerald-gradient-bg {
+  background: linear-gradient(135deg, #1c2a23 0%, #0d1511 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #faf8f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5a059;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8823b;
+}

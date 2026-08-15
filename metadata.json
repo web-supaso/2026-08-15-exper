@@ -1,0 +1,6 @@
+{
+  "name": "Experiencias con Estilo",
+  "description": "Alojamientos de lujo y turismo regenerativo en la naturaleza de Europa: Refugi del Canigó, Refugio de Obsidiana, Falesia Atlántica y El Nido del Estrecho.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
