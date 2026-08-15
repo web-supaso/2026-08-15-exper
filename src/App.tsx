@@ -12,6 +12,8 @@ import { LocalPartners } from './components/LocalPartners';
 import { SeoInspectorModal } from './components/SeoInspectorModal';
 import { BookingModal } from './components/BookingModal';
 import { Footer } from './components/Footer';
+import { CookieBanner } from './components/CookieBanner';
+import { FloatingTestButton } from './components/FloatingTestButton';
 import { refugesData } from './data/refuges';
 import { faqItems } from './data/faq';
 
@@ -139,10 +141,12 @@ export default function App() {
         <Manifesto currentLang={currentLang} />
 
         {/* Interactive Experience Recommender Quiz */}
-        <ExperienceQuiz
-          currentLang={currentLang}
-          onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
-        />
+        <div id="quiz">
+          <ExperienceQuiz
+            currentLang={currentLang}
+            onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
+          />
+        </div>
 
         {/* 4 Refuges Collection Grid */}
         <RefugesGrid

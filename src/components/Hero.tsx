@@ -33,10 +33,17 @@ export const Hero: React.FC<HeroProps> = ({ currentLang, onExploreClick, onBookC
         </div>
 
         {/* Core Headline */}
-        <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-8 text-white drop-shadow-md">
-          <span className="block text-white">No vienes a dormir.</span>
-          <span className="gold-gradient-text italic font-normal">Vienes a vivir una experiencia.</span>
-        </h1>
+        {(() => {
+          const parts = t.hero.headline.split('. ');
+          const part1 = parts[0] + (parts.length > 1 ? '.' : '');
+          const part2 = parts.slice(1).join('. ');
+          return (
+            <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-8 text-white drop-shadow-md">
+              <span className="block text-white">{part1}</span>
+              {part2 && <span className="gold-gradient-text italic font-normal">{part2}</span>}
+            </h1>
+          );
+        })()}
 
         {/* Subheadline */}
         <p className="text-lg sm:text-2xl font-light text-gray-200 max-w-3xl mx-auto mb-10 leading-relaxed drop-shadow">
@@ -90,6 +97,41 @@ export const Hero: React.FC<HeroProps> = ({ currentLang, onExploreClick, onBookC
             <span className="text-xs sm:text-sm font-light text-gray-300">
               {t.hero.stat3Label}
             </span>
+          </div>
+        </div>
+
+        {/* Horizontal Booking Bar */}
+        <div className="mt-12 hidden lg:block">
+          <div className="bg-[#121a16] border border-[#c5a059]/40 rounded-2xl p-2 flex items-center justify-between shadow-2xl backdrop-blur-md">
+            <div className="flex-1 px-4 py-2 border-r border-white/10 text-left">
+              <label className="block text-[10px] font-bold text-[#e5c07b] uppercase tracking-widest mb-1">Santuario</label>
+              <select className="bg-transparent text-white text-sm w-full outline-none appearance-none cursor-pointer font-light">
+                <option className="bg-[#121a16]">Refugi del Canigó (280€/noche)</option>
+                <option className="bg-[#121a16]">Refugio de Obsidiana (350€/noche)</option>
+                <option className="bg-[#121a16]">Falesia Atlántica (420€/noche)</option>
+                <option className="bg-[#121a16]">El Nido del Estrecho (480€/noche)</option>
+              </select>
+            </div>
+            <div className="flex-1 px-4 py-2 border-r border-white/10 text-left">
+              <label className="block text-[10px] font-bold text-[#e5c07b] uppercase tracking-widest mb-1">Entrada (Viernes)</label>
+              <input type="date" className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]" defaultValue="2026-08-21" />
+            </div>
+            <div className="flex-1 px-4 py-2 text-left">
+              <label className="block text-[10px] font-bold text-[#e5c07b] uppercase tracking-widest mb-1">Salida (Domingo)</label>
+              <input type="date" className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]" defaultValue="2026-08-23" />
+            </div>
+            <button
+              onClick={onBookClick}
+              className="px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-black bg-[#c5a059] hover:bg-[#e5c07b] transition-colors flex items-center justify-center gap-2 ml-2 whitespace-nowrap shadow-md shadow-[#c5a059]/20 cursor-pointer"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Comprobar Disponibilidad
+            </button>
+          </div>
+          <div className="mt-4 text-center">
+            <p className="text-[11px] text-gray-300 font-light tracking-wide">
+              ✓ Garantía de Precio Directo • Sin Comisiones Ocultas • Cancelación Flexible
+            </p>
           </div>
         </div>
       </div>
