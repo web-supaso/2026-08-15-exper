@@ -41,7 +41,7 @@ export const LocalPartners: React.FC<LocalPartnersProps> = ({ currentLang }) => 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 px-3 py-1 bg-[#1c2a23]/80 backdrop-blur-md text-[#e5c07b] text-[10px] font-bold uppercase tracking-wider rounded-full border border-[#c5a059]/30">
-                    {partner.type}
+                    {partner.type[currentLang]}
                   </div>
                 </div>
 
@@ -64,7 +64,7 @@ export const LocalPartners: React.FC<LocalPartnersProps> = ({ currentLang }) => 
               <div className="p-6 pt-0">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-emerald-200">
                   <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                  <span>{partner.impactBadge}</span>
+                  <span>{partner.impactBadge[currentLang]}</span>
                 </div>
               </div>
             </div>

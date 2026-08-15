@@ -48,10 +48,10 @@ export interface FAQItem {
 export interface LocalPartner {
   id: string;
   name: string;
-  type: string;
+  type: Record<Language, string>;
   location: string;
   description: Record<Language, string>;
-  impactBadge: string;
+  impactBadge: Record<Language, string>;
   image: string;
 }
 
