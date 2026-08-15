@@ -73,13 +73,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="relative">
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all uppercase tracking-wider"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all tracking-wider"
               >
                 <Globe className="w-3.5 h-3.5 text-[#c5a059]" />
-                <span className="font-medium text-xs text-white">{currentLangObj.shortLabel}</span>
-                {currentLangObj.flag && (
-                  <span className="text-xs">{currentLangObj.flag}</span>
-                )}
+                {currentLangObj.flag && <span className="text-xs">{currentLangObj.flag}</span>}
+                <span className="font-semibold text-xs text-white uppercase">{currentLangObj.shortLabel}</span>
               </button>
 
               {langDropdownOpen && (
@@ -97,8 +95,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                           : 'text-gray-300'
                       }`}
                     >
-                      <span className="text-xs">{lang.label}</span>
-                      <span className="text-xs font-medium text-gray-400">
+                      <span className="text-xs flex items-center gap-1.5">
+                        {lang.flag && <span>{lang.flag}</span>}
+                        <span>{lang.label}</span>
+                      </span>
+                      <span className="text-xs font-semibold text-gray-400">
                         {lang.shortLabel}
                       </span>
                     </button>

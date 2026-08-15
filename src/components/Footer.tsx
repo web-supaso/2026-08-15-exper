@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-wrap gap-2 text-xs">
               <button
                 onClick={() => onLanguageChange('es')}
-                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 font-semibold ${
                   currentLang === 'es' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({
               </button>
               <button
                 onClick={() => onLanguageChange('en')}
-                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 font-semibold ${
                   currentLang === 'en' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
@@ -91,7 +91,7 @@ export const Footer: React.FC<FooterProps> = ({
               </button>
               <button
                 onClick={() => onLanguageChange('fr')}
-                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 font-semibold ${
                   currentLang === 'fr' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
@@ -107,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({
               </button>
               <button
                 onClick={() => onLanguageChange('pt')}
-                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1 font-semibold ${
+                className={`px-3 py-1.5 rounded-lg border transition-all flex items-center gap-1.5 font-semibold ${
                   currentLang === 'pt' ? 'bg-[#1c2a23] border-[#c5a059] text-[#c5a059]' : 'border-gray-800 text-gray-400 hover:border-gray-600'
                 }`}
               >
@@ -129,12 +129,6 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="text-[11px] text-gray-500 pt-2">
                 {t.footer.crmNote}
               </p>
-              <button
-                onClick={onOpenSeoInspector}
-                className="mt-2 text-[11px] text-[#c5a059] underline hover:text-[#e5c07b] transition-colors block"
-              >
-                Inspeccionar Datos Estructurados JSON-LD / SEO
-              </button>
             </div>
           </div>
         </div>
