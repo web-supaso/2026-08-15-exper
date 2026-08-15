@@ -5,21 +5,15 @@ import { translations } from '../data/translations';
 
 interface FloatingTestButtonProps {
   currentLang: Language;
+  onOpenTest: () => void;
 }
 
-export const FloatingTestButton: React.FC<FloatingTestButtonProps> = ({ currentLang }) => {
+export const FloatingTestButton: React.FC<FloatingTestButtonProps> = ({ currentLang, onOpenTest }) => {
   const t = translations[currentLang];
-
-  const handleScrollToQuiz = () => {
-    const element = document.getElementById('quiz');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <button
-      onClick={handleScrollToQuiz}
+      onClick={onOpenTest}
       className="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#121a16] border border-[#c5a059]/40 hover:border-[#c5a059] hover:bg-[#1c2a23] transition-all shadow-lg hover:shadow-[#c5a059]/20 group cursor-pointer"
       aria-label={t.quizSection.floatingBtn}
     >

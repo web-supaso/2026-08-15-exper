@@ -14,6 +14,7 @@ import { BookingModal } from './components/BookingModal';
 import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
 import { FloatingTestButton } from './components/FloatingTestButton';
+import { SaturationTestModal } from './components/SaturationTestModal';
 import { refugesData } from './data/refuges';
 import { faqItems } from './data/faq';
 
@@ -23,6 +24,7 @@ export default function App() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingRefugeId, setBookingRefugeId] = useState<string | undefined>(undefined);
   const [seoInspectorOpen, setSeoInspectorOpen] = useState(false);
+  const [saturationTestOpen, setSaturationTestOpen] = useState(false);
 
   // Dynamically inject Schema.org JSON-LD structured data into the document head for live SEO
   useEffect(() => {
@@ -174,7 +176,15 @@ export default function App() {
 
       {/* Global Floating Components */}
       <CookieBanner currentLang={currentLang} />
-      <FloatingTestButton currentLang={currentLang} />
+      <FloatingTestButton currentLang={currentLang} onOpenTest={() => setSaturationTestOpen(true)} />
+
+      {/* Digital Saturation Test Modal */}
+      {saturationTestOpen && (
+        <SaturationTestModal
+          currentLang={currentLang}
+          onClose={() => setSaturationTestOpen(false)}
+        />
+      )}
 
       {/* Refuge Detail Drawer Modal */}
       <RefugeDetailModal
