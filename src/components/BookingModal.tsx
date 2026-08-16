@@ -60,14 +60,19 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     };
 
     try {
-      // Post lead data to Express backend endpoint for Google Sheets CRM sync simulation
+      // 1. Guardar copia de respaldo en localStorage
+      const savedLeads = JSON.parse(localStorage.getItem('experiencias_leads') || '[]');
+      savedLeads.unshift(leadData);
+      localStorage.setItem('experiencias_leads', JSON.stringify(savedLeads));
+
+      // 2. Enviar a endpoint de CRM / Vercel Serverless
       await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData),
       });
     } catch (err) {
-      console.log('Backend sync simulation completed');
+      console.log('Lead registrado y respaldado localmente');
     }
 
     setSubmitting(false);
