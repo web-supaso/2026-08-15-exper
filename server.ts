@@ -66,9 +66,45 @@ async function startServer() {
     }
   });
 
+  // In-memory Error Telemetry tracking
+  const errorLogs: Array<{
+    id: string;
+    message: string;
+    stack?: string;
+    url?: string;
+    userAgent?: string;
+    timestamp: string;
+  }> = [];
+
   // API Endpoint to fetch leads list for concierge testing
   app.get("/api/leads", (req, res) => {
     res.json({ count: leadsCRM.length, leads: leadsCRM });
+  });
+
+  // API Telemetry Endpoint to receive runtime error reports from production clients
+  app.post("/api/telemetry/errors", (req, res) => {
+    try {
+      const { message, stack, url, userAgent } = req.body || {};
+      const newErrorLog = {
+        id: `err_${Date.now()}`,
+        message: message || "Unknown error",
+        stack: stack || "",
+        url: url || "",
+        userAgent: userAgent || req.headers["user-agent"] || "",
+        timestamp: new Date().toISOString(),
+      };
+      errorLogs.unshift(newErrorLog);
+      if (errorLogs.length > 100) errorLogs.pop(); // keep last 100
+      console.warn("[Telemetry Error Logged]:", newErrorLog);
+      res.json({ status: "received", id: newErrorLog.id });
+    } catch {
+      res.status(500).json({ status: "error" });
+    }
+  });
+
+  // API Endpoint to inspect telemetry error logs
+  app.get("/api/telemetry/errors", (req, res) => {
+    res.json({ count: errorLogs.length, errors: errorLogs });
   });
 
   // Vite middleware for development vs static serve for production
@@ -80,8 +116,23 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    app.use(
+      express.static(distPath, {
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith(".html")) {
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
+          } else if (filePath.includes("assets")) {
+            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          }
+        },
+      })
+    );
     app.get("*", (req, res) => {
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

@@ -15,6 +15,7 @@ import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
 import { FloatingTestButton } from './components/FloatingTestButton';
 import { SaturationTestModal } from './components/SaturationTestModal';
+import { ModalErrorBoundary } from './components/ModalErrorBoundary';
 import { refugesData } from './data/refuges';
 import { faqItems } from './data/faq';
 
@@ -180,39 +181,55 @@ export default function App() {
 
       {/* Digital Saturation Test Modal */}
       {saturationTestOpen && (
-        <SaturationTestModal
-          currentLang={currentLang}
-          onClose={() => setSaturationTestOpen(false)}
-          onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
-        />
+        <ModalErrorBoundary onClose={() => setSaturationTestOpen(false)} title="Diagnóstico de Saturación Digital">
+          <SaturationTestModal
+            currentLang={currentLang}
+            onClose={() => setSaturationTestOpen(false)}
+            onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
+          />
+        </ModalErrorBoundary>
       )}
 
       {/* Refuge Detail Drawer Modal */}
-      <RefugeDetailModal
-        refuge={selectedRefugeModal}
-        currentLang={currentLang}
-        onClose={() => {
-          setSelectedRefugeModal(null);
-          window.history.pushState(null, '', window.location.pathname);
-        }}
-        onBookNow={(refugeId) => handleOpenBooking(refugeId)}
-      />
+      {selectedRefugeModal && (
+        <ModalErrorBoundary
+          onClose={() => {
+            setSelectedRefugeModal(null);
+            window.history.pushState(null, '', window.location.pathname);
+          }}
+          title={selectedRefugeModal?.name}
+        >
+          <RefugeDetailModal
+            refuge={selectedRefugeModal}
+            currentLang={currentLang}
+            onClose={() => {
+              setSelectedRefugeModal(null);
+              window.history.pushState(null, '', window.location.pathname);
+            }}
+            onBookNow={(refugeId) => handleOpenBooking(refugeId)}
+          />
+        </ModalErrorBoundary>
+      )}
 
       {/* Concierge Booking Lead Modal */}
       {bookingModalOpen && (
-        <BookingModal
-          initialRefugeId={bookingRefugeId}
-          currentLang={currentLang}
-          onClose={() => setBookingModalOpen(false)}
-        />
+        <ModalErrorBoundary onClose={() => setBookingModalOpen(false)} title="Solicitud Directa a Concierge">
+          <BookingModal
+            initialRefugeId={bookingRefugeId}
+            currentLang={currentLang}
+            onClose={() => setBookingModalOpen(false)}
+          />
+        </ModalErrorBoundary>
       )}
 
       {/* SEO & AI Technical Inspector Modal */}
       {seoInspectorOpen && (
-        <SeoInspectorModal
-          currentLang={currentLang}
-          onClose={() => setSeoInspectorOpen(false)}
-        />
+        <ModalErrorBoundary onClose={() => setSeoInspectorOpen(false)} title="Inspector de SEO & Datos Estructurados">
+          <SeoInspectorModal
+            currentLang={currentLang}
+            onClose={() => setSeoInspectorOpen(false)}
+          />
+        </ModalErrorBoundary>
       )}
     </div>
   );

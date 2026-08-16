@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Language, BookingLead } from '../types';
 import { refugesData } from '../data/refuges';
 import { translations } from '../data/translations';
-import { X, Calendar, CheckCircle2, ShieldCheck, Send, Sparkles, User, Mail, Phone, Heart } from 'lucide-react';
+import { X, CheckCircle2, Send, Sparkles, User, Mail, Phone } from 'lucide-react';
 
 interface BookingModalProps {
   initialRefugeId?: string;
@@ -15,9 +15,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   currentLang,
   onClose,
 }) => {
-  const [selectedRefuge, setSelectedRefuge] = useState(
-    initialRefugeId || refugesData[0].id
-  );
+  // Defensive fallback for active language translations
+  const t = translations?.[currentLang] || translations?.es;
+
+  // Safe initial default refuge
+  const [selectedRefuge, setSelectedRefuge] = useState<string>(() => {
+    if (initialRefugeId) return initialRefugeId;
+    if (Array.isArray(refugesData) && refugesData.length > 0 && refugesData[0]?.id) {
+      return refugesData[0].id;
+    }
+    return 'refugi-canigo';
+  });
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,8 +39,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const t = translations[currentLang];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,13 +74,23 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setSubmitted(true);
   };
 
+  const guestOptions = t?.bookingModal?.guestOptions || [
+    { val: 1, label: '1 Persona (Retiro Solo)' },
+    { val: 2, label: '2 Personas (Pareja / Pareja + Bebé)' },
+    { val: 3, label: '3 Personas' },
+    { val: 4, label: '4 Personas (Familia)' },
+  ];
+
+  const refugesList = Array.isArray(refugesData) ? refugesData : [];
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
       <div className="bg-[#121a16] text-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-[#c5a059]/40 shadow-2xl relative p-6 sm:p-8">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+          className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors cursor-pointer"
+          aria-label="Cerrar modal"
         >
           <X className="w-5 h-5" />
         </button>
@@ -83,13 +100,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="mb-6">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-[#e5c07b] mb-2">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>{t.bookingModal.conciergeBadge}</span>
+                <span>{t?.bookingModal?.conciergeBadge || 'Atención Exclusiva Concierge'}</span>
               </div>
               <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold">
-                {t.bookingModal.title}
+                {t?.bookingModal?.title || 'Solicitud Directa a Concierge'}
               </h2>
               <p className="text-xs text-gray-300 font-light mt-1">
-                {t.bookingModal.subtitle}
+                {t?.bookingModal?.subtitle || 'Gestionamos tus fechas de forma personalizada.'}
               </p>
             </div>
 
@@ -97,16 +114,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Refuge Selector */}
               <div>
                 <label className="block text-gray-300 font-medium mb-1.5">
-                  {t.bookingModal.fieldRefuge}
+                  {t?.bookingModal?.fieldRefuge || 'Refugio Seleccionado'}
                 </label>
                 <select
                   value={selectedRefuge}
                   onChange={(e) => setSelectedRefuge(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl bg-[#1c2a23] border border-[#c5a059]/30 text-white focus:outline-none focus:border-[#c5a059]"
                 >
-                  {refugesData.map((r) => (
+                  {refugesList.map((r) => (
                     <option key={r.id} value={r.id}>
-                      {r.name} ({r.region}) — {t.refugesSection.from} {r.priceFromPerNight}€/{t.refugesSection.perNight}
+                      {r.name} ({r.region}) — {t?.refugesSection?.from || 'Desde'} {r.priceFromPerNight}€/{t?.refugesSection?.perNight || 'noche'}
                     </option>
                   ))}
                 </select>
@@ -116,7 +133,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.fieldName} *
+                    {t?.bookingModal?.fieldName || 'Nombre Completo'} *
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -133,7 +150,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.fieldEmail} *
+                    {t?.bookingModal?.fieldEmail || 'Correo Electrónico'} *
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -152,7 +169,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.fieldPhone} *
+                    {t?.bookingModal?.fieldPhone || 'Teléfono / WhatsApp'} *
                   </label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -169,14 +186,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.fieldGuests}
+                    {t?.bookingModal?.fieldGuests || 'Número de Huéspedes'}
                   </label>
                   <select
                     value={guests}
                     onChange={(e) => setGuests(Number(e.target.value))}
                     className="w-full px-4 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
                   >
-                    {t.bookingModal.guestOptions.map((opt) => (
+                    {guestOptions.map((opt) => (
                       <option key={opt.val} value={opt.val}>
                         {opt.label}
                       </option>
@@ -189,53 +206,53 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.entryDateLabel}
+                    {t?.bookingModal?.entryDateLabel || 'Entrada Estimada'}
                   </label>
                   <input
                     type="date"
                     value={checkIn}
                     onChange={(e) => setCheckIn(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059] [color-scheme:dark]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-gray-300 font-medium mb-1.5">
-                    {t.bookingModal.exitDateLabel}
+                    {t?.bookingModal?.exitDateLabel || 'Salida Estimada'}
                   </label>
                   <input
                     type="date"
                     value={checkOut}
                     onChange={(e) => setCheckOut(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059] [color-scheme:dark]"
                   />
                 </div>
               </div>
 
               {/* Pets & Travel Style */}
               <div className="flex items-center justify-between p-3 rounded-xl bg-[#1c2a23] border border-white/10">
-                <span className="text-gray-300">{t.bookingModal.fieldPets}</span>
+                <span className="text-gray-300">{t?.bookingModal?.fieldPets || '¿Viajas con mascota?'}</span>
                 <button
                   type="button"
                   onClick={() => setPets(!pets)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                     pets ? 'bg-[#c5a059] text-white' : 'bg-white/10 text-gray-400'
                   }`}
                 >
-                  {pets ? t.bookingModal.petOptionYes : t.bookingModal.petOptionNo}
+                  {pets ? (t?.bookingModal?.petOptionYes || 'Sí, llevo mascota') : (t?.bookingModal?.petOptionNo || 'No')}
                 </button>
               </div>
 
               {/* Notes */}
               <div>
                 <label className="block text-gray-300 font-medium mb-1.5">
-                  {t.bookingModal.fieldNotes}
+                  {t?.bookingModal?.fieldNotes || 'Peticiones especiales o comentarios'}
                 </label>
                 <textarea
                   rows={3}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder={t.bookingModal.notesPlaceholder}
+                  placeholder={t?.bookingModal?.notesPlaceholder || 'Comentarios especiales...'}
                   className="w-full px-4 py-2.5 rounded-xl bg-[#1c2a23] border border-white/10 text-white focus:outline-none focus:border-[#c5a059]"
                 />
               </div>
@@ -244,29 +261,29 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-white gold-gradient-bg hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg mt-2"
+                className="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-white gold-gradient-bg hover:opacity-90 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg mt-2 disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                <span>{submitting ? t.bookingModal.submitting : t.bookingModal.submit}</span>
+                <span>{submitting ? (t?.bookingModal?.submitting || 'Procesando...') : (t?.bookingModal?.submit || 'Enviar Solicitud a Concierge')}</span>
               </button>
             </form>
           </div>
         ) : (
           <div className="text-center py-10 space-y-4">
             <div className="w-16 h-16 rounded-full bg-[#c5a059]/20 text-[#c5a059] flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 className="w-10 h-10" />
+              <CheckCircle2 className="w-10 h-10 text-[#e5c07b]" />
             </div>
             <h3 className="font-serif-luxury text-2xl font-bold text-white">
-              {t.bookingModal.successTitle}
+              {t?.bookingModal?.successTitle || '¡Solicitud Registrada con Éxito!'}
             </h3>
             <p className="text-xs text-gray-300 leading-relaxed font-light max-w-md mx-auto">
-              {t.bookingModal.successMessage}
+              {t?.bookingModal?.successMessage || 'Tu preferencia ha sido enviada a nuestro equipo de Concierge. Te responderemos en breve.'}
             </p>
             <button
               onClick={onClose}
               className="mt-6 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
             >
-              {t.bookingModal.backBtn}
+              {t?.bookingModal?.backBtn || 'Volver a la Web'}
             </button>
           </div>
         )}
