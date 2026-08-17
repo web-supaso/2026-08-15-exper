@@ -238,11 +238,11 @@ async function startServer() {
         recipients.push('reservas@experienciasconestilo.com');
         recipients.push('estiloexperiencias@gmail.com');
 
-        const refugeImage = (lead.preferredRefuge === 'el-nido-del-estrecho' || lead.preferredRefuge === 'nido-estrecho')
+        const refugeImage = (newLead.preferredRefuge === 'el-nido-del-estrecho' || newLead.preferredRefuge === 'nido-estrecho')
           ? 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=320&q=80'
-          : lead.preferredRefuge === 'refugio-obsidiana'
+          : newLead.preferredRefuge === 'refugio-obsidiana'
           ? 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&h=320&q=80'
-          : lead.preferredRefuge === 'falesia-atlantica'
+          : newLead.preferredRefuge === 'falesia-atlantica'
           ? 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&h=320&q=80'
           : 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&h=320&q=80';
 
