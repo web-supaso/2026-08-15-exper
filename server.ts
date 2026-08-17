@@ -187,11 +187,58 @@ async function startServer() {
         console.warn("[Resend Email] Error enviando email:", emailErr);
       }
 
+      // Enviar alerta instantánea por Telegram al Operador
+      try {
+        const REFUGE_NAMES: Record<string, string> = {
+          'refugi-canigo': 'Refugi del Canigó (Pirineos Orientales)',
+          'el-nido-del-estrecho': 'El Nido del Estrecho (Tarifa / Gibraltar)',
+          'nido-estrecho': 'El Nido del Estrecho (Tarifa / Gibraltar)',
+          'refugio-obsidiana': 'El Refugio de Obsidiana (Serranía de Albarracín)',
+          'falesia-atlantica': 'Falesia Atlántica (Costa Vicentina, Portugal)',
+        };
+        const refugeName = REFUGE_NAMES[newLead.preferredRefuge] || newLead.preferredRefuge;
+        const text = `🛎️ *NUEVA SOLICITUD DE RESERVA CONCIERGE*
+
+👤 *Huésped:* ${newLead.fullName}
+📍 *Santuario:* ${refugeName}
+📅 *Fechas:* ${newLead.checkIn} al ${newLead.checkOut}
+👥 *Huéspedes:* ${newLead.guests} personas
+📱 *Teléfono:* ${newLead.phone || 'No especificado'}
+✉️ *Email:* ${newLead.email || 'No especificado'}
+🐾 *Preferencias:* ${newLead.pets ? 'Con mascota' : 'Sin mascota'} • ${newLead.notes || 'Estándar'}
+
+⚡ *Compromiso Concierge:* Responder en menos de 4 horas.`;
+
+        const cleanPhone = (newLead.phone || '').replace(/[^0-9]/g, '');
+        const waUrl = cleanPhone
+          ? `https://wa.me/${cleanPhone}?text=Hola%20${encodeURIComponent(newLead.fullName)}%2C%20te%20escribo%20del%20equipo%20de%20Concierge%20de%20Experiencias%20con%20Estilo%20respecto%20a%20tu%20solicitud%20para%20el%20${encodeURIComponent(refugeName)}...`
+          : 'https://hotel-crm-five-gold.vercel.app/leads';
+
+        await fetch('https://api.telegram.org/bot8952234866:AAFw4WIwrbzBO6GVq7GXtN55dOdXrP18AhE/sendMessage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: '5005671664',
+            text,
+            parse_mode: 'Markdown',
+            reply_markup: {
+              inline_keyboard: [
+                [{ text: '💬 Abrir WhatsApp del Huésped', url: waUrl }],
+                [{ text: '📊 Ver en el CRM de Hoteles', url: 'https://hotel-crm-five-gold.vercel.app/leads' }],
+              ],
+            },
+          }),
+        });
+        console.log("[Telegram Alert] Alerta enviada al bot del operador con éxito.");
+      } catch (tgErr) {
+        console.warn("[Telegram Alert] Error enviando alerta:", tgErr);
+      }
+
       res.status(201).json({
         success: true,
-        message: "Solicitud registrada y confirmación enviada por email.",
+        message: "Solicitud registrada, email enviado y alerta push enviada a Telegram.",
         leadId: newLead.id,
-        crmStatus: "Sincronizado con Supabase CRM y Resend en tiempo real",
+        crmStatus: "Sincronizado con Supabase CRM, Resend y Telegram en tiempo real",
       });
     } catch (err: any) {
       console.error("Error saving lead:", err);

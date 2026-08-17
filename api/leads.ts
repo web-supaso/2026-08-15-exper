@@ -4,6 +4,9 @@ const RESEND_API_KEY = 're_KGV7vzrh_M8PAJZqbdVWTkFCh2RfnBiwC';
 const OPERATOR_EMAIL = 'estiloexperiencias@gmail.com';
 const OPERATOR_PHONE = '+5493541664488';
 
+const TELEGRAM_BOT_TOKEN = '8952234866:AAFw4WIwrbzBO6GVq7GXtN55dOdXrP18AhE';
+const TELEGRAM_OPERATOR_CHAT_ID = '5005671664';
+
 const SUPABASE_CRM_URL = 'https://rzwqpxkehhpmekksninp.supabase.co';
 const SUPABASE_CRM_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c';
@@ -27,69 +30,120 @@ const REFUGE_NAMES: Record<string, string> = {
 
 const leads: any[] = [];
 
+async function sendTelegramAlert(lead: any) {
+  try {
+    const refugeName = REFUGE_NAMES[lead.preferredRefuge] || lead.preferredRefuge;
+    const text = `🛎️ *NUEVA SOLICITUD DE RESERVA CONCIERGE*
+
+👤 *Huésped:* ${lead.fullName}
+📍 *Santuario:* ${refugeName}
+📅 *Fechas:* ${lead.checkIn} al ${lead.checkOut}
+👥 *Huéspedes:* ${lead.guests} personas
+📱 *Teléfono:* ${lead.phone || 'No especificado'}
+✉️ *Email:* ${lead.email || 'No especificado'}
+🐾 *Preferencias:* ${lead.pets ? 'Con mascota' : 'Sin mascota'} • ${lead.notes || 'Estándar'}
+
+⚡ *Compromiso Concierge:* Responder en menos de 4 horas.`;
+
+    const cleanPhone = (lead.phone || '').replace(/[^0-9]/g, '');
+    const waUrl = cleanPhone
+      ? `https://wa.me/${cleanPhone}?text=Hola%20${encodeURIComponent(lead.fullName)}%2C%20te%20escribo%20del%20equipo%20de%20Concierge%20de%20Experiencias%20con%20Estilo%20respecto%20a%20tu%20solicitud%20para%20el%20${encodeURIComponent(refugeName)}...`
+      : 'https://hotel-crm-five-gold.vercel.app/leads';
+
+    const replyMarkup = {
+      inline_keyboard: [
+        [
+          {
+            text: '💬 Abrir WhatsApp del Huésped',
+            url: waUrl,
+          },
+        ],
+        [
+          {
+            text: '📊 Ver en el CRM de Hoteles',
+            url: 'https://hotel-crm-five-gold.vercel.app/leads',
+          },
+        ],
+      ],
+    };
+
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_OPERATOR_CHAT_ID,
+        text,
+        parse_mode: 'Markdown',
+        reply_markup: replyMarkup,
+      }),
+    });
+    console.log('[Telegram Alert Sync] Alerta push enviada al operador con éxito.');
+  } catch (err) {
+    console.error('[Telegram Alert Sync] Error enviando alerta de Telegram:', err);
+  }
+}
+
 async function sendConfirmationEmail(lead: any) {
   try {
     const refugeName = REFUGE_NAMES[lead.preferredRefuge] || lead.preferredRefuge;
-    
-    // In Resend onboarding mode, emails go to the verified account (estiloexperiencias@gmail.com)
     const recipients = [OPERATOR_EMAIL];
 
     const htmlContent = `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0e1713; color: #e8ece9; padding: 40px 20px; text-align: center;">
-        <div style="max-width: 580px; margin: 0 auto; background-color: #14201a; border: 1px solid #c5a059; border-radius: 20px; padding: 32px 24px; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0e1713; color: #e8ece9; padding: 24px 12px; text-align: center;">
+        <div style="max-width: 540px; margin: 0 auto; background-color: #14201a; border: 1px solid #c5a059; border-radius: 18px; padding: 24px 18px; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
           
-          <div style="text-align: center; margin-bottom: 24px;">
-            <span style="display: inline-block; padding: 6px 16px; background-color: #2a2010; color: #e5c07b; border: 1px solid #c5a059; border-radius: 9999px; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <span style="display: inline-block; padding: 5px 14px; background-color: #2a2010; color: #e5c07b; border: 1px solid #c5a059; border-radius: 9999px; font-size: 10px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase;">
               ✨ Solicitud de Reserva • En Revisión Concierge
             </span>
-            <h1 style="color: #ffffff; font-size: 24px; font-weight: 800; margin: 16px 0 6px 0;">Experiencias con Estilo</h1>
-            <p style="color: #c5a059; font-size: 13px; margin: 0; font-style: italic;">"Santuarios de descanso y naturaleza salvaje"</p>
+            <h1 style="color: #ffffff; font-size: 22px; font-weight: 800; margin: 14px 0 4px 0;">Experiencias con Estilo</h1>
+            <p style="color: #c5a059; font-size: 12px; margin: 0; font-style: italic;">"Santuarios de descanso y naturaleza salvaje"</p>
           </div>
 
-          <p style="font-size: 14px; line-height: 1.6; color: #d1d5db;">
+          <p style="font-size: 13px; line-height: 1.6; color: #d1d5db;">
             Hola <strong>${lead.fullName}</strong>,<br><br>
             Hemos recibido tu solicitud de estancia. Para garantizar el silencio y la exclusividad de cada santuario, gestionamos cada reserva de forma personalizada.
           </p>
 
-          <div style="background-color: #0e1713; border: 1px solid #2d4234; border-radius: 14px; padding: 20px; margin: 20px 0;">
-            <h3 style="color: #e5c07b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px 0; border-bottom: 1px solid #2d4234; padding-bottom: 8px;">
+          <div style="background-color: #0e1713; border: 1px solid #2d4234; border-radius: 12px; padding: 16px; margin: 18px 0;">
+            <h3 style="color: #e5c07b; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 14px 0; border-bottom: 1px solid #2d4234; padding-bottom: 6px;">
               📋 Resumen de tu Solicitud
             </h3>
             
-            <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
-              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Santuario Seleccionado</span>
-              <span style="display: block; font-size: 15px; font-weight: bold; color: #ffffff;">${refugeName}</span>
+            <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #1f2d24;">
+              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Santuario Seleccionado</span>
+              <span style="display: block; font-size: 14px; font-weight: bold; color: #ffffff;">${refugeName}</span>
             </div>
 
-            <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
-              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Fechas de Estancia</span>
+            <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #1f2d24;">
+              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Fechas de Estancia</span>
               <span style="display: block; font-size: 14px; font-weight: bold; color: #e5c07b;">${lead.checkIn} al ${lead.checkOut}</span>
             </div>
 
-            <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
-              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Huéspedes</span>
+            <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #1f2d24;">
+              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Huéspedes</span>
               <span style="display: block; font-size: 14px; font-weight: bold; color: #ffffff;">${lead.guests} personas</span>
             </div>
 
-            <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
-              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Datos de Contacto</span>
+            <div style="margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #1f2d24;">
+              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Datos de Contacto</span>
               <span style="display: block; font-size: 13px; font-weight: bold; color: #ffffff;">${lead.phone || '-'} • ${lead.email || '-'}</span>
             </div>
 
             <div>
-              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Preferencias & Ocasión</span>
+              <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">Preferencias & Ocasión</span>
               <span style="display: block; font-size: 13px; font-weight: 500; color: #d8f3dc;">${lead.pets ? '🐾 Con mascota' : 'Sin mascota'} • ${lead.notes || 'Estándar'}</span>
             </div>
           </div>
 
-          <div style="background-color: #231b0b; border-left: 4px solid #c5a059; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px;">
-            <p style="font-size: 12px; color: #f3e8d2; margin: 0; line-height: 1.6;">
-              🕒 <strong>Compromiso de Atención:</strong> Nuestro equipo de Concierge validará el aforo y te responderá en un plazo máximo de <strong>4 horas hábiles</strong> con la propuesta y confirmación de tu estancia.
+          <div style="background-color: #231b0b; border-left: 3px solid #c5a059; padding: 12px 14px; border-radius: 8px; margin-bottom: 20px;">
+            <p style="font-size: 12px; color: #f3e8d2; margin: 0; line-height: 1.5;">
+              🕒 <strong>Compromiso de Atención:</strong> Nuestro equipo de Concierge validará el aforo y te responderá en un plazo máximo de <strong>4 horas hábiles</strong>.
             </p>
           </div>
 
-          <div style="text-align: center; padding-top: 10px;">
-            <a href="https://wa.me/5493541664488?text=Hola%2C%20acabo%20de%20enviar%20mi%20solicitud%20para%20${encodeURIComponent(refugeName)}%20a%20nombre%20de%20${encodeURIComponent(lead.fullName)}" style="display: inline-block; padding: 14px 28px; background-color: #c5a059; color: #0e1713; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(197,160,89,0.3);">
+          <div style="text-align: center; padding-top: 6px;">
+            <a href="https://wa.me/5493541664488?text=Hola%2C%20acabo%20de%20enviar%20mi%20solicitud%20para%20${encodeURIComponent(refugeName)}%20a%20nombre%20de%20${encodeURIComponent(lead.fullName)}" style="display: inline-block; padding: 12px 24px; background-color: #c5a059; color: #0e1713; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 10px;">
               💬 Contactar con Concierge por WhatsApp
             </a>
           </div>
@@ -101,7 +155,7 @@ async function sendConfirmationEmail(lead: any) {
           </div>
         </div>
 
-        <p style="font-size: 11px; color: #6b7280; margin-top: 24px;">
+        <p style="font-size: 10px; color: #6b7280; margin-top: 20px;">
           © ${new Date().getFullYear()} Experiencias con Estilo • Diseñado con pasión por Marketing Amable
         </p>
       </div>
@@ -198,9 +252,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // 2. Send luxury confirmation email via Resend
     await sendConfirmationEmail(newLead);
 
+    // 3. Send instant Telegram push alert to Operator with direct WhatsApp action button
+    await sendTelegramAlert(newLead);
+
     return res.status(201).json({
       success: true,
-      message: 'Solicitud registrada y confirmación enviada por email.',
+      message: 'Solicitud registrada, email enviado y alerta enviada al operador.',
       lead: newLead,
     });
   }
