@@ -1,0 +1,6 @@
+# Robots.txt for Experiencias con Estilo
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://www.experienciasconestilo.com/sitemap.xml
