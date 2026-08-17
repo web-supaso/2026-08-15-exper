@@ -91,6 +91,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [vegetarian, setVegetarian] = useState(false);
   const [notes, setNotes] = useState('');
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
 
   // Submit states
   const [submitting, setSubmitting] = useState(false);
@@ -132,7 +133,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!privacyAccepted) return;
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      return;
+    }
+    setPrivacyError(false);
 
     setSubmitting(true);
 
@@ -553,25 +558,40 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 />
               </div>
 
-              {/* Checkbox Privacidad */}
-              <label className="flex items-start gap-2.5 cursor-pointer pt-1">
-                <input
-                  type="checkbox"
-                  required
-                  checked={privacyAccepted}
-                  onChange={(e) => setPrivacyAccepted(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded border-[#2d4234] bg-[#14201a] text-[#d8a84e] focus:ring-0 cursor-pointer accent-[#d8a84e]"
-                />
-                <span className="text-[11px] text-gray-400 leading-snug">
-                  Acepto la política de privacidad y el tratamiento de mis datos. *
-                </span>
-              </label>
+              {/* Checkbox Privacidad con advertencia visual suave */}
+              <div
+                className={`p-3 rounded-xl transition-all duration-300 ${
+                  privacyError
+                    ? 'bg-red-500/10 border border-red-500/50 shadow-md shadow-red-500/10'
+                    : 'border border-transparent'
+                }`}
+              >
+                <label className="flex items-start gap-2.5 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={privacyAccepted}
+                    onChange={(e) => {
+                      setPrivacyAccepted(e.target.checked);
+                      if (e.target.checked) setPrivacyError(false);
+                    }}
+                    className="mt-0.5 w-4 h-4 rounded border-[#2d4234] bg-[#14201a] text-[#d8a84e] focus:ring-0 cursor-pointer accent-[#d8a84e]"
+                  />
+                  <span className="text-[11px] text-gray-300 leading-snug">
+                    Acepto la política de privacidad y el tratamiento de mis datos. *
+                  </span>
+                </label>
+                {privacyError && (
+                  <p className="text-[10px] text-red-400 font-semibold mt-1.5 pl-6">
+                    ⚠️ Por favor, marca esta casilla para enviar tu solicitud Concierge.
+                  </p>
+                )}
+              </div>
 
               {/* Submit CTA Button */}
               <button
                 type="submit"
-                disabled={submitting || !privacyAccepted}
-                className="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-black bg-[#e5a93c] hover:bg-[#f0b952] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#e5a93c]/20 mt-3 text-xs disabled:opacity-40 disabled:cursor-not-allowed"
+                disabled={submitting}
+                className="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-black bg-[#e5a93c] hover:bg-[#f0b952] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#e5a93c]/20 mt-2 text-xs disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
                 <span>{submitting ? 'PROCESANDO SOLICITUD...' : 'ENVIAR SOLICITUD'}</span>
