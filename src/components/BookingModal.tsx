@@ -15,6 +15,7 @@ import {
   CheckCircle2,
   Minus,
   Plus,
+  MessageSquare,
 } from 'lucide-react';
 
 interface BookingModalProps {
@@ -578,22 +579,87 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </form>
           </div>
         ) : (
-          <div className="text-center py-10 space-y-4">
-            <div className="w-16 h-16 rounded-full bg-[#d8a84e]/20 text-[#d8a84e] flex items-center justify-center mx-auto mb-4 border border-[#d8a84e]/40">
-              <CheckCircle2 className="w-10 h-10 text-[#d8a84e]" />
+          <div className="text-center py-5 sm:py-7 space-y-4 animate-fadeIn">
+            {/* Top Golden Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#3d2f14] border border-[#d8a84e]/60 text-[#e5b355] text-[10px] font-bold tracking-widest uppercase">
+              <Sparkles className="w-3.5 h-3.5 text-[#e5b355]" />
+              <span>SOLICITUD EN ATENCIÓN DIRECTA</span>
             </div>
-            <h3 className="font-serif-luxury text-2xl font-bold text-white">
-              ¡Solicitud Síncrona Registrada!
-            </h3>
-            <p className="text-xs text-gray-300 leading-relaxed font-light max-w-md mx-auto">
-              Tu solicitud para <strong>{currentRefuge?.name}</strong> ha sido recibida por nuestro equipo de Concierge. Te responderemos en menos de 4 horas para confirmar tus fechas y detalles personalizados.
-            </p>
-            <button
-              onClick={onClose}
-              className="mt-6 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-black bg-[#e5a93c] hover:bg-[#f0b952] transition-colors cursor-pointer"
-            >
-              Volver a la Experiencia
-            </button>
+
+            <div className="w-14 h-14 rounded-2xl bg-[#d8a84e]/15 text-[#d8a84e] flex items-center justify-center mx-auto border border-[#d8a84e]/50 shadow-xl shadow-[#d8a84e]/10">
+              <CheckCircle2 className="w-8 h-8 text-[#d8a84e]" />
+            </div>
+
+            <div>
+              <h3 className="font-serif-luxury text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1.5">
+                ¡Solicitud Recibida con Éxito!
+              </h3>
+              <p className="text-xs text-gray-300 font-light max-w-md mx-auto leading-relaxed">
+                Gracias, <strong className="text-white font-semibold">{firstName || 'Huésped'}</strong>. Tu solicitud para <strong className="text-[#e5c07b] font-semibold">{currentRefuge?.name}</strong> está en manos de nuestro equipo de Concierge.
+              </p>
+            </div>
+
+            {/* 3-Step Timeline Cards */}
+            <div className="text-left bg-[#14201a] border border-[#2d4234] rounded-2xl p-4 sm:p-5 space-y-3">
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-[#1b4332] text-[#d8f3dc] flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 border border-[#d8f3dc]/30">
+                  ✓
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">1. Acuse de recibo y ficha enviada</h4>
+                  <p className="text-[11px] text-gray-400 font-light">
+                    Estancia registrada del <span className="text-[#e5c07b] font-medium">{checkIn} al {checkOut}</span> ({nightsCount} {nightsCount === 1 ? 'noche' : 'noches'}).
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-[#3d2f14] text-[#e5b355] flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 border border-[#d8a84e]/40">
+                  2
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">2. Verificación de aforo y privacidad</h4>
+                  <p className="text-[11px] text-gray-400 font-light">
+                    Comprobamos la disponibilidad para {totalPersons} personas y tus preferencias especiales de estancia.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-[#243328] text-gray-300 flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 border border-white/10">
+                  3
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">3. Contacto prioritario garantizado</h4>
+                  <p className="text-[11px] text-gray-400 font-light">
+                    Te responderemos en un plazo máximo de <strong className="text-white">4 horas hábiles</strong> con la confirmación final.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Immediate Attention Callout & Buttons */}
+            <div className="pt-2 space-y-2.5">
+              <a
+                href={`https://wa.me/5493541664488?text=${encodeURIComponent(
+                  `Hola, acabo de enviar mi solicitud para ${currentRefuge?.name} a nombre de ${firstName} ${lastName} (${checkIn} al ${checkOut}). Me gustaría coordinar los detalles con el Concierge.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 px-4 rounded-xl font-bold uppercase tracking-wider text-black bg-[#25D366] hover:bg-[#20bd5a] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#25D366]/20 text-xs"
+              >
+                <MessageSquare className="w-4 h-4 fill-black text-black" />
+                <span>¿Deseas atención prioritaria? Chatear por WhatsApp</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full py-2.5 px-4 rounded-xl font-medium text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+              >
+                Volver y continuar explorando
+              </button>
+            </div>
           </div>
         )}
       </div>
