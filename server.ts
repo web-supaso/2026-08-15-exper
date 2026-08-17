@@ -130,16 +130,34 @@ async function startServer() {
                     Hemos recibido tu solicitud de estancia. Para garantizar el silencio y la exclusividad de cada santuario, gestionamos cada reserva de forma personalizada.
                   </p>
                   <div style="background-color: #0e1713; border: 1px solid #2d4234; border-radius: 14px; padding: 20px; margin: 20px 0;">
-                    <h3 style="color: #e5c07b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 14px 0; border-bottom: 1px solid #2d4234; padding-bottom: 8px;">
+                    <h3 style="color: #e5c07b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px 0; border-bottom: 1px solid #2d4234; padding-bottom: 8px;">
                       📋 Resumen de tu Solicitud
                     </h3>
-                    <table style="width: 100%; font-size: 13px; color: #e5e7eb; border-collapse: collapse;">
-                      <tr><td style="padding: 7px 0; color: #9ca3af;">Santuario:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #ffffff;">${refugeName}</td></tr>
-                      <tr><td style="padding: 7px 0; color: #9ca3af;">Fechas:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #e5c07b;">${newLead.checkIn} al ${newLead.checkOut}</td></tr>
-                      <tr><td style="padding: 7px 0; color: #9ca3af;">Huéspedes:</td><td style="padding: 7px 0; text-align: right; font-weight: bold;">${newLead.guests} personas</td></tr>
-                      <tr><td style="padding: 7px 0; color: #9ca3af;">Contacto:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #ffffff;">${newLead.phone || '-'} • ${newLead.email || '-'}</td></tr>
-                      <tr><td style="padding: 7px 0; color: #9ca3af;">Mascota / Preferencias:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #d8f3dc;">${newLead.pets ? 'Con mascota' : 'Sin mascota'} • ${newLead.notes || 'Estándar'}</td></tr>
-                    </table>
+                    
+                    <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
+                      <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Santuario Seleccionado</span>
+                      <span style="display: block; font-size: 15px; font-weight: bold; color: #ffffff;">${refugeName}</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
+                      <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Fechas de Estancia</span>
+                      <span style="display: block; font-size: 14px; font-weight: bold; color: #e5c07b;">${newLead.checkIn} al ${newLead.checkOut}</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
+                      <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Huéspedes</span>
+                      <span style="display: block; font-size: 14px; font-weight: bold; color: #ffffff;">${newLead.guests} personas</span>
+                    </div>
+
+                    <div style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #1f2d24;">
+                      <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Datos de Contacto</span>
+                      <span style="display: block; font-size: 13px; font-weight: bold; color: #ffffff;">${newLead.phone || '-'} • ${newLead.email || '-'}</span>
+                    </div>
+
+                    <div>
+                      <span style="display: block; font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Preferencias & Ocasión</span>
+                      <span style="display: block; font-size: 13px; font-weight: 500; color: #d8f3dc;">${newLead.pets ? '🐾 Con mascota' : 'Sin mascota'} • ${newLead.notes || 'Estándar'}</span>
+                    </div>
                   </div>
                   <div style="background-color: #231b0b; border-left: 4px solid #c5a059; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px;">
                     <p style="font-size: 12px; color: #f3e8d2; margin: 0; line-height: 1.6;">
