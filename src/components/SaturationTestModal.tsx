@@ -75,6 +75,11 @@ const diagnosticData: Record<Language, {
             label: "Acantilados oceánicos, brisa marina y bruma del Atlántico",
             targetRefugeId: "falesia-atlantica",
           },
+          {
+            emoji: "🌬️",
+            label: "Horizonte de dos continentes, viento cálido y paso migratorio",
+            targetRefugeId: "el-nido-del-estrecho",
+          },
         ],
       },
     ],
@@ -123,6 +128,11 @@ const diagnosticData: Record<Language, {
             emoji: "🌊",
             label: "Ocean cliffs, marine breeze, and Atlantic mist",
             targetRefugeId: "falesia-atlantica",
+          },
+          {
+            emoji: "🌬️",
+            label: "Two-continent horizon, warm winds and bird migration routes",
+            targetRefugeId: "el-nido-del-estrecho",
           },
         ],
       },
@@ -173,6 +183,11 @@ const diagnosticData: Record<Language, {
             label: "Falaises océaniques, brise marine et brume de l'Atlantique",
             targetRefugeId: "falesia-atlantica",
           },
+          {
+            emoji: "🌬️",
+            label: "Horizon de deux continents, vent chaud et migration des oiseaux",
+            targetRefugeId: "el-nido-del-estrecho",
+          },
         ],
       },
     ],
@@ -221,6 +236,11 @@ const diagnosticData: Record<Language, {
             emoji: "🌊",
             label: "Penya-segats oceànics, brisa marina i baf de l'Atlàntic",
             targetRefugeId: "falesia-atlantica",
+          },
+          {
+            emoji: "🌬️",
+            label: "Horitzó de dos continents, vent càlid i ruta migratòria",
+            targetRefugeId: "el-nido-del-estrecho",
           },
         ],
       },
@@ -271,30 +291,37 @@ const diagnosticData: Record<Language, {
             label: "Falésias oceânicas, brisa marítima e névoa do Atlântico",
             targetRefugeId: "falesia-atlantica",
           },
+          {
+            emoji: "🌬️",
+            label: "Horizonte de dois continentes, vento quente e rota migratória",
+            targetRefugeId: "el-nido-del-estrecho",
+          },
         ],
       },
     ],
   },
 };
 
-export const SaturationTestModal: React.FC<SaturationTestModalProps> = ({
+export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNow?: (refugeId: string) => void }> = ({
   currentLang,
   onClose,
   onSelectRefuge,
+  onBookNow,
 }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
-  const [selectedTargetId, setSelectedTargetId] = useState<string>('falesia-atlantica');
+  const [selectedTargetId, setSelectedTargetId] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
   const t = diagnosticData[currentLang] || diagnosticData.es;
   const currentStep = t.steps[currentStepIndex];
+  const totalSteps = t.steps.length;
 
   const handleSelectOption = (option: Option) => {
     if (option.targetRefugeId) {
       setSelectedTargetId(option.targetRefugeId);
     }
 
-    if (currentStepIndex < t.steps.length - 1) {
+    if (currentStepIndex < totalSteps - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     } else {
       setIsCompleted(true);
@@ -302,13 +329,22 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps> = ({
   };
 
   const recommendedRefuge =
-    refugesData.find((r) => r.id === selectedTargetId || r.slug === selectedTargetId) ||
+    (selectedTargetId ? refugesData.find((r) => r.id === selectedTargetId || r.slug === selectedTargetId) : null) ||
     refugesData.find((r) => r.id === 'falesia-atlantica') ||
     refugesData[0];
 
   const handleViewSanctuary = () => {
     onClose();
     if (recommendedRefuge) {
+      onSelectRefuge(recommendedRefuge);
+    }
+  };
+
+  const handleBookNow = () => {
+    onClose();
+    if (recommendedRefuge && onBookNow) {
+      onBookNow(recommendedRefuge.id);
+    } else if (recommendedRefuge) {
       onSelectRefuge(recommendedRefuge);
     }
   };
@@ -334,27 +370,39 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps> = ({
         {!isCompleted ? (
           <div>
             {/* Step Header */}
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-3">
               <Activity className="w-4 h-4 text-[#c5a059]" />
               <span className="text-[11px] sm:text-xs font-bold text-[#c5a059] uppercase tracking-wider">
                 {t.headerStep(currentStep.stepNumber)}
               </span>
             </div>
 
+            {/* Visual Progress Bar */}
+            <div className="flex gap-1.5 mb-6">
+              {Array.from({ length: totalSteps }).map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1 rounded-full flex-1 transition-all duration-500 ${
+                    i <= currentStepIndex ? 'bg-[#c5a059]' : 'bg-white/15'
+                  }`}
+                />
+              ))}
+            </div>
+
             {/* Question Title */}
-            <h2 className="font-serif-luxury text-2xl sm:text-3xl font-extrabold text-white mb-8 leading-snug">
+            <h2 className="font-serif-luxury text-xl sm:text-2xl font-extrabold text-white mb-6 leading-snug">
               {currentStep.question}
             </h2>
 
             {/* Options List */}
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               {currentStep.options.map((opt, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSelectOption(opt)}
-                  className="w-full p-4 sm:p-5 rounded-2xl bg-[#16221c]/90 hover:bg-[#1f3027] border border-[#c5a059]/25 hover:border-[#c5a059]/70 transition-all duration-200 flex items-center gap-3.5 text-left cursor-pointer group shadow-sm hover:shadow-md hover:shadow-[#c5a059]/10"
+                  className="w-full p-3.5 sm:p-4 rounded-2xl bg-[#16221c]/90 hover:bg-[#1f3027] border border-[#c5a059]/25 hover:border-[#c5a059]/70 transition-all duration-200 flex items-center gap-3 text-left cursor-pointer group shadow-sm hover:shadow-md hover:shadow-[#c5a059]/10"
                 >
-                  <span className="text-xl sm:text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                  <span className="text-xl shrink-0 group-hover:scale-110 transition-transform">
                     {opt.emoji}
                   </span>
                   <span className="text-xs sm:text-sm text-gray-200 font-medium leading-relaxed group-hover:text-white transition-colors">
@@ -401,14 +449,26 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps> = ({
               </div>
             </div>
 
-            {/* CTA Button */}
-            <button
-              onClick={handleViewSanctuary}
-              className="w-full py-4 px-6 rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider text-black bg-[#c5a059] hover:bg-[#d8b467] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#c5a059]/20 cursor-pointer group"
-            >
-              <span>{t.ctaButton}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            {/* CTA Buttons - Ver Detalle + Reservar Directo */}
+            <div className="space-y-2.5">
+              <button
+                onClick={handleBookNow}
+                className="w-full py-3.5 px-6 rounded-2xl font-bold text-xs sm:text-sm uppercase tracking-wider text-black bg-[#c5a059] hover:bg-[#d8b467] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#c5a059]/20 cursor-pointer group"
+              >
+                <span>{t.ctaButton}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                onClick={handleViewSanctuary}
+                className="w-full py-2.5 px-6 rounded-2xl font-medium text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+              >
+                {currentLang === 'en' ? 'View full details first' :
+                 currentLang === 'fr' ? 'Voir tous les détails' :
+                 currentLang === 'cat' ? 'Veure tots els detalls' :
+                 currentLang === 'pt' ? 'Ver todos os detalhes' :
+                 'Ver todos los detalles primero'}
+              </button>
+            </div>
           </div>
         )}
       </div>

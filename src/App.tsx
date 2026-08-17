@@ -186,6 +186,10 @@ export default function App() {
             currentLang={currentLang}
             onClose={() => setSaturationTestOpen(false)}
             onSelectRefuge={(refuge) => handleSelectRefuge(refuge)}
+            onBookNow={(refugeId) => {
+              setSaturationTestOpen(false);
+              handleOpenBooking(refugeId);
+            }}
           />
         </ModalErrorBoundary>
       )}

@@ -47,17 +47,18 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
       <div className="bg-white text-[#1c2a23] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-[#c5a059]/30">
-        {/* Sticky Close Button */}
-        <button
-          onClick={onClose}
-          className="sticky top-4 right-4 z-20 ml-auto mr-4 p-2.5 bg-black/70 hover:bg-black text-white rounded-full transition-colors flex items-center justify-center"
-          aria-label="Cerrar modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
 
         {/* Hero Gallery Header */}
-        <div className="relative -mt-12 h-80 sm:h-96 w-full bg-black">
+        <div className="relative h-80 sm:h-96 w-full bg-black overflow-hidden rounded-t-3xl">
+
+          {/* Sticky Close Button - Absolute inside hero */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2.5 bg-black/70 hover:bg-black text-white rounded-full transition-colors flex items-center justify-center"
+            aria-label="Cerrar modal"
+          >
+            <X className="w-5 h-5" />
+          </button>
           <img
             src={activeImage}
             alt={refuge.name}

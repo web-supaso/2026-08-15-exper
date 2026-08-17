@@ -154,7 +154,7 @@ export const Footer: React.FC<FooterProps> = ({
                 AMABLE
               </span>
             </a>
-            <span className="text-[10px] text-slate-500 font-mono tracking-tight">v.04</span>
+            <span className="text-[10px] text-slate-500 font-mono tracking-tight">v.05</span>
           </div>
         </div>
       </div>
