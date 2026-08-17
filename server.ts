@@ -206,6 +206,13 @@ async function startServer() {
         const i18n = EMAIL_I18N[lang] || EMAIL_I18N.es;
         const refugeName = REFUGE_NAMES[newLead.preferredRefuge] || newLead.preferredRefuge;
         
+        const recipients: string[] = [];
+        if (newLead.email && newLead.email.includes('@') && !newLead.email.includes('ejemplo.com') && !newLead.email.includes('d@d.co') && !newLead.email.includes('a@a.c')) {
+          recipients.push(newLead.email);
+        }
+        recipients.push('reservas@experienciasconestilo.com');
+        recipients.push('estiloexperiencias@gmail.com');
+
         await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
@@ -213,8 +220,8 @@ async function startServer() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: 'Experiencias con Estilo <onboarding@resend.dev>',
-            to: ['estiloexperiencias@gmail.com'],
+            from: 'Experiencias con Estilo <reservas@experienciasconestilo.com>',
+            to: recipients,
             subject: i18n.subject(newLead.fullName, refugeName),
             html: `
               <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0e1713; color: #e8ece9; padding: 24px 12px; text-align: center;">

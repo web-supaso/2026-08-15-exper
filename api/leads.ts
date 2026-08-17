@@ -212,7 +212,12 @@ async function sendConfirmationEmail(lead: any) {
     const lang = lead.language || 'es';
     const i18n = EMAIL_I18N[lang] || EMAIL_I18N.es;
     const refugeName = REFUGE_NAMES[lead.preferredRefuge] || lead.preferredRefuge;
-    const recipients = [OPERATOR_EMAIL];
+    const recipients: string[] = [];
+    if (lead.email && lead.email.includes('@') && !lead.email.includes('ejemplo.com') && !lead.email.includes('d@d.co') && !lead.email.includes('a@a.c')) {
+      recipients.push(lead.email);
+    }
+    recipients.push('reservas@experienciasconestilo.com');
+    recipients.push(OPERATOR_EMAIL);
 
     const htmlContent = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0e1713; color: #e8ece9; padding: 24px 12px; text-align: center;">
@@ -294,7 +299,7 @@ async function sendConfirmationEmail(lead: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Experiencias con Estilo <onboarding@resend.dev>',
+        from: 'Experiencias con Estilo <reservas@experienciasconestilo.com>',
         to: recipients,
         subject: i18n.subject(lead.fullName, refugeName),
         html: htmlContent,
