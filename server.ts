@@ -231,12 +231,11 @@ async function startServer() {
         const i18n = EMAIL_I18N[lang] || EMAIL_I18N.es;
         const refugeName = REFUGE_NAMES[newLead.preferredRefuge] || newLead.preferredRefuge;
         
-        const recipients: string[] = [];
-        if (newLead.email && newLead.email.includes('@') && !newLead.email.includes('ejemplo.com') && !newLead.email.includes('d@d.co') && !newLead.email.includes('a@a.c')) {
-          recipients.push(newLead.email);
-        }
-        recipients.push('reservas@experienciasconestilo.com');
-        recipients.push('estiloexperiencias@gmail.com');
+        const guestEmail = (newLead.email && newLead.email.includes('@') && !newLead.email.includes('ejemplo.com') && !newLead.email.includes('d@d.co') && !newLead.email.includes('a@a.c'))
+          ? newLead.email
+          : 'estiloexperiencias@gmail.com';
+
+        const bccList = (guestEmail.toLowerCase() !== 'estiloexperiencias@gmail.com') ? ['estiloexperiencias@gmail.com'] : [];
 
         const refugeImage = (newLead.preferredRefuge === 'el-nido-del-estrecho' || newLead.preferredRefuge === 'nido-estrecho')
           ? 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&h=320&q=80'
@@ -254,7 +253,9 @@ async function startServer() {
           },
           body: JSON.stringify({
             from: 'Experiencias con Estilo <reservas@experienciasconestilo.com>',
-            to: recipients,
+            to: [guestEmail],
+            reply_to: 'reservas@experienciasconestilo.com',
+            ...(bccList.length > 0 ? { bcc: bccList } : {}),
             subject: i18n.subject(newLead.fullName, refugeName),
             html: `
 <!DOCTYPE html>

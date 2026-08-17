@@ -222,12 +222,11 @@ async function sendConfirmationEmail(lead: any) {
     const refugeName = REFUGE_NAMES[lead.preferredRefuge] || lead.preferredRefuge;
     const refugeImage = REFUGE_IMAGES[lead.preferredRefuge] || REFUGE_IMAGES['refugi-canigo'];
     
-    const recipients: string[] = [];
-    if (lead.email && lead.email.includes('@') && !lead.email.includes('ejemplo.com') && !lead.email.includes('d@d.co') && !lead.email.includes('a@a.c')) {
-      recipients.push(lead.email);
-    }
-    recipients.push('reservas@experienciasconestilo.com');
-    recipients.push(OPERATOR_EMAIL);
+    const guestEmail = (lead.email && lead.email.includes('@') && !lead.email.includes('ejemplo.com') && !lead.email.includes('d@d.co') && !lead.email.includes('a@a.c'))
+      ? lead.email
+      : OPERATOR_EMAIL;
+
+    const bccList = (guestEmail.toLowerCase() !== OPERATOR_EMAIL.toLowerCase()) ? [OPERATOR_EMAIL] : [];
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -397,7 +396,9 @@ async function sendConfirmationEmail(lead: any) {
       },
       body: JSON.stringify({
         from: 'Experiencias con Estilo <reservas@experienciasconestilo.com>',
-        to: recipients,
+        to: [guestEmail],
+        reply_to: 'reservas@experienciasconestilo.com',
+        ...(bccList.length > 0 ? { bcc: bccList } : {}),
         subject: i18n.subject(lead.fullName, refugeName),
         html: htmlContent,
       }),
