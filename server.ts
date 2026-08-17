@@ -94,11 +94,86 @@ async function startServer() {
         console.warn("[CRM Leads] Warning enviando a Supabase:", crmErr);
       }
 
+      // Enviar email de confirmación con Resend
+      try {
+        const REFUGE_NAMES: Record<string, string> = {
+          'refugi-canigo': 'Refugi del Canigó (Pirineos Orientales)',
+          'el-nido-del-estrecho': 'El Nido del Estrecho (Tarifa / Gibraltar)',
+          'nido-estrecho': 'El Nido del Estrecho (Tarifa / Gibraltar)',
+          'refugio-obsidiana': 'El Refugio de Obsidiana (Serranía de Albarracín)',
+          'falesia-atlantica': 'Falesia Atlántica (Costa Vicentina, Portugal)',
+        };
+        const refugeName = REFUGE_NAMES[newLead.preferredRefuge] || newLead.preferredRefuge;
+        
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer re_KGV7vzrh_M8PAJZqbdVWTkFCh2RfnBiwC',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: 'Experiencias con Estilo <onboarding@resend.dev>',
+            to: ['estiloexperiencias@gmail.com'],
+            subject: `✨ Solicitud Recibida: ${newLead.fullName} — ${refugeName}`,
+            html: `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0e1713; color: #e8ece9; padding: 40px 20px; text-align: center;">
+                <div style="max-width: 580px; margin: 0 auto; background-color: #14201a; border: 1px solid #c5a059; border-radius: 20px; padding: 32px 24px; text-align: left;">
+                  <div style="text-align: center; margin-bottom: 24px;">
+                    <span style="display: inline-block; padding: 6px 16px; background-color: #2a2010; color: #e5c07b; border: 1px solid #c5a059; border-radius: 9999px; font-size: 11px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase;">
+                      ✨ Solicitud Recibida • En Revisión Concierge
+                    </span>
+                    <h1 style="color: #ffffff; font-size: 24px; font-weight: 800; margin: 16px 0 6px 0;">Experiencias con Estilo</h1>
+                    <p style="color: #c5a059; font-size: 13px; margin: 0; font-style: italic;">"Santuarios de descanso y naturaleza salvaje"</p>
+                  </div>
+                  <p style="font-size: 14px; line-height: 1.6; color: #d1d5db;">
+                    Hola <strong>${newLead.fullName}</strong>,<br><br>
+                    Hemos recibido tu solicitud de estancia. Para garantizar el silencio y la exclusividad de cada santuario, gestionamos cada reserva de forma personalizada.
+                  </p>
+                  <div style="background-color: #0e1713; border: 1px solid #2d4234; border-radius: 14px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: #e5c07b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 14px 0; border-bottom: 1px solid #2d4234; padding-bottom: 8px;">
+                      📋 Resumen de tu Solicitud
+                    </h3>
+                    <table style="width: 100%; font-size: 13px; color: #e5e7eb; border-collapse: collapse;">
+                      <tr><td style="padding: 7px 0; color: #9ca3af;">Santuario:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #ffffff;">${refugeName}</td></tr>
+                      <tr><td style="padding: 7px 0; color: #9ca3af;">Fechas:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #e5c07b;">${newLead.checkIn} al ${newLead.checkOut}</td></tr>
+                      <tr><td style="padding: 7px 0; color: #9ca3af;">Huéspedes:</td><td style="padding: 7px 0; text-align: right; font-weight: bold;">${newLead.guests} personas</td></tr>
+                      <tr><td style="padding: 7px 0; color: #9ca3af;">Contacto:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #ffffff;">${newLead.phone || '-'} • ${newLead.email || '-'}</td></tr>
+                      <tr><td style="padding: 7px 0; color: #9ca3af;">Mascota / Preferencias:</td><td style="padding: 7px 0; text-align: right; font-weight: bold; color: #d8f3dc;">${newLead.pets ? 'Con mascota' : 'Sin mascota'} • ${newLead.notes || 'Estándar'}</td></tr>
+                    </table>
+                  </div>
+                  <div style="background-color: #231b0b; border-left: 4px solid #c5a059; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px;">
+                    <p style="font-size: 12px; color: #f3e8d2; margin: 0; line-height: 1.6;">
+                      🕒 <strong>Compromiso de Atención:</strong> Nuestro equipo de Concierge validará el aforo y te responderá en un plazo máximo de <strong>4 horas hábiles</strong>.
+                    </p>
+                  </div>
+                  <div style="text-align: center; padding-top: 10px;">
+                    <a href="https://wa.me/5493541664488?text=Hola%2C%20acabo%20de%20enviar%20mi%20solicitud%20para%20${encodeURIComponent(refugeName)}%20a%20nombre%20de%20${encodeURIComponent(newLead.fullName)}" style="display: inline-block; padding: 14px 28px; background-color: #c5a059; color: #0e1713; font-weight: bold; font-size: 13px; text-decoration: none; border-radius: 12px;">
+                      💬 Contactar con Concierge por WhatsApp
+                    </a>
+                  </div>
+                  <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #2d4234; text-align: center;">
+                    <a href="https://hotel-crm-five-gold.vercel.app/leads" style="font-size: 11px; color: #9ca3af; text-decoration: underline;">
+                      Acceso a Intranet CRM
+                    </a>
+                  </div>
+                </div>
+                <p style="font-size: 11px; color: #6b7280; margin-top: 24px;">
+                  © ${new Date().getFullYear()} Experiencias con Estilo • Diseñado con pasión por Marketing Amable
+                </p>
+              </div>
+            `,
+          }),
+        });
+        console.log("[Resend Email] Email de confirmación enviado exitosamente a estiloexperiencias@gmail.com");
+      } catch (emailErr) {
+        console.warn("[Resend Email] Error enviando email:", emailErr);
+      }
+
       res.status(201).json({
         success: true,
-        message: "Solicitud registrada con éxito en el sistema Concierge & CRM",
+        message: "Solicitud registrada y confirmación enviada por email.",
         leadId: newLead.id,
-        crmStatus: "Sincronizado con Supabase CRM en tiempo real",
+        crmStatus: "Sincronizado con Supabase CRM y Resend en tiempo real",
       });
     } catch (err: any) {
       console.error("Error saving lead:", err);
