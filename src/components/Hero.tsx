@@ -118,13 +118,23 @@ export const Hero: React.FC<HeroProps> = ({ currentLang, onExploreClick, onBookC
               <label className="block text-[10px] font-bold text-[#e5c07b] uppercase tracking-widest mb-1">
                 {t.hero.bookingBar.entryLabel}
               </label>
-              <input type="date" className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]" defaultValue="2026-08-21" />
+              <input
+                type="date"
+                min={new Date().toISOString().split('T')[0]}
+                defaultValue={new Date().toISOString().split('T')[0]}
+                className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]"
+              />
             </div>
             <div className="flex-1 px-4 py-2 text-left">
               <label className="block text-[10px] font-bold text-[#e5c07b] uppercase tracking-widest mb-1">
                 {t.hero.bookingBar.exitLabel}
               </label>
-              <input type="date" className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]" defaultValue="2026-08-23" />
+              <input
+                type="date"
+                min={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                defaultValue={new Date(Date.now() + 86400000).toISOString().split('T')[0]}
+                className="bg-transparent text-white text-sm w-full outline-none cursor-pointer font-light [color-scheme:dark]"
+              />
             </div>
             <button
               onClick={onBookClick}

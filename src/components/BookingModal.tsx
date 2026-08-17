@@ -23,12 +23,32 @@ interface BookingModalProps {
   onClose: () => void;
 }
 
+// Date formatting helpers
+const formatDateToISO = (d: Date) => {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const getTodayString = () => formatDateToISO(new Date());
+
+const getNextDayString = (dateStr?: string) => {
+  const base = dateStr ? new Date(dateStr + 'T00:00:00') : new Date();
+  base.setDate(base.getDate() + 1);
+  return formatDateToISO(base);
+};
+
 export const BookingModal: React.FC<BookingModalProps> = ({
   initialRefugeId,
   currentLang,
   onClose,
 }) => {
   const t = translations?.[currentLang] || translations?.es;
+
+  // Dynamic Today and Tomorrow
+  const todayStr = useMemo(() => getTodayString(), []);
+  const tomorrowStr = useMemo(() => getNextDayString(), []);
 
   // Selected refuge
   const [selectedRefugeId, setSelectedRefugeId] = useState<string>(() => {
@@ -43,13 +63,21 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     return refugesData.find((r) => r.id === selectedRefugeId) || refugesData[0];
   }, [selectedRefugeId]);
 
-  // Form states
-  const [checkIn, setCheckIn] = useState('2026-08-21');
-  const [checkOut, setCheckOut] = useState('2026-08-23');
+  // Form states with dynamic today/tomorrow
+  const [checkIn, setCheckIn] = useState(() => todayStr);
+  const [checkOut, setCheckOut] = useState(() => tomorrowStr);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+
+  const handleCheckInChange = (newCheckIn: string) => {
+    setCheckIn(newCheckIn);
+    // If checkout is before or equal to the new check-in, push it to check-in + 1 day
+    if (!checkOut || checkOut <= newCheckIn) {
+      setCheckOut(getNextDayString(newCheckIn));
+    }
+  };
 
   // Guest counters
   const [adults, setAdults] = useState(2);
@@ -241,9 +269,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     <input
                       type="date"
                       required
+                      min={todayStr}
                       value={checkIn}
-                      onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl bg-[#0e1713] border border-[#2d4234] text-white focus:outline-none focus:border-[#d8a84e] text-xs [color-scheme:dark]"
+                      onChange={(e) => handleCheckInChange(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl bg-[#0e1713] border border-[#2d4234] text-white focus:outline-none focus:border-[#d8a84e] text-xs [color-scheme:dark] cursor-pointer"
                     />
                   </div>
                   <div>
@@ -253,9 +282,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     <input
                       type="date"
                       required
+                      min={checkIn ? getNextDayString(checkIn) : tomorrowStr}
                       value={checkOut}
                       onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl bg-[#0e1713] border border-[#2d4234] text-white focus:outline-none focus:border-[#d8a84e] text-xs [color-scheme:dark]"
+                      className="w-full px-3 py-2.5 rounded-xl bg-[#0e1713] border border-[#2d4234] text-white focus:outline-none focus:border-[#d8a84e] text-xs [color-scheme:dark] cursor-pointer"
                     />
                   </div>
                 </div>
