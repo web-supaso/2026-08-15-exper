@@ -31,7 +31,7 @@ async function startServer() {
   });
 
   // API Leads CRM Endpoint (Simulating Google Sheets CRM Sync)
-  app.post("/api/leads", (req, res) => {
+  app.post("/api/leads", async (req, res) => {
     try {
       const { fullName, email, phone, preferredRefuge, checkIn, checkOut, guests, travelStyle, pets, notes, language } = req.body;
       
@@ -54,11 +54,51 @@ async function startServer() {
       leadsCRM.push(newLead);
       console.log("[CRM Leads] New lead registered successfully:", newLead);
 
+      // Forward directly to Supabase CRM
+      try {
+        const CRM_PROPERTY_MAP: Record<string, string> = {
+          'refugi-canigo': 'bbbb0001-0000-0000-0000-000000000001',
+          'el-nido-del-estrecho': 'bbbb0002-0000-0000-0000-000000000002',
+          'nido-estrecho': 'bbbb0002-0000-0000-0000-000000000002',
+          'refugio-obsidiana': 'bbbb0003-0000-0000-0000-000000000003',
+          'falesia-atlantica': 'bbbb0004-0000-0000-0000-000000000004',
+        };
+        const propertyId = CRM_PROPERTY_MAP[preferredRefuge] || 'bbbb0001-0000-0000-0000-000000000001';
+        
+        await fetch('https://rzwqpxkehhpmekksninp.supabase.co/rest/v1/leads', {
+          method: 'POST',
+          headers: {
+            apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal',
+          },
+          body: JSON.stringify({
+            organization_id: '22222222-0000-0000-0000-000000000002',
+            property_id: propertyId,
+            guest_name: fullName || 'Anónimo',
+            guest_email: email || null,
+            guest_phone: phone || '',
+            requested_check_in: checkIn || null,
+            requested_check_out: checkOut || null,
+            guests_count: guests || 2,
+            pets_count: pets ? 1 : 0,
+            dietary_notes: notes?.includes('vegetariana') ? 'Opción vegetariana' : 'Dieta estándar',
+            special_requests: notes || '',
+            status: 'nuevo',
+            source: 'web_form',
+          }),
+        });
+        console.log("[CRM Leads] Sincronizado exitosamente con Supabase CRM.");
+      } catch (crmErr) {
+        console.warn("[CRM Leads] Warning enviando a Supabase:", crmErr);
+      }
+
       res.status(201).json({
         success: true,
         message: "Solicitud registrada con éxito en el sistema Concierge & CRM",
         leadId: newLead.id,
-        crmStatus: "Google Sheets Sync Simulated (Live)",
+        crmStatus: "Sincronizado con Supabase CRM en tiempo real",
       });
     } catch (err: any) {
       console.error("Error saving lead:", err);

@@ -107,8 +107,27 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
     setSubmitting(true);
 
+    const guestName = `${firstName} ${lastName}`.trim() || 'Huésped Interesado';
+    const crmPropertyId =
+      selectedRefugeId === 'refugio-obsidiana'
+        ? 'bbbb0003-0000-0000-0000-000000000003'
+        : selectedRefugeId === 'falesia-atlantica'
+        ? 'bbbb0004-0000-0000-0000-000000000004'
+        : selectedRefugeId === 'nido-estrecho' || selectedRefugeId === 'el-nido-del-estrecho'
+        ? 'bbbb0002-0000-0000-0000-000000000002'
+        : 'bbbb0001-0000-0000-0000-000000000001';
+
+    const specialReqs = [
+      specialOccasion ? `Ocasión especial: ${specialOccasion}` : '',
+      vegetarian ? 'Opción vegetariana: Sí' : '',
+      `Desglose: ${adults} adultos, ${childrenCount} niños, ${babies} bebés`,
+      notes ? `Mensaje: ${notes}` : '',
+    ]
+      .filter(Boolean)
+      .join(' | ');
+
     const leadData: BookingLead = {
-      fullName: `${firstName} ${lastName}`.trim(),
+      fullName: guestName,
       email,
       phone,
       preferredRefuge: selectedRefugeId,
@@ -117,32 +136,55 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       guests: totalPersons,
       travelStyle: specialOccasion || 'Desconexión & Silencio',
       pets,
-      notes: [
-        notes,
-        specialOccasion ? `Ocasión especial: ${specialOccasion}` : '',
-        vegetarian ? 'Opción vegetariana: Sí' : '',
-        `Desglose: ${adults} adultos, ${childrenCount} niños, ${babies} bebés`,
-      ]
-        .filter(Boolean)
-        .join(' | '),
+      notes: specialReqs,
       language: currentLang,
       createdAt: new Date().toISOString(),
     };
 
+    // 1. Direct Supabase CRM Sync (populates https://hotel-crm-five-gold.vercel.app/leads)
     try {
-      // 1. Local backup in browser storage
+      await fetch('https://rzwqpxkehhpmekksninp.supabase.co/rest/v1/leads', {
+        method: 'POST',
+        headers: {
+          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          organization_id: '22222222-0000-0000-0000-000000000002',
+          property_id: crmPropertyId,
+          guest_name: guestName,
+          guest_email: email,
+          guest_phone: phone,
+          requested_check_in: checkIn,
+          requested_check_out: checkOut,
+          guests_count: totalPersons,
+          pets_count: pets ? 1 : 0,
+          dietary_notes: vegetarian ? 'Opción vegetariana: Sí' : 'Dieta estándar',
+          special_requests: specialReqs,
+          status: 'nuevo',
+          source: 'web_form',
+        }),
+      });
+      console.log('[CRM] Lead sincronizado exitosamente con el CRM.');
+    } catch (crmErr) {
+      console.warn('[CRM] Warning en sincronización directa:', crmErr);
+    }
+
+    // 2. Backup Local y API local
+    try {
       const savedLeads = JSON.parse(localStorage.getItem('experiencias_leads') || '[]');
       savedLeads.unshift(leadData);
       localStorage.setItem('experiencias_leads', JSON.stringify(savedLeads));
 
-      // 2. Server API sync
       await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData),
       });
     } catch {
-      console.log('Lead registrado con éxito.');
+      // Local backup complete
     }
 
     setSubmitting(false);

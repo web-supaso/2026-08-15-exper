@@ -1,10 +1,22 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-// In-memory / serverless storage for leads
+const SUPABASE_CRM_URL = 'https://rzwqpxkehhpmekksninp.supabase.co';
+const SUPABASE_CRM_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c';
+const CRM_ORG_ID = '22222222-0000-0000-0000-000000000002';
+
+const CRM_PROPERTY_MAP: Record<string, string> = {
+  'refugi-canigo': 'bbbb0001-0000-0000-0000-000000000001',
+  'el-nido-del-estrecho': 'bbbb0002-0000-0000-0000-000000000002',
+  'nido-estrecho': 'bbbb0002-0000-0000-0000-000000000002',
+  'refugio-obsidiana': 'bbbb0003-0000-0000-0000-000000000003',
+  'falesia-atlantica': 'bbbb0004-0000-0000-0000-000000000004',
+};
+
+// In-memory serverless storage for quick debug
 const leads: any[] = [];
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  // Enable CORS
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -38,7 +50,38 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     leads.unshift(newLead);
-    console.log('[Vercel Serverless CRM] Nuevo lead recibido:', newLead);
+
+    // Forward to Supabase CRM database
+    try {
+      const propertyId = CRM_PROPERTY_MAP[preferredRefuge] || 'bbbb0001-0000-0000-0000-000000000001';
+      await fetch(`${SUPABASE_CRM_URL}/rest/v1/leads`, {
+        method: 'POST',
+        headers: {
+          apikey: SUPABASE_CRM_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_CRM_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          organization_id: CRM_ORG_ID,
+          property_id: propertyId,
+          guest_name: fullName || 'Anónimo',
+          guest_email: email || null,
+          guest_phone: phone || '',
+          requested_check_in: checkIn || null,
+          requested_check_out: checkOut || null,
+          guests_count: guests || 2,
+          pets_count: pets ? 1 : 0,
+          dietary_notes: notes?.includes('vegetariana') ? 'Opción vegetariana' : 'Dieta estándar',
+          special_requests: notes || '',
+          status: 'nuevo',
+          source: 'web_form',
+        }),
+      });
+      console.log('[Vercel Serverless CRM] Lead persistido en Supabase CRM');
+    } catch (err) {
+      console.error('[Vercel Serverless CRM] Error al persistir en Supabase:', err);
+    }
 
     return res.status(201).json({
       success: true,

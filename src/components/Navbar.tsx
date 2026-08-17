@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Calendar, Menu, X, Globe } from 'lucide-react';
+import { Calendar, Menu, X, Globe, Lock } from 'lucide-react';
 
 interface NavbarProps {
   currentLang: Language;
@@ -107,6 +107,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               )}
             </div>
+
+            {/* Link discreto Intranet CRM */}
+            <a
+              href="https://hotel-crm-five-gold.vercel.app/leads"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-medium text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all shadow-sm"
+              title="Acceso al CRM / Intranet"
+            >
+              <Lock className="w-3 h-3 text-[#c5a059]" />
+              <span>Intranet</span>
+            </a>
 
             {/* Botón de Reservar */}
             <button
@@ -217,12 +229,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
+            <a
+              href="https://hotel-crm-five-gold.vercel.app/leads"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-semibold text-[#e5c07b] bg-white/5 border border-[#c5a059]/30 hover:bg-white/10 transition-colors"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              <span>Acceso Intranet CRM</span>
+            </a>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenBooking();
               }}
-              className="w-full text-center py-3 font-semibold text-xs uppercase tracking-wider text-white gold-gradient-bg rounded-lg shadow-md"
+              className="w-full text-center py-3 font-semibold text-xs uppercase tracking-wider text-white gold-gradient-bg rounded-lg shadow-md cursor-pointer"
             >
               {t.nav.book}
             </button>
