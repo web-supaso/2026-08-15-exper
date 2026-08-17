@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-const RESEND_API_KEY = 're_KGV7vzrh_M8PAJZqbdVWTkFCh2RfnBiwC';
+const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 const OPERATOR_EMAIL = 'estiloexperiencias@gmail.com';
 const OPERATOR_PHONE = '+5493541664488';
 
