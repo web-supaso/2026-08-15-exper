@@ -175,50 +175,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       createdAt: new Date().toISOString(),
     };
 
-    // 1. Direct Supabase CRM Sync (populates https://hotel-crm-five-gold.vercel.app/leads)
-    try {
-      await fetch('https://rzwqpxkehhpmekksninp.supabase.co/rest/v1/leads', {
-        method: 'POST',
-        headers: {
-          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ6d3FweGtlaGhwbWVra3NuaW5wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY1NTMyMzksImV4cCI6MjEwMjEyOTIzOX0.uZnwk8DYYyi8LSzP96iZoqf9kuJa4gV3KF6dWak-M8c',
-          'Content-Type': 'application/json',
-          Prefer: 'return=minimal',
-        },
-        body: JSON.stringify({
-          organization_id: '22222222-0000-0000-0000-000000000002',
-          property_id: crmPropertyId,
-          guest_name: guestName,
-          guest_email: email,
-          guest_phone: phone,
-          requested_check_in: checkIn,
-          requested_check_out: checkOut,
-          guests_count: totalPersons,
-          pets_count: pets ? 1 : 0,
-          dietary_notes: vegetarian ? 'Opción vegetariana: Sí' : 'Dieta estándar',
-          special_requests: specialReqs,
-          status: 'nuevo',
-          source: 'web_form',
-        }),
-      });
-      console.log('[CRM] Lead sincronizado exitosamente con el CRM.');
-    } catch (crmErr) {
-      console.warn('[CRM] Warning en sincronización directa:', crmErr);
-    }
-
-    // 2. Backup Local y API local
+    // 1. Guardar backup en localStorage
     try {
       const savedLeads = JSON.parse(localStorage.getItem('experiencias_leads') || '[]');
       savedLeads.unshift(leadData);
       localStorage.setItem('experiencias_leads', JSON.stringify(savedLeads));
+    } catch (localErr) {
+      console.warn('[LocalStorage] Error guardando copia local:', localErr);
+    }
 
+    // 2. Envío único y atómico al backend (Supabase CRM + Resend Email + Telegram Alert)
+    try {
       await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadData),
       });
-    } catch {
-      // Local backup complete
+      console.log('[API Leads] Solicitud enviada exitosamente al servidor.');
+    } catch (apiErr) {
+      console.warn('[API Leads] Error en envío al servidor:', apiErr);
     }
 
     setSubmitting(false);
