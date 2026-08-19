@@ -88,7 +88,7 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
           {/* Title and location inside image */}
           <div className="absolute bottom-6 left-6 right-6 text-white">
             <span className="text-xs font-bold uppercase tracking-widest text-[#e5c07b] block mb-1">
-              {refuge.location} • {refuge.region}
+              {refuge.location[currentLang]} • {refuge.region[currentLang]}
             </span>
             <h2 className="font-serif-luxury text-3xl sm:text-5xl font-bold mb-2">
               {refuge.name}
@@ -210,8 +210,18 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
                 onClick={onClose}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold text-xs text-gray-600 hover:text-black bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
               >
-                ← Explorar toda la web
+                ← {t.bookingModal.backBtn}
               </button>
+
+              {refuge.id === 'refugi-canigo' && (
+                <a
+                  href="/canigo/"
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold text-xs text-white bg-[#1c2a23] hover:bg-[#253930] border border-[#c5a059]/50 transition-all flex items-center justify-center gap-2 shadow-md"
+                >
+                  <Sparkles className="w-4 h-4 text-[#c5a059]" />
+                  <span>{t.quizSection.resultCta}</span>
+                </a>
+              )}
 
               <button
                 onClick={() => {

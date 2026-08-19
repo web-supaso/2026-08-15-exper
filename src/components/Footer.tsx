@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({
               {t.footer.tagline}
             </p>
             <div className="text-[11px] text-[#c5a059] font-mono">
-              http://experienciasconestilo.com
+              https://www.experienciasconestilo.com
             </div>
           </div>
 
@@ -45,22 +45,22 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2 text-xs text-gray-400 font-light">
               <li>
-                <a href="#refugios" className="hover:text-[#c5a059] transition-colors">
-                  Refugi del Canigó (Pirineos)
+                <a href="/canigo/" className="hover:text-[#c5a059] transition-colors font-medium text-gray-300">
+                  Refugi del Canigó (Pirineos) →
                 </a>
               </li>
               <li>
-                <a href="#refugios" className="hover:text-[#c5a059] transition-colors">
+                <a href="#refugio-de-obsidiana" className="hover:text-[#c5a059] transition-colors">
                   El Refugio de Obsidiana (Teruel)
                 </a>
               </li>
               <li>
-                <a href="#refugios" className="hover:text-[#c5a059] transition-colors">
+                <a href="#falesia-atlantica" className="hover:text-[#c5a059] transition-colors">
                   Falesia Atlántica (Portugal)
                 </a>
               </li>
               <li>
-                <a href="#refugios" className="hover:text-[#c5a059] transition-colors">
+                <a href="#el-nido-del-estrecho" className="hover:text-[#c5a059] transition-colors">
                   El Nido del Estrecho (Gibraltar)
                 </a>
               </li>

@@ -24,6 +24,308 @@ interface BookingModalProps {
   onClose: () => void;
 }
 
+const modalI18n: Record<Language, {
+  badge: string;
+  title: string;
+  subtitle: string;
+  dateSelection: string;
+  subjectAvailability: string;
+  checkIn: string;
+  checkOut: string;
+  nightsCount: (n: number) => string;
+  selectDates: string;
+  sanctuaryLabel: string;
+  fromPerNight: (price: number) => string;
+  firstName: string;
+  firstNamePlaceholder: string;
+  lastName: string;
+  lastNamePlaceholder: string;
+  email: string;
+  phone: string;
+  guests: string;
+  adults: string;
+  adultsAge: string;
+  children: string;
+  childrenAge: string;
+  babies: string;
+  babiesAge: string;
+  totalGuests: (total: number, max: number) => string;
+  specialOccasion: string;
+  specialOccasionPlaceholder: string;
+  pets: string;
+  vegetarian: string;
+  yes: string;
+  no: string;
+  notes: string;
+  notesPlaceholder: string;
+  privacy: string;
+  privacyError: string;
+  submit: string;
+  submitting: string;
+  successBadge: string;
+  successTitle: string;
+  successDesc: (name: string, sanctuary: string) => string;
+  step1Title: string;
+  step1Desc: (inDate: string, outDate: string, nights: number) => string;
+  step2Title: string;
+  step2Desc: (guests: number) => string;
+  step3Title: string;
+  step3Desc: string;
+  whatsappBtn: string;
+  backBtn: string;
+}> = {
+  es: {
+    badge: "ATENCIÓN SÍNCRONA CONCIERGE",
+    title: "Reserva tu experiencia",
+    subtitle: "Plazas limitadas por santuario.",
+    dateSelection: "SELECCIÓN SÍNCRONA DE FECHAS",
+    subjectAvailability: "SUJETO A DISPONIBILIDAD",
+    checkIn: "Check-in (Entrada)",
+    checkOut: "Check-out (Salida)",
+    nightsCount: (n) => `${n} ${n === 1 ? 'noche seleccionada' : 'noches seleccionadas'}`,
+    selectDates: "Selecciona fechas válidas",
+    sanctuaryLabel: "Santuario / Refugio *",
+    fromPerNight: (price) => `Desde ${price}€/noche`,
+    firstName: "Nombre *",
+    firstNamePlaceholder: "Ej. Sofía",
+    lastName: "Apellidos *",
+    lastNamePlaceholder: "Ej. Martínez",
+    email: "Correo electrónico *",
+    phone: "Teléfono / WhatsApp *",
+    guests: "Huéspedes",
+    adults: "Adultos",
+    adultsAge: "13+ AÑOS",
+    children: "Niños",
+    childrenAge: "3-12 AÑOS",
+    babies: "Bebés",
+    babiesAge: "0-2 AÑOS",
+    totalGuests: (t, m) => `TOTAL: ${t} ${t === 1 ? 'PERSONA' : 'PERSONAS'} / ${m} MÁX`,
+    specialOccasion: "Ocasión especial (opcional)",
+    specialOccasionPlaceholder: "Aniversario, sorpresa, retiro...",
+    pets: "¿Viajas con mascota?",
+    vegetarian: "¿Opción vegetariana?",
+    yes: "Sí",
+    no: "No",
+    notes: "Peticiones especiales o comentarios",
+    notesPlaceholder: "Comentarios sobre alergias, preferencias especiales...",
+    privacy: "Acepto la política de privacidad y el tratamiento de mis datos. *",
+    privacyError: "⚠️ Por favor, marca esta casilla para enviar tu solicitud Concierge.",
+    submit: "ENVIAR SOLICITUD",
+    submitting: "PROCESANDO SOLICITUD...",
+    successBadge: "SOLICITUD EN ATENCIÓN DIRECTA",
+    successTitle: "¡Solicitud Recibida con Éxito!",
+    successDesc: (name, s) => `Gracias, ${name}. Tu solicitud para ${s} está en manos de nuestro equipo de Concierge.`,
+    step1Title: "1. Acuse de recibo y ficha enviada",
+    step1Desc: (inD, outD, n) => `Estancia registrada del ${inD} al ${outD} (${n} ${n === 1 ? 'noche' : 'noches'}).`,
+    step2Title: "2. Verificación de aforo y privacidad",
+    step2Desc: (g) => `Comprobamos la disponibilidad para ${g} ${g === 1 ? 'persona' : 'personas'} y tus preferencias de estancia.`,
+    step3Title: "3. Contacto prioritario garantizado",
+    step3Desc: "Te responderemos en un plazo máximo de 4 horas hábiles con la confirmación final.",
+    whatsappBtn: "¿Deseas atención prioritaria? Chatear por WhatsApp",
+    backBtn: "Volver y continuar explorando",
+  },
+  en: {
+    badge: "CONCIERGE SYNCHRONOUS DESK",
+    title: "Reserve your experience",
+    subtitle: "Strictly limited capacity per sanctuary.",
+    dateSelection: "SYNCHRONOUS DATE SELECTION",
+    subjectAvailability: "SUBJECT TO AVAILABILITY",
+    checkIn: "Check-in Date",
+    checkOut: "Check-out Date",
+    nightsCount: (n) => `${n} ${n === 1 ? 'night selected' : 'nights selected'}`,
+    selectDates: "Please select valid dates",
+    sanctuaryLabel: "Sanctuary / Refuge *",
+    fromPerNight: (price) => `From ${price}€/night`,
+    firstName: "First Name *",
+    firstNamePlaceholder: "e.g. Sophia",
+    lastName: "Last Name *",
+    lastNamePlaceholder: "e.g. Miller",
+    email: "Email Address *",
+    phone: "Phone / WhatsApp *",
+    guests: "Guests",
+    adults: "Adults",
+    adultsAge: "13+ YEARS",
+    children: "Children",
+    childrenAge: "3-12 YEARS",
+    babies: "Babies",
+    babiesAge: "0-2 YEARS",
+    totalGuests: (t, m) => `TOTAL: ${t} ${t === 1 ? 'GUEST' : 'GUESTS'} / ${m} MAX`,
+    specialOccasion: "Special occasion (optional)",
+    specialOccasionPlaceholder: "Anniversary, surprise, retreat...",
+    pets: "Traveling with a pet?",
+    vegetarian: "Vegetarian dining?",
+    yes: "Yes",
+    no: "No",
+    notes: "Special requests or notes",
+    notesPlaceholder: "Allergies, anniversary surprises, preferences...",
+    privacy: "I accept the privacy policy and the processing of my personal data. *",
+    privacyError: "⚠️ Please check this box to submit your Concierge inquiry.",
+    submit: "SUBMIT INQUIRY",
+    submitting: "PROCESSING INQUIRY...",
+    successBadge: "DIRECT CONCIERGE ASSIGNMENT",
+    successTitle: "Inquiry Received Successfully!",
+    successDesc: (name, s) => `Thank you, ${name}. Your request for ${s} is now with our Concierge team.`,
+    step1Title: "1. Confirmation & dossier sent",
+    step1Desc: (inD, outD, n) => `Stay registered from ${inD} to ${outD} (${n} ${n === 1 ? 'night' : 'nights'}).`,
+    step2Title: "2. Privacy & capacity verification",
+    step2Desc: (g) => `Checking availability for ${g} ${g === 1 ? 'guest' : 'guests'} and custom requirements.`,
+    step3Title: "3. Guaranteed priority reply",
+    step3Desc: "We will contact you within 4 business hours with exact bespoke options.",
+    whatsappBtn: "Need immediate attention? Chat on WhatsApp",
+    backBtn: "Return to explore website",
+  },
+  fr: {
+    badge: "SERVICE CONCIERGE DÉDIÉ",
+    title: "Réservez votre séjour",
+    subtitle: "Nombre de places strictement limité.",
+    dateSelection: "SÉLECTION DE DATES SYNCHRONE",
+    subjectAvailability: "SOUS RÉSERVE DE DISPONIBILITÉ",
+    checkIn: "Arrivée (Check-in)",
+    checkOut: "Départ (Check-out)",
+    nightsCount: (n) => `${n} ${n === 1 ? 'nuit sélectionnée' : 'nuits sélectionnées'}`,
+    selectDates: "Sélectionnez des dates valides",
+    sanctuaryLabel: "Sanctuaire / Refuge *",
+    fromPerNight: (price) => `Dès ${price}€/nuit`,
+    firstName: "Prénom *",
+    firstNamePlaceholder: "Ex. Sophie",
+    lastName: "Nom de famille *",
+    lastNamePlaceholder: "Ex. Dupont",
+    email: "Adresse email *",
+    phone: "Téléphone / WhatsApp *",
+    guests: "Invités",
+    adults: "Adultes",
+    adultsAge: "13+ ANS",
+    children: "Enfants",
+    childrenAge: "3-12 ANS",
+    babies: "Bébés",
+    babiesAge: "0-2 ANS",
+    totalGuests: (t, m) => `TOTAL : ${t} ${t === 1 ? 'PERSONNE' : 'PERSONNES'} / ${m} MAX`,
+    specialOccasion: "Occasion spéciale (optionnel)",
+    specialOccasionPlaceholder: "Anniversaire, surprise, retraite...",
+    pets: "Voyagez-vous avec un animal ?",
+    vegetarian: "Menu végétarien ?",
+    yes: "Oui",
+    no: "Non",
+    notes: "Demandes particulières",
+    notesPlaceholder: "Allergies, régimes particuliers, surprises...",
+    privacy: "J'accepte la politique de confidentialité et le traitement de mes données. *",
+    privacyError: "⚠️ Veuillez cocher cette case pour envoyer votre demande Concierge.",
+    submit: "ENVOYER LA DEMANDE",
+    submitting: "TRAITEMENT EN COURS...",
+    successBadge: "DEMANDE PRISE EN CHARGE",
+    successTitle: "Demande Envoyée avec Succès !",
+    successDesc: (name, s) => `Merci, ${name}. Votre demande pour ${s} est entre les mains de notre Concierge.`,
+    step1Title: "1. Récapitulatif et dossier envoyés",
+    step1Desc: (inD, outD, n) => `Séjour enregistré du ${inD} au ${outD} (${n} ${n === 1 ? 'nuit' : 'nuits'}).`,
+    step2Title: "2. Vérification de capacité et sérénité",
+    step2Desc: (g) => `Vérification pour ${g} ${g === 1 ? 'personne' : 'personnes'} et vos préférences.`,
+    step3Title: "3. Contact prioritaire garanti",
+    step3Desc: "Nous vous répondrons sous 4 heures ouvrables avec votre confirmation.",
+    whatsappBtn: "Besoin d'une réponse immédiate ? WhatsApp Concierge",
+    backBtn: "Retourner et explorer le site",
+  },
+  cat: {
+    badge: "ATENCIÓ SÍNCRONA CONCIERGE",
+    title: "Reserva la teva experiència",
+    subtitle: "Places estrictament limitades per santuari.",
+    dateSelection: "SELECCIÓ SÍNCRONA DE DATES",
+    subjectAvailability: "SUBJECTE A DISPONIBILITAT",
+    checkIn: "Entrada (Check-in)",
+    checkOut: "Sortida (Check-out)",
+    nightsCount: (n) => `${n} ${n === 1 ? 'nit seleccionada' : 'nits seleccionades'}`,
+    selectDates: "Selecciona dates vàlides",
+    sanctuaryLabel: "Santuari / Refugi *",
+    fromPerNight: (price) => `Des de ${price}€/nit`,
+    firstName: "Nom *",
+    firstNamePlaceholder: "Ex. Sofia",
+    lastName: "Cognoms *",
+    lastNamePlaceholder: "Ex. Puig",
+    email: "Correu electrònic *",
+    phone: "Telèfon / WhatsApp *",
+    guests: "Hostes",
+    adults: "Adults",
+    adultsAge: "13+ ANYS",
+    children: "Nens",
+    childrenAge: "3-12 ANYS",
+    babies: "Nadons",
+    babiesAge: "0-2 ANYS",
+    totalGuests: (t, m) => `TOTAL: ${t} ${t === 1 ? 'PERSONA' : 'PERSONES'} / ${m} MÀX`,
+    specialOccasion: "Ocasió especial (opcional)",
+    specialOccasionPlaceholder: "Aniversari, sorpresa, retir...",
+    pets: "Viatges amb mascota?",
+    vegetarian: "Opció vegetariana?",
+    yes: "Sí",
+    no: "No",
+    notes: "Peticions especials o comentaris",
+    notesPlaceholder: "Al·lèrgies, sorpreses d'aniversari, preferències...",
+    privacy: "Accepto la política de privacitat i el tractament de les meves dades. *",
+    privacyError: "⚠️ Si us plau, marca aquesta casella per enviar la sol·licitud Concierge.",
+    submit: "ENVIAR SOL·LICITUD",
+    submitting: "PROCESSANT SOL·LICITUD...",
+    successBadge: "SOL·LICITUD EN ATENCIÓ DIRECTA",
+    successTitle: "Sol·licitud Rebuda amb Èxit!",
+    successDesc: (name, s) => `Gràcies, ${name}. La teva sol·licitud per a ${s} està en mans del nostre Concierge.`,
+    step1Title: "1. Acusament de recepció i fitxa enviada",
+    step1Desc: (inD, outD, n) => `Estada registrada del ${inD} al ${outD} (${n} ${n === 1 ? 'nit' : 'nits'}).`,
+    step2Title: "2. Verificació d'aforament i privadesa",
+    step2Desc: (g) => `Comprovem disponibilitat per a ${g} ${g === 1 ? 'persona' : 'persones'} i detalls.`,
+    step3Title: "3. Contacte prioritari garantit",
+    step3Desc: "Et respondrem en un termini màxim de 4 hores hàbils amb opcions a mida.",
+    whatsappBtn: "Vols atenció immediata? Xatejar per WhatsApp",
+    backBtn: "Tornar i continuar explorant",
+  },
+  pt: {
+    badge: "ATENDIMENTO SÍNCRONO CONCIERGE",
+    title: "Reserve a sua experiência",
+    subtitle: "Lotação estritamente limitada.",
+    dateSelection: "SELEÇÃO SÍNCRONA DE DATAS",
+    subjectAvailability: "SUJEITO A DISPONIBILIDADE",
+    checkIn: "Entrada (Check-in)",
+    checkOut: "Saída (Check-out)",
+    nightsCount: (n) => `${n} ${n === 1 ? 'noite selecionada' : 'noites selecionadas'}`,
+    selectDates: "Selecione datas válidas",
+    sanctuaryLabel: "Santuário / Refúgio *",
+    fromPerNight: (price) => `A partir de ${price}€/noite`,
+    firstName: "Primeiro Nome *",
+    firstNamePlaceholder: "Ex. Sofia",
+    lastName: "Apelidos *",
+    lastNamePlaceholder: "Ex. Santos",
+    email: "Correio eletrónico *",
+    phone: "Telefone / WhatsApp *",
+    guests: "Hóspedes",
+    adults: "Adultos",
+    adultsAge: "13+ ANOS",
+    children: "Crianças",
+    childrenAge: "3-12 ANOS",
+    babies: "Bebés",
+    babiesAge: "0-2 ANOS",
+    totalGuests: (t, m) => `TOTAL: ${t} ${t === 1 ? 'PESSOA' : 'PESSOAS'} / ${m} MÁX`,
+    specialOccasion: "Ocasião especial (opcional)",
+    specialOccasionPlaceholder: "Aniversário, surpresa, retiro...",
+    pets: "Viaja com animal de estimação?",
+    vegetarian: "Opção vegetariana?",
+    yes: "Sim",
+    no: "Não",
+    notes: "Pedidos especiais ou notas",
+    notesPlaceholder: "Alergias, surpresas de aniversário, preferências...",
+    privacy: "Aceito a política de privacidade e o tratamento dos meus dados. *",
+    privacyError: "⚠️ Por favor, marque esta caixa para enviar o seu pedido Concierge.",
+    submit: "ENVIAR PEDIDO",
+    submitting: "PROCESSANDO PEDIDO...",
+    successBadge: "PEDIDO EM ATENDIMENTO DIRETO",
+    successTitle: "Pedido Recebido com Sucesso!",
+    successDesc: (name, s) => `Obrigado, ${name}. O seu pedido para ${s} está a ser tratado pelo Concierge.`,
+    step1Title: "1. Confirmação e dossier enviado",
+    step1Desc: (inD, outD, n) => `Estadia registada de ${inD} a ${outD} (${n} ${n === 1 ? 'noite' : 'noites'}).`,
+    step2Title: "2. Verificação de lotação e privacidade",
+    step2Desc: (g) => `A verificar disponibilidade para ${g} ${g === 1 ? 'pessoa' : 'pessoas'} e preferências.`,
+    step3Title: "3. Resposta prioritária garantida",
+    step3Desc: "Responderemos num prazo máximo de 4 horas úteis com a confirmação final.",
+    whatsappBtn: "Deseja atendimento imediato? Falar por WhatsApp",
+    backBtn: "Voltar e continuar a explorar",
+  },
+};
+
 // Date formatting helpers
 const formatDateToISO = (d: Date) => {
   const year = d.getFullYear();
@@ -46,6 +348,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   onClose,
 }) => {
   const t = translations?.[currentLang] || translations?.es;
+  const L = modalI18n[currentLang] || modalI18n.es;
 
   // Dynamic Today and Tomorrow
   const todayStr = useMemo(() => getTodayString(), []);
@@ -237,13 +540,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <div className="mb-6">
               <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-[#d8a84e] mb-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#d8a84e]" />
-                <span>ATENCIÓN SÍNCRONA CONCIERGE</span>
+                <span>{L.badge}</span>
               </div>
               <h2 className="font-serif-luxury text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Reserva tu experiencia
+                {L.title}
               </h2>
               <p className="text-xs text-gray-400 font-light mt-0.5">
-                Plazas limitadas.
+                {L.subtitle}
               </p>
             </div>
 
@@ -253,18 +556,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-[#d8a84e] font-bold text-[11px] uppercase tracking-wider">
                     <Calendar className="w-4 h-4 text-[#d8a84e]" />
-                    <span>SELECCIÓN SÍNCRONA DE FECHAS</span>
+                    <span>{L.dateSelection}</span>
                   </div>
                   <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#3d2f14] text-[#e5b355] text-[10px] font-bold tracking-wider uppercase">
                     <Zap className="w-3 h-3 text-[#e5b355] fill-[#e5b355]" />
-                    <span>SUJETO A DISPONIBILIDAD</span>
+                    <span>{L.subjectAvailability}</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] font-medium text-gray-300 mb-1">
-                      Check-in (Entrada)
+                      {L.checkIn}
                     </label>
                     <input
                       type="date"
@@ -277,7 +580,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   </div>
                   <div>
                     <label className="block text-[11px] font-medium text-gray-300 mb-1">
-                      Check-out (Salida)
+                      {L.checkOut}
                     </label>
                     <input
                       type="date"
@@ -294,8 +597,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   <Clock className="w-3.5 h-3.5" />
                   <span>
                     {nightsCount > 0
-                      ? `${nightsCount} ${nightsCount === 1 ? 'noche seleccionada' : 'noches seleccionadas'}`
-                      : 'Selecciona fechas válidas'}
+                      ? L.nightsCount(nightsCount)
+                      : L.selectDates}
                   </span>
                 </div>
               </div>
@@ -303,7 +606,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Refuge Selector (Dropdown) */}
               <div>
                 <label className="block text-gray-300 font-medium mb-1">
-                  Santuario / Refugio *
+                  {L.sanctuaryLabel}
                 </label>
                 <select
                   value={selectedRefugeId}
@@ -312,7 +615,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 >
                   {refugesData.map((r) => (
                     <option key={r.id} value={r.id} className="bg-[#0e1713] text-white">
-                      {r.name} ({r.region}) — Desde {r.priceFromPerNight}€/noche
+                      {r.name} ({r.region[currentLang]}) — {L.fromPerNight(r.priceFromPerNight)}
                     </option>
                   ))}
                 </select>
@@ -322,7 +625,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Nombres *
+                    {L.firstName}
                   </label>
                   <div className="relative">
                     <User className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -331,14 +634,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       required
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="Ej. Sofía"
+                      placeholder={L.firstNamePlaceholder}
                       className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[#14201a] border border-[#2d4234] text-white placeholder-gray-500 focus:outline-none focus:border-[#d8a84e]"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Apellidos *
+                    {L.lastName}
                   </label>
                   <div className="relative">
                     <User className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -347,7 +650,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       required
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Ej. Martínez"
+                      placeholder={L.lastNamePlaceholder}
                       className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[#14201a] border border-[#2d4234] text-white placeholder-gray-500 focus:outline-none focus:border-[#d8a84e]"
                     />
                   </div>
@@ -358,7 +661,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Correo electrónico *
+                    {L.email}
                   </label>
                   <div className="relative">
                     <Mail className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -367,14 +670,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="sofia@ejemplo.com"
+                      placeholder="email@ejemplo.com"
                       className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[#14201a] border border-[#2d4234] text-white placeholder-gray-500 focus:outline-none focus:border-[#d8a84e]"
                     />
                   </div>
                 </div>
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Teléfono *
+                    {L.phone}
                   </label>
                   <div className="relative">
                     <Phone className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -395,14 +698,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 {/* Huéspedes */}
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Huéspedes
+                    {L.guests}
                   </label>
                   <div className="p-3.5 rounded-xl bg-[#14201a] border border-[#2d4234] space-y-2.5">
                     {/* Adultos */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold text-white text-xs">Adultos</div>
-                        <div className="text-[10px] text-gray-400">13+ AÑOS</div>
+                        <div className="font-semibold text-white text-xs">{L.adults}</div>
+                        <div className="text-[10px] text-gray-400">{L.adultsAge}</div>
                       </div>
                       <div className="flex items-center gap-2.5">
                         <button
@@ -430,8 +733,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     {/* Niños */}
                     <div className="flex items-center justify-between pt-1 border-t border-white/5">
                       <div>
-                        <div className="font-semibold text-white text-xs">Niños</div>
-                        <div className="text-[10px] text-gray-400">3-12 AÑOS</div>
+                        <div className="font-semibold text-white text-xs">{L.children}</div>
+                        <div className="text-[10px] text-gray-400">{L.childrenAge}</div>
                       </div>
                       <div className="flex items-center gap-2.5">
                         <button
@@ -459,8 +762,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     {/* Bebés */}
                     <div className="flex items-center justify-between pt-1 border-t border-white/5">
                       <div>
-                        <div className="font-semibold text-white text-xs">Bebés</div>
-                        <div className="text-[10px] text-gray-400">0-2 AÑOS</div>
+                        <div className="font-semibold text-white text-xs">{L.babies}</div>
+                        <div className="text-[10px] text-gray-400">{L.babiesAge}</div>
                       </div>
                       <div className="flex items-center gap-2.5">
                         <button
@@ -486,7 +789,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     </div>
 
                     <div className="pt-2 border-t border-white/10 text-center font-bold text-[10px] text-[#d8a84e] tracking-wider uppercase">
-                      TOTAL: {totalPersons} {totalPersons === 1 ? 'PERSONA' : 'PERSONAS'} / {maxCapacity}
+                      {L.totalGuests(totalPersons, maxCapacity)}
                     </div>
                   </div>
                 </div>
@@ -494,7 +797,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 {/* Ocasión Especial */}
                 <div>
                   <label className="block text-gray-300 font-medium mb-1">
-                    Ocasión especial (opcional)
+                    {L.specialOccasion}
                   </label>
                   <div className="relative">
                     <Sparkles className="w-3.5 h-3.5 text-gray-400 absolute left-3.5 top-3" />
@@ -502,7 +805,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       rows={4}
                       value={specialOccasion}
                       onChange={(e) => setSpecialOccasion(e.target.value)}
-                      placeholder="Aniversario, sorpresa..."
+                      placeholder={L.specialOccasionPlaceholder}
                       className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-[#14201a] border border-[#2d4234] text-white placeholder-gray-500 focus:outline-none focus:border-[#d8a84e] text-xs resize-none"
                     />
                   </div>
@@ -512,7 +815,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Toggles: Mascota & Vegetariano (2 cols) */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center justify-between p-3 rounded-xl bg-[#14201a] border border-[#2d4234]">
-                  <span className="text-gray-300 text-[11px] font-medium">¿Viajas con mascota?</span>
+                  <span className="text-gray-300 text-[11px] font-medium">{L.pets}</span>
                   <button
                     type="button"
                     onClick={() => setPets(!pets)}
@@ -520,12 +823,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       pets ? 'bg-[#d8a84e] text-black shadow-md' : 'bg-[#243328] text-gray-300'
                     }`}
                   >
-                    {pets ? 'Sí' : 'No'}
+                    {pets ? L.yes : L.no}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-between p-3 rounded-xl bg-[#14201a] border border-[#2d4234]">
-                  <span className="text-gray-300 text-[11px] font-medium">¿Opción vegetariana?</span>
+                  <span className="text-gray-300 text-[11px] font-medium">{L.vegetarian}</span>
                   <button
                     type="button"
                     onClick={() => setVegetarian(!vegetarian)}
@@ -533,7 +836,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       vegetarian ? 'bg-[#d8a84e] text-black shadow-md' : 'bg-[#243328] text-gray-300'
                     }`}
                   >
-                    {vegetarian ? 'Sí' : 'No'}
+                    {vegetarian ? L.yes : L.no}
                   </button>
                 </div>
               </div>
@@ -541,13 +844,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Mensaje adicional */}
               <div>
                 <label className="block text-gray-300 font-medium mb-1">
-                  Mensaje adicional
+                  {L.notes}
                 </label>
                 <textarea
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Comentarios adicionales..."
+                  placeholder={L.notesPlaceholder}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-[#14201a] border border-[#2d4234] text-white placeholder-gray-500 focus:outline-none focus:border-[#d8a84e] text-xs resize-none"
                 />
               </div>
@@ -571,12 +874,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     className="mt-0.5 w-4 h-4 rounded border-[#2d4234] bg-[#14201a] text-[#d8a84e] focus:ring-0 cursor-pointer accent-[#d8a84e]"
                   />
                   <span className="text-[11px] text-gray-300 leading-snug">
-                    Acepto la política de privacidad y el tratamiento de mis datos. *
+                    {L.privacy}
                   </span>
                 </label>
                 {privacyError && (
                   <p className="text-[10px] text-red-400 font-semibold mt-1.5 pl-6">
-                    ⚠️ Por favor, marca esta casilla para enviar tu solicitud Concierge.
+                    {L.privacyError}
                   </p>
                 )}
               </div>
@@ -588,7 +891,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 className="w-full py-4 rounded-xl font-bold uppercase tracking-wider text-black bg-[#e5a93c] hover:bg-[#f0b952] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#e5a93c]/20 mt-2 text-xs disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
-                <span>{submitting ? 'PROCESANDO SOLICITUD...' : 'ENVIAR SOLICITUD'}</span>
+                <span>{submitting ? L.submitting : L.submit}</span>
               </button>
             </form>
           </div>
@@ -597,7 +900,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {/* Top Golden Badge */}
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#3d2f14] border border-[#d8a84e]/60 text-[#e5b355] text-[10px] font-bold tracking-widest uppercase">
               <Sparkles className="w-3.5 h-3.5 text-[#e5b355]" />
-              <span>SOLICITUD EN ATENCIÓN DIRECTA</span>
+              <span>{L.successBadge}</span>
             </div>
 
             <div className="w-14 h-14 rounded-2xl bg-[#d8a84e]/15 text-[#d8a84e] flex items-center justify-center mx-auto border border-[#d8a84e]/50 shadow-xl shadow-[#d8a84e]/10">
@@ -606,10 +909,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             <div>
               <h3 className="font-serif-luxury text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1.5">
-                ¡Solicitud Recibida con Éxito!
+                {L.successTitle}
               </h3>
               <p className="text-xs text-gray-300 font-light max-w-md mx-auto leading-relaxed">
-                Gracias, <strong className="text-white font-semibold">{firstName || 'Huésped'}</strong>. Tu solicitud para <strong className="text-[#e5c07b] font-semibold">{currentRefuge?.name}</strong> está en manos de nuestro equipo de Concierge.
+                {L.successDesc(firstName || 'Huésped', currentRefuge?.name || '')}
               </p>
             </div>
 
@@ -620,9 +923,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   ✓
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">1. Acuse de recibo y ficha enviada</h4>
+                  <h4 className="text-xs font-bold text-white">{L.step1Title}</h4>
                   <p className="text-[11px] text-gray-400 font-light">
-                    Estancia registrada del <span className="text-[#e5c07b] font-medium">{checkIn} al {checkOut}</span> ({nightsCount} {nightsCount === 1 ? 'noche' : 'noches'}).
+                    {L.step1Desc(checkIn, checkOut, nightsCount)}
                   </p>
                 </div>
               </div>
@@ -632,9 +935,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   2
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">2. Verificación de aforo y privacidad</h4>
+                  <h4 className="text-xs font-bold text-white">{L.step2Title}</h4>
                   <p className="text-[11px] text-gray-400 font-light">
-                    Comprobamos la disponibilidad para {totalPersons} personas y tus preferencias especiales de estancia.
+                    {L.step2Desc(totalPersons)}
                   </p>
                 </div>
               </div>
@@ -644,9 +947,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   3
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-white">3. Contacto prioritario garantizado</h4>
+                  <h4 className="text-xs font-bold text-white">{L.step3Title}</h4>
                   <p className="text-[11px] text-gray-400 font-light">
-                    Te responderemos en un plazo máximo de <strong className="text-white">4 horas hábiles</strong> con la confirmación final.
+                    {L.step3Desc}
                   </p>
                 </div>
               </div>
@@ -663,7 +966,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 className="w-full py-3.5 px-4 rounded-xl font-bold uppercase tracking-wider text-black bg-[#25D366] hover:bg-[#20bd5a] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#25D366]/20 text-xs"
               >
                 <MessageSquare className="w-4 h-4 fill-black text-black" />
-                <span>¿Deseas atención prioritaria? Chatear por WhatsApp</span>
+                <span>{L.whatsappBtn}</span>
               </a>
 
               <button
@@ -671,7 +974,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 onClick={onClose}
                 className="w-full py-2.5 px-4 rounded-xl font-medium text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
               >
-                Volver y continuar explorando
+                {L.backBtn}
               </button>
             </div>
           </div>

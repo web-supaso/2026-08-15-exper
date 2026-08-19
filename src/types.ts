@@ -4,10 +4,10 @@ export interface Refuge {
   id: string;
   slug: string;
   name: string;
-  tagline: string;
-  location: string;
-  region: string;
-  country: string;
+  tagline: Record<Language, string>;
+  location: Record<Language, string>;
+  region: Record<Language, string>;
+  country: Record<Language, string>;
   coordinates: {
     lat: number;
     lng: number;
@@ -32,7 +32,7 @@ export interface Refuge {
   specialFeature: Record<Language, string>;
   weatherPreview?: {
     temp: string;
-    condition: string;
+    condition: Record<Language, string>;
     starlightScore?: string;
   };
 }
@@ -49,7 +49,7 @@ export interface LocalPartner {
   id: string;
   name: string;
   type: Record<Language, string>;
-  location: string;
+  location: Record<Language, string>;
   description: Record<Language, string>;
   impactBadge: Record<Language, string>;
   image: string;

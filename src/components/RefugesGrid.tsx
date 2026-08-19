@@ -116,7 +116,7 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
                 {/* Badges on Image */}
                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                   <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-[#1c2a23]/90 text-white backdrop-blur-md border border-[#c5a059]/40">
-                    {refuge.region}
+                    {refuge.region[currentLang]}
                   </span>
                   {refuge.petFriendly && (
                     <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/90 text-white backdrop-blur-md">
@@ -136,7 +136,7 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
                     <div className="flex items-center gap-1.5 font-medium">
                       <Thermometer className="w-3.5 h-3.5 text-[#c5a059]" />
                       <span>{refuge.weatherPreview.temp}</span>
-                      <span className="opacity-75">• {refuge.weatherPreview.condition}</span>
+                      <span className="opacity-75">• {refuge.weatherPreview.condition[currentLang]}</span>
                     </div>
                   </div>
                 )}
@@ -151,12 +151,12 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
                     </h3>
                     <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
                       <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                      <span>{refuge.country}</span>
+                      <span>{refuge.country[currentLang]}</span>
                     </div>
                   </div>
 
                   <p className="text-xs font-semibold text-[#c5a059] uppercase tracking-wider mb-4">
-                    {refuge.tagline}
+                    {refuge.tagline[currentLang]}
                   </p>
 
                   <p className="text-gray-600 text-sm leading-relaxed mb-6 font-light">
@@ -187,13 +187,23 @@ export const RefugesGrid: React.FC<RefugesGridProps> = ({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => onSelectRefuge(refuge)}
-                      className="flex-1 sm:flex-none px-4 py-2.5 rounded-full text-xs font-semibold text-[#1c2a23] bg-white border border-gray-300 hover:border-[#1c2a23] transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
-                    >
-                      <Eye className="w-3.5 h-3.5 text-[#c5a059]" />
-                      <span>{t.refugesSection.viewDetails}</span>
-                    </button>
+                    {refuge.id === 'refugi-canigo' ? (
+                      <a
+                        href="/canigo/"
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-full text-xs font-semibold text-white bg-[#1c2a23] hover:bg-[#253930] border border-[#c5a059]/50 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                      >
+                        <Eye className="w-3.5 h-3.5 text-[#c5a059]" />
+                        <span>{t.refugesSection.viewDetails}</span>
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => onSelectRefuge(refuge)}
+                        className="flex-1 sm:flex-none px-4 py-2.5 rounded-full text-xs font-semibold text-[#1c2a23] bg-white border border-gray-300 hover:border-[#1c2a23] transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                      >
+                        <Eye className="w-3.5 h-3.5 text-[#c5a059]" />
+                        <span>{t.refugesSection.viewDetails}</span>
+                      </button>
+                    )}
 
                     <button
                       onClick={() => onBookRefuge(refuge.id)}

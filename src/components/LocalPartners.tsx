@@ -48,7 +48,7 @@ export const LocalPartners: React.FC<LocalPartnersProps> = ({ currentLang }) => 
                 <div className="p-6">
                   <div className="flex items-center gap-1.5 text-xs text-[#c5a059] font-semibold mb-1">
                     <MapPin className="w-3.5 h-3.5" />
-                    <span>{partner.location}</span>
+                    <span>{partner.location[currentLang]}</span>
                   </div>
 
                   <h3 className="font-serif-luxury text-lg font-bold text-[#1c2a23] mb-3">

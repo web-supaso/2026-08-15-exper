@@ -11,7 +11,13 @@ export const localPartners: LocalPartner[] = [
       cat: "Productor de Formatge Km 0",
       pt: "Produtor de Queijo Km 0",
     },
-    location: "Vernet-les-Bains, Pirineos",
+    location: {
+      es: "Vernet-les-Bains, Pirineos",
+      en: "Vernet-les-Bains, French Pyrenees",
+      fr: "Vernet-les-Bains, Pyrénées",
+      cat: "Vernet-les-Bains, Pirineus",
+      pt: "Vernet-les-Bains, Pirenéus"
+    },
     description: {
       es: "Quesos orgánicos elaborados a mano con leche de ovejas criadas en libertad en pastos de alta montaña.",
       en: "Artisanal organic cheeses crafted from free-roaming mountain sheep milk.",
@@ -38,7 +44,13 @@ export const localPartners: LocalPartner[] = [
       cat: "Guies Astronòmics & Astrofotografia",
       pt: "Guias Astronômicos & Astrofotografia",
     },
-    location: "Sierra de Gúdar-Javalambre",
+    location: {
+      es: "Sierra de Gúdar-Javalambre, Teruel",
+      en: "Sierra de Gúdar-Javalambre, Teruel",
+      fr: "Sierra de Gúdar-Javalambre, Teruel",
+      cat: "Serra de Gúdar-Javalambre, Terol",
+      pt: "Serra de Gúdar-Javalambre, Teruel"
+    },
     description: {
       es: "Astrofísicos locales que guían sesiones de interpretación del firmamento y fotografía de cielo profundo.",
       en: "Local astrophysicists guiding night sky interpretation and deep-space photography.",
@@ -65,7 +77,13 @@ export const localPartners: LocalPartner[] = [
       cat: "Agricultura Biològica & Recol·lecció",
       pt: "Agricultura Biológica & Foraging",
     },
-    location: "Zambujeira do Mar, Costa Vicentina",
+    location: {
+      es: "Zambujeira do Mar, Costa Vicentina",
+      en: "Zambujeira do Mar, Vicentina Coast",
+      fr: "Zambujeira do Mar, Côte Vicentine",
+      cat: "Zambujeira do Mar, Costa Vicentina",
+      pt: "Zambujeira do Mar, Costa Vicentina"
+    },
     description: {
       es: "Cesta diaria de hortalizas, aceites vírgenes y sal marina cosechada artesanalmente en salinas protegidas.",
       en: "Daily basket of organic vegetables, cold-pressed olive oils, and hand-harvested sea salt.",
@@ -92,7 +110,13 @@ export const localPartners: LocalPartner[] = [
       cat: "Guies Naturalistes & Cetacis",
       pt: "Guias Naturalistas & Cetáceos",
     },
-    location: "Peñón de Gibraltar",
+    location: {
+      es: "Peñón de Gibraltar",
+      en: "Rock of Gibraltar",
+      fr: "Rocher de Gibraltar",
+      cat: "Penyal de Gibraltar",
+      pt: "Rochedo de Gibraltar"
+    },
     description: {
       es: "Especialistas en biodiversidad endémica que orientan avistamientos de rapaces y migración marina.",
       en: "Endemic biodiversity specialists guiding marine and raptor migration observations.",

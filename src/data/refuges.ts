@@ -5,10 +5,34 @@ export const refugesData: Refuge[] = [
     id: "refugi-canigo",
     slug: "refugi-del-canigo",
     name: "Refugi del Canigó",
-    tagline: "60+ Hectáreas Privadas de Bosque, Cascadas y Río de Montaña",
-    location: "Vernet-les-Bains, Pirineos Orientales",
-    region: "Pirineos Catalanes / Franceses",
-    country: "Francia / España",
+    tagline: {
+      es: "60+ Hectáreas Privadas de Bosque, Cascadas y Río de Montaña",
+      en: "60+ Hectares of Private Forest, Cascades & Mountain River",
+      fr: "60+ Hectares de Forêt Privée, Cascades et Rivière de Montagne",
+      cat: "60+ Hectàrees Privades de Bosc, Cascades i Riu de Muntanya",
+      pt: "60+ Hectares de Floresta Privada, Cascatas e Rio de Montanha"
+    },
+    location: {
+      es: "Vernet-les-Bains, Pirineos Orientales",
+      en: "Vernet-les-Bains, Eastern Pyrenees",
+      fr: "Vernet-les-Bains, Pyrénées-Orientales",
+      cat: "Vernet-les-Bains, Pirineus Orientals",
+      pt: "Vernet-les-Bains, Pirenéus Orientais"
+    },
+    region: {
+      es: "Pirineos Catalanes / Franceses",
+      en: "French / Catalan Pyrenees",
+      fr: "Pyrénées Catalanes / Françaises",
+      cat: "Pirineus Catalans / Francesos",
+      pt: "Pirenéus Catalães / Franceses"
+    },
+    country: {
+      es: "Francia / España",
+      en: "France / Spain",
+      fr: "France / Espagne",
+      cat: "França / Espanya",
+      pt: "França / Espanha"
+    },
     coordinates: {
       lat: 42.5489,
       lng: 2.3962,
@@ -95,17 +119,47 @@ export const refugesData: Refuge[] = [
     },
     weatherPreview: {
       temp: "19°C",
-      condition: "Fresco de Montaña • Agua de Río 14°C"
+      condition: {
+        es: "Fresco de Montaña • Agua de Río 14°C",
+        en: "Mountain Crisp • River Water 14°C",
+        fr: "Fraîcheur de Montagne • Eau de Rivière 14°C",
+        cat: "Frescor de Muntanya • Aigua de Riu 14°C",
+        pt: "Frescor de Montanha • Água de Rio 14°C"
+      }
     }
   },
   {
     id: "refugio-obsidiana",
     slug: "refugio-de-obsidiana",
     name: "El Refugio de Obsidiana",
-    tagline: "Reserva Starlight, Piedra Volcánica y Desconexión Digital Intencionada",
-    location: "Sierra de Gúdar / Albarracín",
-    region: "Teruel, Aragón",
-    country: "España",
+    tagline: {
+      es: "Reserva Starlight, Piedra Volcánica y Desconexión Digital Intencionada",
+      en: "Certified Starlight Reserve, Volcanic Stone & Mindful Digital Detox",
+      fr: "Réserve Starlight, Pierre Volcanique et Déconnexion Numérique Volontaire",
+      cat: "Reserva Starlight, Pedra Volcànica i Desconnexió Digital Intencionada",
+      pt: "Reserva Starlight, Pedra Vulcânica e Desconexão Digital Intencional"
+    },
+    location: {
+      es: "Sierra de Gúdar / Albarracín",
+      en: "Sierra de Gúdar / Albarracín Range",
+      fr: "Sierra de Gúdar / Albarracín",
+      cat: "Serra de Gúdar / Albarrasí",
+      pt: "Serra de Gúdar / Albarracín"
+    },
+    region: {
+      es: "Teruel, Aragón",
+      en: "Teruel, Aragon",
+      fr: "Teruel, Aragon",
+      cat: "Terol, Aragó",
+      pt: "Teruel, Aragão"
+    },
+    country: {
+      es: "España",
+      en: "Spain",
+      fr: "Espagne",
+      cat: "Espanya",
+      pt: "Espanha"
+    },
     coordinates: {
       lat: 40.3456,
       lng: -1.1345,
@@ -191,18 +245,48 @@ export const refugesData: Refuge[] = [
     },
     weatherPreview: {
       temp: "15°C",
-      condition: "Cielo Despejado • Visibilidad Estelar 99%",
-      starlightScore: "Bortle Class 1 (Excepcional)"
+      condition: {
+        es: "Cielo Despejado • Visibilidad Estelar 99%",
+        en: "Clear Sky • 99% Starlight Visibility",
+        fr: "Ciel Dégagé • Visibilité Stellaire 99%",
+        cat: "Cel Clar • Visibilitat Estel·lar 99%",
+        pt: "Céu Limpo • Visibilidade Estelar 99%"
+      },
+      starlightScore: "Bortle Class 1"
     }
   },
   {
     id: "falesia-atlantica",
     slug: "falesia-atlantica",
     name: "Falesia Atlántica",
-    tagline: "Eco-Lujo sobre Acantilados, Pools Marinas y Foraging Salvaje",
-    location: "Sines / Zambujeira do Mar",
-    region: "Costa Vicentina, Alentejo",
-    country: "Portugal",
+    tagline: {
+      es: "Eco-Lujo sobre Acantilados, Pools Marinas y Foraging Salvaje",
+      en: "Cliff-Edge Eco-Luxury, Seawater Pools & Wild Ocean Foraging",
+      fr: "Éco-Luxe sur Falaises, Piscines d'Eau de Mer et Cueillette Sauvage",
+      cat: "Eco-Luxe sobre Penya-segats, Piscines Marines i Recol·lecció Salvatge",
+      pt: "Eco-Luxo sobre Falésias, Piscinas Marinhas e Foraging Selvagem"
+    },
+    location: {
+      es: "Sines / Zambujeira do Mar",
+      en: "Sines / Zambujeira do Mar",
+      fr: "Sines / Zambujeira do Mar",
+      cat: "Sines / Zambujeira do Mar",
+      pt: "Sines / Zambujeira do Mar"
+    },
+    region: {
+      es: "Costa Vicentina, Alentejo",
+      en: "Vicentina Coast, Alentejo",
+      fr: "Côte Vicentine, Alentejo",
+      cat: "Costa Vicentina, Alentejo",
+      pt: "Costa Vicentina, Alentejo"
+    },
+    country: {
+      es: "Portugal",
+      en: "Portugal",
+      fr: "Portugal",
+      cat: "Portugal",
+      pt: "Portugal"
+    },
     coordinates: {
       lat: 37.8542,
       lng: -8.7912,
@@ -288,17 +372,47 @@ export const refugesData: Refuge[] = [
     },
     weatherPreview: {
       temp: "22°C",
-      condition: "Soleado • Brisa Atlántica Fresca"
+      condition: {
+        es: "Soleado • Brisa Atlántica Fresca",
+        en: "Sunny • Fresh Atlantic Breeze",
+        fr: "Ensoleillé • Brise Atlantique Fraîche",
+        cat: "Assolellat • Brisa Atlàntica Fresca",
+        pt: "Ensolarado • Brisa Atlântica Fresca"
+      }
     }
   },
   {
     id: "nido-estrecho",
     slug: "el-nido-del-estrecho",
     name: "El Nido del Estrecho",
-    tagline: "Suite Histórica en Acantilado con Vistas 360º a Europa y África",
-    location: "Upper Rock Nature Reserve",
-    region: "Gibraltar",
-    country: "Gibraltar (RU) / España",
+    tagline: {
+      es: "Suite Histórica en Acantilado con Vistas 360º a Europa y África",
+      en: "Historic Cliffside Suite with 360º Views Over Europe & Africa",
+      fr: "Suite Historique sur Falaise avec Vues à 360º sur l'Europe et l'Afrique",
+      cat: "Suite Històrica en Penya-segat amb Vistes 360º a Europa i Àfrica",
+      pt: "Suite Histórica sobre Falésia com Vistas 360º para Europa e África"
+    },
+    location: {
+      es: "Upper Rock Nature Reserve",
+      en: "Upper Rock Nature Reserve",
+      fr: "Réserve Naturelle d'Upper Rock",
+      cat: "Reserva Natural d'Upper Rock",
+      pt: "Reserva Natural Upper Rock"
+    },
+    region: {
+      es: "Gibraltar & Estrecho",
+      en: "Gibraltar & The Strait",
+      fr: "Gibraltar & Le Détroit",
+      cat: "Gibraltar i l'Estret",
+      pt: "Gibraltar & O Estreito"
+    },
+    country: {
+      es: "Gibraltar (RU) / España",
+      en: "Gibraltar (UK) / Spain",
+      fr: "Gibraltar (RU) / Espagne",
+      cat: "Gibraltar (RU) / Espanya",
+      pt: "Gibraltar (RU) / Espanha"
+    },
     coordinates: {
       lat: 36.1408,
       lng: -5.3536,
@@ -384,7 +498,13 @@ export const refugesData: Refuge[] = [
     },
     weatherPreview: {
       temp: "24°C",
-      condition: "Cielo Diáfano • Brisa del Estrecho"
+      condition: {
+        es: "Cielo Diáfano • Brisa del Estrecho",
+        en: "Clear Sky • Strait Breeze",
+        fr: "Ciel Limpide • Brise du Détroit",
+        cat: "Cel Diàfan • Brisa de l'Estret",
+        pt: "Céu Diáfano • Brisa do Estreito"
+      }
     }
   }
 ];

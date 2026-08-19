@@ -17,6 +17,12 @@ export const ExperienceQuiz: React.FC<ExperienceQuizProps> = ({ currentLang, onS
 
   const handleSelect = (optionId: string, targetId: string) => {
     setSelectedOptionId(optionId);
+    if (targetId === 'refugi-canigo') {
+      setTimeout(() => {
+        window.location.href = '/canigo/';
+      }, 200);
+      return;
+    }
     const targetRefuge = refugesData.find((r) => r.id === targetId || r.slug === targetId);
     if (targetRefuge) {
       setTimeout(() => {

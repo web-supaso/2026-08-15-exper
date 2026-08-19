@@ -346,6 +346,10 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNo
 
   const handleViewSanctuary = () => {
     onClose();
+    if (recommendedRefuge?.id === 'refugi-canigo') {
+      window.location.href = '/canigo/';
+      return;
+    }
     if (recommendedRefuge) {
       onSelectRefuge(recommendedRefuge);
     }
@@ -353,6 +357,10 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNo
 
   const handleBookNow = () => {
     onClose();
+    if (recommendedRefuge?.id === 'refugi-canigo') {
+      window.location.href = '/canigo/';
+      return;
+    }
     if (recommendedRefuge && onBookNow) {
       onBookNow(recommendedRefuge.id);
     } else if (recommendedRefuge) {
@@ -441,7 +449,7 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNo
             {/* Recommended Refuge Card */}
             <div className="p-6 rounded-2xl bg-[#141f19] border border-[#c5a059]/30 mb-6 shadow-inner">
               <span className="text-[10px] font-bold text-[#c5a059] uppercase tracking-widest block mb-1">
-                {recommendedRefuge.region.toUpperCase()} • {recommendedRefuge.country.toUpperCase()}
+                {recommendedRefuge.region[currentLang].toUpperCase()} • {recommendedRefuge.country[currentLang].toUpperCase()}
               </span>
 
               <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-white mb-3">
@@ -454,7 +462,7 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNo
 
               <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-medium text-[#e5c07b]">
                 <span>
-                  {t.directRatePrefix} {recommendedRefuge.priceFromPerNight}€/noche
+                  {t.directRatePrefix} {recommendedRefuge.priceFromPerNight}€/{currentLang === 'en' ? 'night' : currentLang === 'fr' ? 'nuit' : currentLang === 'cat' ? 'nit' : currentLang === 'pt' ? 'noite' : 'noche'}
                 </span>
                 <span className="text-emerald-400 font-semibold">{t.sustainableBadge}</span>
               </div>
