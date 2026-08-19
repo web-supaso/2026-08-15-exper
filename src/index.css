@@ -63,3 +63,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a8823b;
 }
+
+/* Animación de la Luna Llena para Canigó */
+@keyframes lunarOrbit {
+  0% {
+    transform: translate(-100px, 0) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(50vw - 20px), 40px) scale(1);
+    opacity: 1;
+  }
+}
+

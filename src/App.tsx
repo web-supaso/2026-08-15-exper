@@ -18,8 +18,10 @@ import { SaturationTestModal } from './components/SaturationTestModal';
 import { ModalErrorBoundary } from './components/ModalErrorBoundary';
 import { refugesData } from './data/refuges';
 import { faqItems } from './data/faq';
+import CanigoPage from './canigo/App';
 
 export default function App() {
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname.toLowerCase());
   const [currentLang, setCurrentLang] = useState<Language>('es');
   const [selectedRefugeModal, setSelectedRefugeModal] = useState<Refuge | null>(null);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
@@ -76,23 +78,36 @@ export default function App() {
     document.documentElement.lang = currentLang;
   }, [currentLang]);
 
-  // Listen for hash or path in URL on load / change to open refuge modal or scroll
+  // Track URL path changes for routing
   useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname.toLowerCase());
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  // Listen for hash in URL on load / change to open refuge modal or scroll
+  useEffect(() => {
+    if (window.location.pathname.toLowerCase().startsWith('/canigo')) {
+      return;
+    }
+
     const syncHashWithState = () => {
       const rawHash = window.location.hash.replace('#', '').toLowerCase();
-      const rawPath = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
-      const target = rawHash || rawPath;
 
-      if (target) {
+      if (rawHash) {
         const found = refugesData.find(
           (r) =>
-            r.slug.toLowerCase() === target ||
-            r.id.toLowerCase() === target ||
-            target.includes(r.id.replace('refugi-', '').replace('refugio-', '')) ||
-            (target.includes('canigo') && r.id === 'refugi-canigo')
+            r.slug.toLowerCase() === rawHash ||
+            r.id.toLowerCase() === rawHash ||
+            rawHash.includes(r.id.replace('refugi-', '').replace('refugio-', ''))
         );
         if (found) {
-          // Scroll smoothly to the sanctuary card on the page so the background is perfectly aligned
           setTimeout(() => {
             const el = document.getElementById(found.slug) || document.getElementById(found.id) || document.getElementById('refugios');
             el?.scrollIntoView({ behavior: 'smooth' });
@@ -133,9 +148,18 @@ export default function App() {
   };
 
   const handleSelectRefuge = (refuge: Refuge) => {
+    if (refuge.id === 'refugi-canigo') {
+      window.location.href = '/canigo/';
+      return;
+    }
     window.history.pushState(null, '', `#${refuge.slug}`);
     setSelectedRefugeModal(refuge);
   };
+
+  // Dedicated Canigó Landing Page
+  if (currentPath.startsWith('/canigo')) {
+    return <CanigoPage />;
+  }
 
   return (
     <div className="min-h-screen bg-[#faf8f5] text-[#1c2a23] font-sans antialiased selection:bg-[#c5a059] selection:text-white">

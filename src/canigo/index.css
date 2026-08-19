@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+/* 
+  Bosque Luna Glamping - Global Styles
+  Configuraremos el Theme aquí (extraído del flyer)
+*/
+
+@theme {
+  --color-primary-bg: #0B130E;
+  --color-secondary-bg: #121C14;
+  --color-accent-gold: #D4AF37;
+  --color-accent-gold-light: #E5A93C;
+  --color-text-light: #F4EFE6;
+  --color-text-dark: #0B130E;
+}
+
+body {
+  background-color: var(--color-primary-bg);
+  color: var(--color-text-light);
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
