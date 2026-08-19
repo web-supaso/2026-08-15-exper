@@ -21,6 +21,17 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
   const [activeImage, setActiveImage] = useState(refuge.heroImage);
   const t = translations[currentLang];
 
+  // Close on Escape key press
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   const renderAmenityIcon = (iconName: string) => {
     switch (iconName) {
       case 'Zap': return <Zap className="w-5 h-5 text-[#c5a059]" />;
@@ -45,8 +56,16 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn">
-      <div className="bg-white text-[#1c2a23] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-[#c5a059]/30">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white text-[#1c2a23] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-[#c5a059]/30 cursor-default"
+      >
 
         {/* Hero Gallery Header */}
         <div className="relative h-80 sm:h-96 w-full bg-black overflow-hidden rounded-t-3xl">
@@ -186,16 +205,25 @@ export const RefugeDetailModal: React.FC<RefugeDetailModalProps> = ({
               <span className="text-xs text-gray-500"> / {t.refugesSection.perNight}</span>
             </div>
 
-            <button
-              onClick={() => {
-                onClose();
-                onBookNow(refuge.id);
-              }}
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-semibold text-sm tracking-wider uppercase text-white gold-gradient-bg hover:opacity-90 shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>{t.refugeModal.bookConciergeBtn}</span>
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full font-semibold text-xs text-gray-600 hover:text-black bg-gray-100 hover:bg-gray-200 transition-all cursor-pointer"
+              >
+                ← Explorar toda la web
+              </button>
+
+              <button
+                onClick={() => {
+                  onClose();
+                  onBookNow(refuge.id);
+                }}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-sm tracking-wider uppercase text-white gold-gradient-bg hover:opacity-90 shadow-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>{t.refugeModal.bookConciergeBtn}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

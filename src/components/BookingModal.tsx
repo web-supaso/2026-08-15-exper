@@ -200,9 +200,28 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setSubmitted(true);
   };
 
+  // Close on Escape key
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="bg-[#0e1713] text-[#e8ece9] rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto border border-[#c5a059]/40 shadow-2xl relative p-5 sm:p-8 scrollbar-thin">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-[#0e1713] text-[#e8ece9] rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto border border-[#c5a059]/40 shadow-2xl relative p-5 sm:p-8 scrollbar-thin cursor-default"
+      >
         {/* Close Button */}
         <button
           onClick={onClose}

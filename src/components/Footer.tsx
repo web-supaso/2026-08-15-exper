@@ -145,16 +145,17 @@ export const Footer: React.FC<FooterProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/80 hover:bg-black border border-white/15 transition-all align-middle shadow-sm"
+              aria-label="Sitio web oficial de Marketing Amable"
             >
-              <img src="/002.gif" alt="Marketing Amable" className="h-5 w-auto" />
-              <span style={{ color: '#FFFFFF', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif" }}>
+              <img src="/002.gif" alt="Marketing Amable" style={{ height: '28px', width: 'auto' }} className="block shrink-0" />
+              <span style={{ color: '#FFFFFF', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif", fontSize: '1rem' }}>
                 MARKETING
               </span>
-              <span style={{ color: '#D8F3DC', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif" }}>
+              <span style={{ color: '#D8F3DC', fontWeight: 800, fontFamily: "'Lexend', 'Inter', sans-serif", fontSize: '1rem' }}>
                 AMABLE
               </span>
             </a>
-            <span className="text-[10px] text-slate-500 font-mono tracking-tight">v.05</span>
+            <span className="text-[10px] text-slate-500 font-mono tracking-tight">v.06</span>
           </div>
         </div>
       </div>

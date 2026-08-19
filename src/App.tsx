@@ -89,9 +89,14 @@ export default function App() {
             r.slug.toLowerCase() === target ||
             r.id.toLowerCase() === target ||
             target.includes(r.id.replace('refugi-', '').replace('refugio-', '')) ||
-            target.includes('canigo') && r.id === 'refugi-canigo'
+            (target.includes('canigo') && r.id === 'refugi-canigo')
         );
         if (found) {
+          // Scroll smoothly to the sanctuary card on the page so the background is perfectly aligned
+          setTimeout(() => {
+            const el = document.getElementById(found.slug) || document.getElementById(found.id) || document.getElementById('refugios');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }, 150);
           setSelectedRefugeModal(found);
         }
       }
@@ -101,6 +106,20 @@ export default function App() {
     window.addEventListener('hashchange', syncHashWithState);
     return () => window.removeEventListener('hashchange', syncHashWithState);
   }, []);
+
+  const handleCloseRefugeModal = () => {
+    setSelectedRefugeModal(null);
+    if (window.location.pathname !== '/' || window.location.hash) {
+      window.history.pushState(null, '', '/');
+    }
+  };
+
+  const handleCloseBookingModal = () => {
+    setBookingModalOpen(false);
+    if (window.location.pathname !== '/' || window.location.hash) {
+      window.history.pushState(null, '', '/');
+    }
+  };
 
   const handleOpenBooking = (refugeId?: string) => {
     if (refugeId) {
@@ -197,19 +216,13 @@ export default function App() {
       {/* Refuge Detail Drawer Modal */}
       {selectedRefugeModal && (
         <ModalErrorBoundary
-          onClose={() => {
-            setSelectedRefugeModal(null);
-            window.history.pushState(null, '', window.location.pathname);
-          }}
+          onClose={handleCloseRefugeModal}
           title={selectedRefugeModal?.name}
         >
           <RefugeDetailModal
             refuge={selectedRefugeModal}
             currentLang={currentLang}
-            onClose={() => {
-              setSelectedRefugeModal(null);
-              window.history.pushState(null, '', window.location.pathname);
-            }}
+            onClose={handleCloseRefugeModal}
             onBookNow={(refugeId) => handleOpenBooking(refugeId)}
           />
         </ModalErrorBoundary>
@@ -217,11 +230,11 @@ export default function App() {
 
       {/* Concierge Booking Lead Modal */}
       {bookingModalOpen && (
-        <ModalErrorBoundary onClose={() => setBookingModalOpen(false)} title="Solicitud Directa a Concierge">
+        <ModalErrorBoundary onClose={handleCloseBookingModal} title="Solicitud Directa a Concierge">
           <BookingModal
             initialRefugeId={bookingRefugeId}
             currentLang={currentLang}
-            onClose={() => setBookingModalOpen(false)}
+            onClose={handleCloseBookingModal}
           />
         </ModalErrorBoundary>
       )}

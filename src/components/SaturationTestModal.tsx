@@ -312,6 +312,17 @@ export const SaturationTestModal: React.FC<SaturationTestModalProps & { onBookNo
   const [selectedTargetId, setSelectedTargetId] = useState<string>('');
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
+  // Close on Escape key
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   const t = diagnosticData[currentLang] || diagnosticData.es;
   const currentStep = t.steps[currentStepIndex];
   const totalSteps = t.steps.length;
